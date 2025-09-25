@@ -6,7 +6,6 @@ public class App {
         TipoCapa tipoCapa1 = new TipoCapa(01, "Mole");
         Livro livro1 = new Livro(01, "Judô Kodokan", "O livro sobre judô", 7,  2022, 271, autor1, editora1, tipoCapa1);
         
-
         Editora editora2 = new Editora(02, "Hunter Books");
         Autor autor2 = new Autor (02, "Maquiavel", "Itália");
         TipoCapa tipoCapa2 = new TipoCapa(02, "Dura");
@@ -16,13 +15,11 @@ public class App {
         livro1.alterar();
         livro1.pesquisar();
         livro1.excluir();
-
         
         editora1.salvar();
         editora1.alterar();
         editora1.pesquisar();
         editora1.excluir();
-
         
         autor1.salvar();
         autor1.alterar();
