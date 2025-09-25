@@ -3,7 +3,7 @@ public class App {
         
         Editora editora1 = new Editora(01, "Cultrix");
         Autor autor1 = new Autor (01, "Jigoro Kano", "Japão");
-        TipoCapa tipoCapa1 = new TipoCapa(01, "Normal");
+        TipoCapa tipoCapa1 = new TipoCapa(01, "Mole");
         Livro livro1 = new Livro(01, "Judô Kodokan", "O livro sobre judô", 7,  2022, 271, autor1, editora1, tipoCapa1);
         
         Editora editora2 = new Editora(02, "Hunter Books");
