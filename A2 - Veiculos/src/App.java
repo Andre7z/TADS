@@ -25,17 +25,17 @@ public class App {
         c2.alterar();
         c2.excluir();
 
-        Veiculo v2 = new Veiculo("Fusca", 1970, 1970, "verde", "XYZ-5678", false, c2, g2);
+        Veiculo v2 = new Veiculo("Bis", 1970, 1970, "vermelha", "XYZ-5678", false, c2, g2);
         v2.salvar();
         v2.pesquisar();
         v2.alterar();
         v2.excluir();
-    
-        Carros carro2 = new Carros(130, 4, "Ar condicionado", v2);
-        carro2.salvar();
-        carro2.pesquisar();
-        carro2.alterar();
-        carro2.excluir();
+
+        Motos moto2 = new Motos(130, 4, "Ar condicionado", v2);
+        moto2.salvar();
+        moto2.pesquisar();
+        moto2.alterar();
+        moto2.excluir();
     }
 
 }
