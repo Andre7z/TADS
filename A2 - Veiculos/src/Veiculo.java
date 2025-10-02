@@ -75,13 +75,15 @@ public class Veiculo {
     public Veiculo() {
     }
 
-    public Veiculo(String nome, int ano, int modelo, String cor, String placa, boolean unicoDono) {
-        this.nome = nome;
+    public Veiculo(String nome, int ano, int modelo, String cor, String placa, boolean unicoDono, Categoria categoria, Garagem garagem) {
+        this.nome = nome;   
         this.ano = ano;
         this.modelo = modelo;
         this.cor = cor;
         this.placa = placa;
         this.unicoDono = unicoDono;
+        this.categoria = categoria;
+        this.garagem = garagem;
     }
 
         public void salvar() {

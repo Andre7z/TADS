@@ -7,7 +7,7 @@ public class App {
         Categoria c1 = new Categoria("SUV");
         c1.salvar();
 
-        Veiculo v1 = new Veiculo("Polo", 2014, 2014, "azul", "ABC-1234", true);
+        Veiculo v1 = new Veiculo("Polo", 2014, 2014, "azul", "ABC-1234", true, c1, g1);
         v1.salvar();
 
         Carros carro1 = new Carros(150, 5, "Ar condicionado, Direção hidráulica", v1);
@@ -25,7 +25,7 @@ public class App {
         c2.alterar();
         c2.excluir();
 
-        Veiculo v2 = new Veiculo("Fusca", 1970, 1970, "verde", "XYZ-5678", false);
+        Veiculo v2 = new Veiculo("Fusca", 1970, 1970, "verde", "XYZ-5678", false, c2, g2);
         v2.salvar();
         v2.pesquisar();
         v2.alterar();
