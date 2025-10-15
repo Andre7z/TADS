@@ -1,0 +1,7 @@
+=== AUTOR CADASTRADO ===
+Data/Hora: 14/10/2025 14:47:11
+ID: 1
+Nome: asdf
+Cidade: asdfasdf
+========================
+
