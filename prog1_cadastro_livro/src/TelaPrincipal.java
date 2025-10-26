@@ -38,6 +38,15 @@ public class TelaPrincipal extends JFrame {
             }
         });
 
+        // Criar submenu "Editora"
+        JMenuItem menuItemEditora = new JMenuItem("Editora");
+        menuItemEditora.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abrirFormularioEditora();
+            }
+        });
+
         // Criar submenu "Livro"
         JMenuItem menuItemLivro = new JMenuItem("Livro");
         menuItemLivro.addActionListener(new ActionListener() {
@@ -46,7 +55,7 @@ public class TelaPrincipal extends JFrame {
                 abrirFormularioLivro();
             }
         });
-
+ 
         // Adicionar itens ao menu Cadastros
         menuCadastros.add(menuItemAutor);
         menuCadastros.add(menuItemLivro);
@@ -123,6 +132,20 @@ public class TelaPrincipal extends JFrame {
             }
         });
 
+                // Botão para Cadastro de Editora
+        JButton btnCadastroEditora = new JButton("Cadastrar Editora");
+        btnCadastroEditora.setPreferredSize(new Dimension(150, 40));
+        btnCadastroEditora.setFont(new Font("Arial", Font.BOLD, 12));
+        btnCadastroEditora.setBackground(new Color(70, 130, 180));
+        btnCadastroEditora.setForeground(Color.WHITE);
+        btnCadastroEditora.setFocusPainted(false);
+        btnCadastroEditora.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abrirFormularioEditora();
+            }
+        });
+
         // Botão para Cadastro de Livro
         JButton btnCadastroLivro = new JButton("Cadastrar Livro");
         btnCadastroLivro.setPreferredSize(new Dimension(150, 40));
@@ -171,6 +194,17 @@ public class TelaPrincipal extends JFrame {
             }
         });
     }
+
+    private void abrirFormularioEditora() {
+        // Criar nova instância do formulário de editora
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new FormCadastroEditora();
+            }
+        });
+    }
+
 
     private void abrirFormularioLivro() {
         // Criar nova instância do formulário de livro
