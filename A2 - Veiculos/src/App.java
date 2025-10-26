@@ -31,7 +31,7 @@ public class App {
         v2.alterar();
         v2.excluir();
 
-        Motos moto2 = new Motos(130, 4, "Ar condicionado", v2);
+        Motos moto2 = new Motos(130, v2);
         moto2.salvar();
         moto2.pesquisar();
         moto2.alterar();
