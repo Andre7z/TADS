@@ -1,34 +1,28 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class FormPrioridade extends JFrame {
-    // Componentes da interface
     private JTextField txtId;
     private JTextField txtDescricao;
-    private JButton btnSalvar;
-    private JButton btnLimpar;
-    private JButton btnSair;
+    private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar, btnLimpar, btnSair;
 
     public FormPrioridade() {
-        // Configurações da janela
         setTitle("Cadastro de Prioridade");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 250);
-        setLocationRelativeTo(null); // Centralizar na tela
+        setSize(500, 350);
+        setLocationRelativeTo(null);
 
-        // Inicializar componentes
         inicializarComponentes();
 
-        // Adicionar listeners aos botões
         btnSalvar.addActionListener(e -> salvarPrioridade());
+        btnAlterar.addActionListener(e -> alterarPrioridade());
+        btnExcluir.addActionListener(e -> excluirPrioridade());
+        btnPesquisar.addActionListener(e -> pesquisarPrioridade());
         btnLimpar.addActionListener(e -> limparCampos());
         btnSair.addActionListener(e -> dispose());
 
-        // Tornar a janela visível
         setVisible(true);
     }
 
@@ -42,7 +36,6 @@ public class FormPrioridade extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         painelPrincipal.add(new JLabel("ID:"), gbc);
-
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
@@ -55,7 +48,6 @@ public class FormPrioridade extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
         painelPrincipal.add(new JLabel("Descrição:"), gbc);
-
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
@@ -65,66 +57,124 @@ public class FormPrioridade extends JFrame {
         // Painel de botões
         JPanel painelBotoes = new JPanel(new FlowLayout());
         btnSalvar = new JButton("Salvar");
+        btnAlterar = new JButton("Alterar");
+        btnExcluir = new JButton("Excluir");
+        btnPesquisar = new JButton("Pesquisar");
         btnLimpar = new JButton("Limpar");
         btnSair = new JButton("Sair");
 
         painelBotoes.add(btnSalvar);
+        painelBotoes.add(btnAlterar);
+        painelBotoes.add(btnExcluir);
+        painelBotoes.add(btnPesquisar);
         painelBotoes.add(btnLimpar);
         painelBotoes.add(btnSair);
 
-        // Adicionar painel de botões ao painel principal
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         painelPrincipal.add(painelBotoes, gbc);
 
-        // Adicionar painel principal à janela
         add(painelPrincipal);
     }
 
     private void salvarPrioridade() {
-        // Validar campos
-        if (txtId.getText().trim().isEmpty() || txtDescricao.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "Por favor, preencha todos os campos!",
-                    "Campos obrigatórios",
-                    JOptionPane.WARNING_MESSAGE);
+        if (txtDescricao.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha a descrição!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Validar ID numérico
-        int id;
-        try {
-            id = Integer.parseInt(txtId.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this,
-                    "O campo ID deve conter apenas números!",
-                    "ID inválido",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Inserir no banco de dados
         try (Connection con = Conexao.conectar()) {
-            String sql = "INSERT INTO tPrioridade (id, descricao) VALUES (?, ?)";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
-            stmt.setString(2, txtDescricao.getText().trim());
+            String sql = "INSERT INTO \"tPrioridade\" (descricao) VALUES (?)";
+            PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, txtDescricao.getText().trim());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(this,
-                    "Dados salvos com sucesso no banco!",
-                    "Sucesso",
-                    JOptionPane.INFORMATION_MESSAGE);
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                txtId.setText(String.valueOf(rs.getInt(1)));
+            }
 
+            JOptionPane.showMessageDialog(this, "Prioridade salva com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             limparCampos();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this,
-                    "Erro ao salvar no banco: " + e.getMessage(),
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao salvar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void alterarPrioridade() {
+        if (txtId.getText().trim().isEmpty() || txtDescricao.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha ID e descrição!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (Connection con = Conexao.conectar()) {
+            String sql = "UPDATE \"tPrioridade\" SET descricao = ? WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, txtDescricao.getText().trim());
+            stmt.setInt(2, Integer.parseInt(txtId.getText().trim()));
+
+            int linhas = stmt.executeUpdate();
+            if (linhas > 0) {
+                JOptionPane.showMessageDialog(this, "Prioridade alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "ID não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao alterar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void excluirPrioridade() {
+        if (txtId.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o ID para excluir!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (Connection con = Conexao.conectar()) {
+            String sql = "DELETE FROM \"tPrioridade\" WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
+
+            int linhas = stmt.executeUpdate();
+            if (linhas > 0) {
+                JOptionPane.showMessageDialog(this, "Prioridade excluída com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                limparCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "ID não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void pesquisarPrioridade() {
+        if (txtId.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o ID para pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (Connection con = Conexao.conectar()) {
+            String sql = "SELECT * FROM \"tPrioridade\" WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                txtDescricao.setText(rs.getString("descricao"));
+            } else {
+                JOptionPane.showMessageDialog(this, "Prioridade não encontrada!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao pesquisar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
@@ -136,6 +186,6 @@ public class FormPrioridade extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new FormPrioridade());
+        SwingUtilities.invokeLater(FormPrioridade::new);
     }
 }

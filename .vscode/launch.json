@@ -1,0 +1,53 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "TADS_4c474c97"
+        },
+        {
+            "type": "java",
+            "name": "FormPrioridade",
+            "request": "launch",
+            "mainClass": "FormPrioridade",
+            "projectName": "TADS_4c474c97"
+        },
+        {
+            "type": "java",
+            "name": "FormResponsavel",
+            "request": "launch",
+            "mainClass": "FormResponsavel",
+            "projectName": "TADS_4c474c97"
+        },
+        {
+            "type": "java",
+            "name": "FormTarefas",
+            "request": "launch",
+            "mainClass": "FormTarefas",
+            "projectName": "TADS_4c474c97"
+        },
+        {
+            "type": "java",
+            "name": "TelaPrincipal",
+            "request": "launch",
+            "mainClass": "TelaPrincipal",
+            "projectName": "TADS_4c474c97"
+        },
+
+
+        
+    ]
+    
+}

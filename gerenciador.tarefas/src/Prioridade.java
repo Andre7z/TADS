@@ -24,11 +24,4 @@ public class Prioridade {
         this.id = id;
         this.descricao = descricao;
     }
-
-        public void salvar() throws IOException {
-        try (FileWriter fw = new FileWriter("prioridades.txt", true)) {
-            fw.write(id + ";" + descricao + "\n");
-        }
-    }
-    
 }

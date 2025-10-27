@@ -28,9 +28,4 @@ public class Responsavel {
         this.id = id;
         this.nome = nome;
     }
-    public void salvar() throws IOException {
-        try (FileWriter fw = new FileWriter("responsavel.txt", true)) {
-            fw.write(id + ";" + nome + "\n");
-        }
-    }
 }

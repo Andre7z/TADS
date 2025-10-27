@@ -1,26 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class FormResponsavel extends JFrame {
     private JTextField txtId;
     private JTextField txtNome;
-    private JButton btnSalvar;
-    private JButton btnLimpar;
-    private JButton btnSair;
+    private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar, btnLimpar, btnSair;
 
     public FormResponsavel() {
         setTitle("Cadastro de Responsável");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 250);
+        setSize(500, 350);
         setLocationRelativeTo(null);
 
         inicializarComponentes();
 
         btnSalvar.addActionListener(e -> salvarResponsavel());
+        btnAlterar.addActionListener(e -> alterarResponsavel());
+        btnExcluir.addActionListener(e -> excluirResponsavel());
+        btnPesquisar.addActionListener(e -> pesquisarResponsavel());
         btnLimpar.addActionListener(e -> limparCampos());
         btnSair.addActionListener(e -> dispose());
 
@@ -37,7 +36,6 @@ public class FormResponsavel extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         painelPrincipal.add(new JLabel("ID:"), gbc);
-
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
@@ -50,7 +48,6 @@ public class FormResponsavel extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
         painelPrincipal.add(new JLabel("Responsável:"), gbc);
-
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
@@ -60,10 +57,16 @@ public class FormResponsavel extends JFrame {
         // Painel de botões
         JPanel painelBotoes = new JPanel(new FlowLayout());
         btnSalvar = new JButton("Salvar");
+        btnAlterar = new JButton("Alterar");
+        btnExcluir = new JButton("Excluir");
+        btnPesquisar = new JButton("Pesquisar");
         btnLimpar = new JButton("Limpar");
         btnSair = new JButton("Sair");
 
         painelBotoes.add(btnSalvar);
+        painelBotoes.add(btnAlterar);
+        painelBotoes.add(btnExcluir);
+        painelBotoes.add(btnPesquisar);
         painelBotoes.add(btnLimpar);
         painelBotoes.add(btnSair);
 
@@ -77,45 +80,101 @@ public class FormResponsavel extends JFrame {
     }
 
     private void salvarResponsavel() {
-        if (txtId.getText().trim().isEmpty() || txtNome.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "Por favor, preencha todos os campos!",
-                    "Campos obrigatórios",
-                    JOptionPane.WARNING_MESSAGE);
+        if (txtNome.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha o nome!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        int id;
-        try {
-            id = Integer.parseInt(txtId.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this,
-                    "O campo ID deve conter apenas números!",
-                    "ID inválido",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Salvar no banco de dados
         try (Connection con = Conexao.conectar()) {
-            String sql = "INSERT INTO tResponsavel (id, nome) VALUES (?, ?)";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
-            stmt.setString(2, txtNome.getText().trim());
+            String sql = "INSERT INTO \"tResponsavel\" (nome) VALUES (?)";
+            PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, txtNome.getText().trim());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(this,
-                    "Dados salvos com sucesso no banco!",
-                    "Sucesso",
-                    JOptionPane.INFORMATION_MESSAGE);
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                txtId.setText(String.valueOf(rs.getInt(1)));
+            }
 
+            JOptionPane.showMessageDialog(this, "Responsável salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             limparCampos();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this,
-                    "Erro ao salvar no banco: " + e.getMessage(),
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao salvar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void alterarResponsavel() {
+        if (txtId.getText().trim().isEmpty() || txtNome.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha ID e nome!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (Connection con = Conexao.conectar()) {
+            String sql = "UPDATE \"tResponsavel\" SET nome = ? WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, txtNome.getText().trim());
+            stmt.setInt(2, Integer.parseInt(txtId.getText().trim()));
+
+            int linhas = stmt.executeUpdate();
+            if (linhas > 0) {
+                JOptionPane.showMessageDialog(this, "Responsável alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "ID não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao alterar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void excluirResponsavel() {
+        if (txtId.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o ID para excluir!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (Connection con = Conexao.conectar()) {
+            String sql = "DELETE FROM \"tResponsavel\" WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
+
+            int linhas = stmt.executeUpdate();
+            if (linhas > 0) {
+                JOptionPane.showMessageDialog(this, "Responsável excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                limparCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "ID não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void pesquisarResponsavel() {
+        if (txtId.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o ID para pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (Connection con = Conexao.conectar()) {
+            String sql = "SELECT * FROM \"tResponsavel\" WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                txtNome.setText(rs.getString("nome"));
+            } else {
+                JOptionPane.showMessageDialog(this, "Responsável não encontrado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao pesquisar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
@@ -127,6 +186,6 @@ public class FormResponsavel extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new FormResponsavel());
+        SwingUtilities.invokeLater(FormResponsavel::new);
     }
 }
