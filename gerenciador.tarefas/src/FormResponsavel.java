@@ -1,14 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class FormResponsavel extends JFrame{
-    // Componentes da interface
+public class FormResponsavel extends JFrame {
     private JTextField txtId;
     private JTextField txtNome;
     private JButton btnSalvar;
@@ -16,25 +13,23 @@ public class FormResponsavel extends JFrame{
     private JButton btnSair;
 
     public FormResponsavel() {
-        // Configurações da janela
-        setTitle("Cadastro de Responsavel");
+        setTitle("Cadastro de Responsável");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 250);
-        setLocationRelativeTo(null); // Centralizar na tela
+        setLocationRelativeTo(null);
 
-        // Inicializar componentes
         inicializarComponentes();
 
-        // Tornar a janela visível
+        btnSalvar.addActionListener(e -> salvarResponsavel());
+        btnLimpar.addActionListener(e -> limparCampos());
+        btnSair.addActionListener(e -> dispose());
+
         setVisible(true);
     }
 
     private void inicializarComponentes() {
-        // Criar painel principal
         JPanel painelPrincipal = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
-        // Configurações gerais do GridBagConstraints
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
@@ -64,53 +59,25 @@ public class FormResponsavel extends JFrame{
 
         // Painel de botões
         JPanel painelBotoes = new JPanel(new FlowLayout());
-
         btnSalvar = new JButton("Salvar");
         btnLimpar = new JButton("Limpar");
         btnSair = new JButton("Sair");
-
-        // Adicionar listeners aos botões
-        btnSalvar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                salvarResponsavel();
-            }
-        });
-
-        btnLimpar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                limparCampos();
-            }
-        });
-
-        btnSair.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
 
         painelBotoes.add(btnSalvar);
         painelBotoes.add(btnLimpar);
         painelBotoes.add(btnSair);
 
-        // Adicionar painel de botões ao painel principal
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         painelPrincipal.add(painelBotoes, gbc);
 
-        // Adicionar painel principal à janela
         add(painelPrincipal);
     }
 
     private void salvarResponsavel() {
-        // Validar se os campos estão preenchidos
-        if (txtId.getText().trim().isEmpty() ||
-                txtNome.getText().trim().isEmpty()) {
-
+        if (txtId.getText().trim().isEmpty() || txtNome.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Por favor, preencha todos os campos!",
                     "Campos obrigatórios",
@@ -118,9 +85,9 @@ public class FormResponsavel extends JFrame{
             return;
         }
 
-        // Validar se o ID é um número válido
+        int id;
         try {
-            Integer.parseInt(txtId.getText().trim());
+            id = Integer.parseInt(txtId.getText().trim());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this,
                     "O campo ID deve conter apenas números!",
@@ -129,32 +96,37 @@ public class FormResponsavel extends JFrame{
             return;
         }
 
-        try {
+        // Salvar no banco de dados
+        try (Connection con = Conexao.conectar()) {
+            String sql = "INSERT INTO tResponsavel (id, nome) VALUES (?, ?)";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.setString(2, txtNome.getText().trim());
+            stmt.executeUpdate();
 
-            Responsavel responsavel = new Responsavel(Integer.parseInt(txtId.getText().trim()), txtNome.getText().trim());
-
-            Responsavel.salvar();
-
-            salvarNoArquivo(Responsavel);
-
-            JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!", "Sucesso",
+            JOptionPane.showMessageDialog(this,
+                    "Dados salvos com sucesso no banco!",
+                    "Sucesso",
                     JOptionPane.INFORMATION_MESSAGE);
 
             limparCampos();
 
-        } catch (IOException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(this,
-                    "Erro ao salvar dados no arquivo: " + e.getMessage(),
+                    "Erro ao salvar no banco: " + e.getMessage(),
                     "Erro",
                     JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
     private void limparCampos() {
         txtId.setText("");
         txtNome.setText("");
-        txtId.requestFocus(); // Focar no primeiro campo
+        txtId.requestFocus();
     }
 
-
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new FormResponsavel());
+    }
 }

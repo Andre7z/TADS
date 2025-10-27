@@ -1,14 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
+import java.sql.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class FormTarefas extends JFrame {
 
-    // Componentes da interface
     private JTextField txtId;
     private JFormattedTextField txtDataTarefa;
     private JTextArea txtDescricao;
@@ -26,6 +23,11 @@ public class FormTarefas extends JFrame {
         setLocationRelativeTo(null);
 
         inicializarComponentes();
+        carregarCombos();
+
+        btnSalvar.addActionListener(e -> salvarTarefa());
+        btnLimpar.addActionListener(e -> limparCampos());
+        btnSair.addActionListener(e -> dispose());
 
         setVisible(true);
     }
@@ -36,10 +38,7 @@ public class FormTarefas extends JFrame {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
-        String[] responsaveis = { "Selecione um responsável...", "João", "Maria", "Ana", "Carlos" };
-        String[] prioridades = { "Selecione a prioridade...", "Baixa", "Média", "Alta", "Urgente" };
-
-        // Campo ID
+        // ID
         gbc.gridx = 0;
         gbc.gridy = 0;
         painelPrincipal.add(new JLabel("ID:"), gbc);
@@ -50,7 +49,7 @@ public class FormTarefas extends JFrame {
         txtId = new JTextField(15);
         painelPrincipal.add(txtId, gbc);
 
-        // Campo Data da Tarefa
+        // Data
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.NONE;
@@ -59,12 +58,11 @@ public class FormTarefas extends JFrame {
 
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
         txtDataTarefa = new JFormattedTextField("##/##/####");
         txtDataTarefa.setColumns(15);
         painelPrincipal.add(txtDataTarefa, gbc);
 
-        // Campo Descrição da Tarefa
+        // Descrição
         gbc.gridx = 0;
         gbc.gridy = 2;
         painelPrincipal.add(new JLabel("Descrição:"), gbc);
@@ -75,10 +73,9 @@ public class FormTarefas extends JFrame {
         txtDescricao = new JTextArea(3, 15);
         txtDescricao.setLineWrap(true);
         txtDescricao.setWrapStyleWord(true);
-        JScrollPane scrollDescricao = new JScrollPane(txtDescricao);
-        painelPrincipal.add(scrollDescricao, gbc);
+        painelPrincipal.add(new JScrollPane(txtDescricao), gbc);
 
-        // Campo Observação
+        // Observação
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.fill = GridBagConstraints.NONE;
@@ -91,10 +88,9 @@ public class FormTarefas extends JFrame {
         txtObservacao = new JTextArea(3, 15);
         txtObservacao.setLineWrap(true);
         txtObservacao.setWrapStyleWord(true);
-        JScrollPane scrollObs = new JScrollPane(txtObservacao);
-        painelPrincipal.add(scrollObs, gbc);
+        painelPrincipal.add(new JScrollPane(txtObservacao), gbc);
 
-        // ComboBox Responsável
+        // Combo Responsável
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.fill = GridBagConstraints.NONE;
@@ -102,10 +98,10 @@ public class FormTarefas extends JFrame {
 
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        cmbResponsavel = new JComboBox<>(responsaveis);
+        cmbResponsavel = new JComboBox<>();
         painelPrincipal.add(cmbResponsavel, gbc);
 
-        // ComboBox Prioridade
+        // Combo Prioridade
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
@@ -113,109 +109,121 @@ public class FormTarefas extends JFrame {
 
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        cmbPrioridade = new JComboBox<>(prioridades);
+        cmbPrioridade = new JComboBox<>();
         painelPrincipal.add(cmbPrioridade, gbc);
 
-        // Painel de botões
+        // Botões
         JPanel painelBotoes = new JPanel(new FlowLayout());
         btnSalvar = new JButton("Salvar");
         btnLimpar = new JButton("Limpar");
         btnSair = new JButton("Sair");
 
-        btnSalvar.addActionListener(e -> salvarTarefa());
-        btnLimpar.addActionListener(e -> limparCampos());
-        btnSair.addActionListener(e -> dispose());
-
-        painelBotoes.add(btnSalvar);
-        painelBotoes.add(btnLimpar);
-    }
-
-   // Adicionar listeners aos botões
-        btnSalvar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                salvarPrioridade();
-            }
-        });
-
-        btnLimpar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                limparCampos();
-            }
-        });
-
-        btnSair.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-
         painelBotoes.add(btnSalvar);
         painelBotoes.add(btnLimpar);
         painelBotoes.add(btnSair);
 
-        // Adicionar painel de botões ao painel principal
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         painelPrincipal.add(painelBotoes, gbc);
 
-        // Adicionar painel principal à janela
         add(painelPrincipal);
+    }
 
+    private void carregarCombos() {
+        try (Connection con = Conexao.conectar()) {
+            // Responsáveis
+            cmbResponsavel.addItem("Selecione um responsável...");
+            String sqlResp = "SELECT nome FROM tResponsavel ORDER BY nome";
+            PreparedStatement stmtResp = con.prepareStatement(sqlResp);
+            ResultSet rsResp = stmtResp.executeQuery();
+            while (rsResp.next()) {
+                cmbResponsavel.addItem(rsResp.getString("nome"));
+            }
 
-        private void salvarPrioridade() {
-        // Validar se os campos estão preenchidos
-        if (txtId.getText().trim().isEmpty() ||
-                txtDescricao.getText().trim().isEmpty()) {
+            // Prioridades
+            cmbPrioridade.addItem("Selecione a prioridade...");
+            String sqlPrior = "SELECT descricao FROM tPrioridade ORDER BY descricao";
+            PreparedStatement stmtPrior = con.prepareStatement(sqlPrior);
+            ResultSet rsPrior = stmtPrior.executeQuery();
+            while (rsPrior.next()) {
+                cmbPrioridade.addItem(rsPrior.getString("descricao"));
+            }
 
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(this,
-                    "Por favor, preencha todos os campos!",
-                    "Campos obrigatórios",
+                    "Erro ao carregar dados: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void salvarTarefa() {
+        if (txtId.getText().trim().isEmpty() || txtDescricao.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Preencha todos os campos obrigatórios!",
+                    "Aviso",
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Validar se o ID é um número válido
+        int id;
         try {
-            Integer.parseInt(txtId.getText().trim());
+            id = Integer.parseInt(txtId.getText().trim());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this,
-                    "O campo ID deve conter apenas números!",
-                    "ID inválido",
+                    "O campo ID deve ser um número!",
+                    "Erro",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        try {
-
-            Prioridade prioridade = new Prioridade(Integer.parseInt(txtId.getText().trim()), txtDescricao.getText().trim());
-
-            prioridade.salvar();
-
-            salvarNoArquivo(Prioridade);
-
-            JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!", "Sucesso",
-                    JOptionPane.INFORMATION_MESSAGE);
-
-            limparCampos();
-            
-
-        } catch (IOException e) {
+        if (cmbResponsavel.getSelectedIndex() == 0 || cmbPrioridade.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this,
-                    "Erro ao salvar dados no arquivo: " + e.getMessage(),
+                    "Selecione responsável e prioridade!",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (Connection con = Conexao.conectar()) {
+            String sql = "INSERT INTO tListaTarefas (id, titulo, descricao, id_responsavel, id_prioridade) VALUES (?, ?, ?, " +
+                    "(SELECT id FROM tResponsavel WHERE nome = ?), " +
+                    "(SELECT id FROM tPrioridade WHERE descricao = ?))";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.setString(2, txtDescricao.getText().trim());
+            stmt.setString(3, txtObservacao.getText().trim());
+            stmt.setString(4, cmbResponsavel.getSelectedItem().toString());
+            stmt.setString(5, cmbPrioridade.getSelectedItem().toString());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Tarefa salva com sucesso!", "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE);
+            limparCampos();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao salvar no banco: " + e.getMessage(),
                     "Erro",
                     JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
     private void limparCampos() {
         txtId.setText("");
         txtDescricao.setText("");
-        txtId.requestFocus(); // Focar no primeiro campo
+        txtObservacao.setText("");
+        txtDataTarefa.setText("");
+        cmbResponsavel.setSelectedIndex(0);
+        cmbPrioridade.setSelectedIndex(0);
+        txtId.requestFocus();
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new FormTarefas());
+    }
 }

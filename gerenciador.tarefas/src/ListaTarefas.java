@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -55,6 +57,16 @@ public class ListaTarefas {
         this.observacao = observacao;
         this.prioridade = prioridade;
         this.responsavel = responsavel;
+    }
+
+     public void salvar() throws IOException {
+        try (FileWriter fw = new FileWriter("tarefas.txt", true)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dataStr = dataTarefa != null ? dataTarefa.format(formatter) : "";
+            fw.write(id + ";" + dataStr + ";" + descricaoTarefa + ";" + observacao + ";"
+                     + (prioridade != null ? prioridade.getDescricao() : "") + ";"
+                     + (responsavel != null ? responsavel.getNome() : "") + "\n");
+        }
     }
     
 }

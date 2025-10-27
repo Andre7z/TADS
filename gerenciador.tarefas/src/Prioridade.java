@@ -1,3 +1,7 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 public class Prioridade {
     private int id;
     private String descricao;
@@ -19,6 +23,12 @@ public class Prioridade {
     public Prioridade(int id, String descricao){
         this.id = id;
         this.descricao = descricao;
+    }
+
+        public void salvar() throws IOException {
+        try (FileWriter fw = new FileWriter("prioridades.txt", true)) {
+            fw.write(id + ";" + descricao + "\n");
+        }
     }
     
 }

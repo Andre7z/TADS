@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Responsavel {
     private int id;
     private String nome;
@@ -25,5 +28,9 @@ public class Responsavel {
         this.id = id;
         this.nome = nome;
     }
-
+    public void salvar() throws IOException {
+        try (FileWriter fw = new FileWriter("responsavel.txt", true)) {
+            fw.write(id + ";" + nome + "\n");
+        }
+    }
 }
