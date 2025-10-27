@@ -1,10 +1,14 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 public class ListaTarefas {
     private int id;
     private LocalDate dataTarefa;
     private String descricaoTarefa;
     private String observacao;
+    private Prioridade prioridade;
+    private Responsavel responsavel;
+
     public int getId() {
         return id;
     }
@@ -29,10 +33,28 @@ public class ListaTarefas {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
-    
-    public ListaTarefas(){}
-
-    public ListaTarefas( int id, LocalDate dataTarefa, String descricaoTarefa, String observacao){
-        
+    public Prioridade getPrioridade() {
+        return prioridade;
     }
+    public void setPrioridade(Prioridade prioridade) {
+        this.prioridade = prioridade;
+    }
+    public Responsavel getResponsavel() {
+        return responsavel;
+    }
+    public void setResponsavel(Responsavel responsavel) {
+        this.responsavel = responsavel;
+    }
+
+        public ListaTarefas(){}
+
+    public ListaTarefas( int id, LocalDate dataTarefa, String descricaoTarefa, String observacao, Prioridade prioridade, Responsavel responsavel){
+        this.id = id;
+        this.dataTarefa = dataTarefa;
+        this.descricaoTarefa = descricaoTarefa;
+        this.observacao = observacao;
+        this.prioridade = prioridade;
+        this.responsavel = responsavel;
+    }
+    
 }
