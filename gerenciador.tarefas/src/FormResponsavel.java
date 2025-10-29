@@ -10,7 +10,7 @@ public class FormResponsavel extends JFrame {
 
     public FormResponsavel() {
         setTitle("Cadastro de Responsável");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         setSize(500, 350);
         setLocationRelativeTo(null);
 
@@ -86,7 +86,7 @@ public class FormResponsavel extends JFrame {
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "INSERT INTO \"tResponsavel\" (nome) VALUES (?)";
+            String sql = "INSERT INTO responsavel (nome) VALUES (?)";
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, txtNome.getText().trim());
             stmt.executeUpdate();
@@ -112,7 +112,7 @@ public class FormResponsavel extends JFrame {
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "UPDATE \"tResponsavel\" SET nome = ? WHERE id = ?";
+            String sql = "UPDATE responsavel SET nome = ? WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, txtNome.getText().trim());
             stmt.setInt(2, Integer.parseInt(txtId.getText().trim()));
@@ -137,7 +137,7 @@ public class FormResponsavel extends JFrame {
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "DELETE FROM \"tResponsavel\" WHERE id = ?";
+            String sql = "DELETE FROM responsavel WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
 
@@ -162,7 +162,7 @@ public class FormResponsavel extends JFrame {
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "SELECT * FROM \"tResponsavel\" WHERE id = ?";
+            String sql = "SELECT * FROM responsavel WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
 

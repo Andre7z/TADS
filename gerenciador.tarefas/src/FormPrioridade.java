@@ -86,7 +86,7 @@ public class FormPrioridade extends JFrame {
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "INSERT INTO \"tPrioridade\" (descricao) VALUES (?)";
+            String sql = "INSERT INTO prioridade (descricao) VALUES (?)";
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, txtDescricao.getText().trim());
             stmt.executeUpdate();
@@ -112,7 +112,7 @@ public class FormPrioridade extends JFrame {
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "UPDATE \"tPrioridade\" SET descricao = ? WHERE id = ?";
+            String sql = "UPDATE prioridade SET descricao = ? WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, txtDescricao.getText().trim());
             stmt.setInt(2, Integer.parseInt(txtId.getText().trim()));
@@ -137,7 +137,7 @@ public class FormPrioridade extends JFrame {
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "DELETE FROM \"tPrioridade\" WHERE id = ?";
+            String sql = "DELETE FROM prioridade WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
 
@@ -162,7 +162,7 @@ public class FormPrioridade extends JFrame {
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "SELECT * FROM \"tPrioridade\" WHERE id = ?";
+            String sql = "SELECT * FROM prioridade WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
 
@@ -184,8 +184,7 @@ public class FormPrioridade extends JFrame {
         txtDescricao.setText("");
         txtId.requestFocus();
     }
-
-    public static void main(String[] args) {
+     public static void main(String[] args) {
         SwingUtilities.invokeLater(FormPrioridade::new);
     }
 }

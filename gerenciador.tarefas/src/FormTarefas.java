@@ -109,7 +109,7 @@ public class FormTarefas extends JFrame {
     }
 private void carregarResponsaveis() {
     try (Connection con = Conexao.conectar()) {
-        String sql = "SELECT id, nome FROM \"tResponsavel\" ORDER BY id";
+        String sql = "SELECT id, nome FROM responsavel ORDER BY id";
         PreparedStatement stmt = con.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         cmbResponsavel.addItem("Selecione um responsável...");
@@ -129,7 +129,7 @@ private void carregarResponsaveis() {
 
 private void carregarPrioridades() {
     try (Connection con = Conexao.conectar()) {
-        String sql = "SELECT id, descricao FROM \"tPrioridade\" ORDER BY id";
+        String sql = "SELECT id, descricao FROM prioridade ORDER BY id";
         PreparedStatement stmt = con.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         cmbPrioridade.addItem("Selecione a prioridade...");
@@ -174,7 +174,7 @@ private void carregarPrioridades() {
             int idPrior = prioridadeMap.get(cmbPrioridade.getSelectedItem().toString());
 
             try (Connection con = Conexao.conectar()) {
-                String sql = "INSERT INTO \"tListaTarefas\" (id, titulo, descricao, id_responsavel, id_prioridade, data_tarefa) VALUES (?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO lista_tarefas (id, titulo, descricao, id_responsavel, id_prioridade, data_tarefa) VALUES (?, ?, ?, ?, ?, ?)";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 stmt.setInt(1, id);
                 stmt.setString(2, txtDescricao.getText().trim());
@@ -200,7 +200,7 @@ private void carregarPrioridades() {
             int idPrior = prioridadeMap.get(cmbPrioridade.getSelectedItem().toString());
 
             try (Connection con = Conexao.conectar()) {
-                String sql = "UPDATE \"tListaTarefas\" SET titulo=?, descricao=?, id_responsavel=?, id_prioridade=?, data_tarefa=? WHERE id=?";
+                String sql = "UPDATE lista_tarefas SET titulo=?, descricao=?, id_responsavel=?, id_prioridade=?, data_tarefa=? WHERE id=?";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 stmt.setString(1, txtDescricao.getText().trim());
                 stmt.setString(2, txtObservacao.getText().trim());
@@ -229,7 +229,7 @@ private void carregarPrioridades() {
         if (confirm != JOptionPane.YES_OPTION) return;
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "DELETE FROM \"tListaTarefas\" WHERE id=?";
+            String sql = "DELETE FROM lista_tarefas WHERE id=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(strId));
             int rows = stmt.executeUpdate();
@@ -252,9 +252,9 @@ private void pesquisarTarefa() {
     try (Connection con = Conexao.conectar()) {
         String sql = "SELECT t.*, r.id AS id_responsavel, r.nome AS responsavel, " +
                      "p.id AS id_prioridade, p.descricao AS prioridade " +
-                     "FROM \"tListaTarefas\" t " +
-                     "JOIN \"tResponsavel\" r ON t.id_responsavel = r.id " +
-                     "JOIN \"tPrioridade\" p ON t.id_prioridade = p.id " +
+                     "FROM lista_tarefas t " +
+                     "JOIN responsavel r ON t.id_responsavel = r.id " +
+                     "JOIN prioridade p ON t.id_prioridade = p.id " +
                      "WHERE t.id=?";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, Integer.parseInt(strId));
