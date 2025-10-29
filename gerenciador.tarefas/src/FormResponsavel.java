@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.*;
 
 public class FormResponsavel extends JFrame {
@@ -16,12 +15,12 @@ public class FormResponsavel extends JFrame {
 
         inicializarComponentes();
 
-        btnSalvar.addActionListener(e -> salvarResponsavel());
-        btnAlterar.addActionListener(e -> alterarResponsavel());
-        btnExcluir.addActionListener(e -> excluirResponsavel());
-        btnPesquisar.addActionListener(e -> pesquisarResponsavel());
-        btnLimpar.addActionListener(e -> limparCampos());
-        btnSair.addActionListener(e -> dispose());
+        btnSalvar.addActionListener(_ -> salvarResponsavel());
+        btnAlterar.addActionListener(_ -> alterarResponsavel());
+        btnExcluir.addActionListener(_ -> excluirResponsavel());
+        btnPesquisar.addActionListener(_ -> pesquisarResponsavel());
+        btnLimpar.addActionListener(_ -> limparCampos());
+        btnSair.addActionListener(_ -> dispose());
 
         setVisible(true);
     }

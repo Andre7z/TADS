@@ -22,13 +22,13 @@ public class TelaPrincipal extends JFrame {
         JMenu menuCadastros = new JMenu("Cadastros");
 
         JMenuItem menuItemResponsavel = new JMenuItem("Responsável");
-        menuItemResponsavel.addActionListener(e -> abrirFormularioResponsavel());
+        menuItemResponsavel.addActionListener(_ -> abrirFormularioResponsavel());
 
         JMenuItem menuItemPrioridade = new JMenuItem("Prioridade");
-        menuItemPrioridade.addActionListener(e -> abrirFormularioPrioridade());
+        menuItemPrioridade.addActionListener(_ -> abrirFormularioPrioridade());
 
         JMenuItem menuItemTarefa = new JMenuItem("Tarefa");
-        menuItemTarefa.addActionListener(e -> abrirFormularioTarefas());
+        menuItemTarefa.addActionListener(_ -> abrirFormularioTarefas());
 
         menuCadastros.add(menuItemResponsavel);
         menuCadastros.add(menuItemPrioridade);
@@ -36,7 +36,7 @@ public class TelaPrincipal extends JFrame {
 
         JMenu menuAjuda = new JMenu("Ajuda");
         JMenuItem menuItemSobre = new JMenuItem("Sobre");
-        menuItemSobre.addActionListener(e -> mostrarSobre());
+        menuItemSobre.addActionListener(_ -> mostrarSobre());
         menuAjuda.add(menuItemSobre);
 
         menuBar.add(menuCadastros);
@@ -77,9 +77,9 @@ public class TelaPrincipal extends JFrame {
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         painelBotoes.setBackground(new Color(245, 250, 255));
 
-        JButton btnTarefa = criarBotao("Cadastrar Tarefa", new Color(60, 179, 113), e -> abrirFormularioTarefas());
-        JButton btnResponsavel = criarBotao("Cadastrar Responsável", new Color(70, 130, 180), e -> abrirFormularioResponsavel());
-        JButton btnPrioridade = criarBotao("Cadastrar Prioridade", new Color(72, 209, 204), e -> abrirFormularioPrioridade());
+        JButton btnTarefa = criarBotao("Cadastrar Tarefa", new Color(60, 179, 113), _ -> abrirFormularioTarefas());
+        JButton btnResponsavel = criarBotao("Cadastrar Responsável", new Color(70, 130, 180), _ -> abrirFormularioResponsavel());
+        JButton btnPrioridade = criarBotao("Cadastrar Prioridade", new Color(72, 209, 204), _ -> abrirFormularioPrioridade());
 
         painelBotoes.add(btnTarefa);
         painelBotoes.add(btnResponsavel);

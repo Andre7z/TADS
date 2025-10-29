@@ -1,7 +1,3 @@
-import java.io.FileWriter;
-import java.io.IOException;
-
-
 public class Prioridade {
     private int id;
     private String descricao;

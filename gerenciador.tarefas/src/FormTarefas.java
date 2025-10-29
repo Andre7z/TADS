@@ -30,12 +30,12 @@ public class FormTarefas extends JFrame {
         carregarResponsaveis();
         carregarPrioridades();
 
-        btnSalvar.addActionListener(e -> salvarTarefa());
-        btnAlterar.addActionListener(e -> alterarTarefa());
-        btnExcluir.addActionListener(e -> excluirTarefa());
-        btnPesquisar.addActionListener(e -> pesquisarTarefa());
-        btnLimpar.addActionListener(e -> limparCampos());
-        btnSair.addActionListener(e -> dispose());
+        btnSalvar.addActionListener(_ -> salvarTarefa());
+        btnAlterar.addActionListener(_ -> alterarTarefa());
+        btnExcluir.addActionListener(_ -> excluirTarefa());
+        btnPesquisar.addActionListener(_ -> pesquisarTarefa());
+        btnLimpar.addActionListener(_ -> limparCampos());
+        btnSair.addActionListener(_ -> dispose());
 
         setVisible(true);
     }

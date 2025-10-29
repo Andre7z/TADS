@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.*;
 
 public class FormPrioridade extends JFrame {
@@ -16,12 +15,12 @@ public class FormPrioridade extends JFrame {
 
         inicializarComponentes();
 
-        btnSalvar.addActionListener(e -> salvarPrioridade());
-        btnAlterar.addActionListener(e -> alterarPrioridade());
-        btnExcluir.addActionListener(e -> excluirPrioridade());
-        btnPesquisar.addActionListener(e -> pesquisarPrioridade());
-        btnLimpar.addActionListener(e -> limparCampos());
-        btnSair.addActionListener(e -> dispose());
+        btnSalvar.addActionListener(_ -> salvarPrioridade());
+        btnAlterar.addActionListener(_ -> alterarPrioridade());
+        btnExcluir.addActionListener(_ -> excluirPrioridade());
+        btnPesquisar.addActionListener(_ -> pesquisarPrioridade());
+        btnLimpar.addActionListener(_ -> limparCampos());
+        btnSair.addActionListener(_ -> dispose());
 
         setVisible(true);
     }

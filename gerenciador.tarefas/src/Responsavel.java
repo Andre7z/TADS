@@ -1,6 +1,3 @@
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Responsavel {
     private int id;
     private String nome;
