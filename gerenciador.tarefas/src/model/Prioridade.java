@@ -1,3 +1,4 @@
+package model;
 public class Prioridade {
     private int id;
     private String descricao;

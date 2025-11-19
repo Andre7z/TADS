@@ -1,24 +1,28 @@
+package view;
 import javax.swing.*;
+
+import dao.Conexao;
+
 import java.awt.*;
 import java.sql.*;
 
-public class FormResponsavel extends JFrame {
+public class FormPrioridade extends JFrame {
     private JTextField txtId;
-    private JTextField txtNome;
+    private JTextField txtDescricao;
     private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar, btnLimpar, btnSair;
 
-    public FormResponsavel() {
-        setTitle("Cadastro de Responsável");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+    public FormPrioridade() {
+        setTitle("Cadastro de Prioridade");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 350);
         setLocationRelativeTo(null);
 
         inicializarComponentes();
 
-        btnSalvar.addActionListener(_ -> salvarResponsavel());
-        btnAlterar.addActionListener(_ -> alterarResponsavel());
-        btnExcluir.addActionListener(_ -> excluirResponsavel());
-        btnPesquisar.addActionListener(_ -> pesquisarResponsavel());
+        btnSalvar.addActionListener(_ -> salvarPrioridade());
+        btnAlterar.addActionListener(_ -> alterarPrioridade());
+        btnExcluir.addActionListener(_ -> excluirPrioridade());
+        btnPesquisar.addActionListener(_ -> pesquisarPrioridade());
         btnLimpar.addActionListener(_ -> limparCampos());
         btnSair.addActionListener(_ -> dispose());
 
@@ -41,17 +45,17 @@ public class FormResponsavel extends JFrame {
         txtId = new JTextField(15);
         painelPrincipal.add(txtId, gbc);
 
-        // Campo Nome
+        // Campo Descrição
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
-        painelPrincipal.add(new JLabel("Responsável:"), gbc);
+        painelPrincipal.add(new JLabel("Descrição:"), gbc);
         gbc.gridx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
-        txtNome = new JTextField(15);
-        painelPrincipal.add(txtNome, gbc);
+        txtDescricao = new JTextField(15);
+        painelPrincipal.add(txtDescricao, gbc);
 
         // Painel de botões
         JPanel painelBotoes = new JPanel(new FlowLayout());
@@ -78,16 +82,16 @@ public class FormResponsavel extends JFrame {
         add(painelPrincipal);
     }
 
-    private void salvarResponsavel() {
-        if (txtNome.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha o nome!", "Aviso", JOptionPane.WARNING_MESSAGE);
+    private void salvarPrioridade() {
+        if (txtDescricao.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha a descrição!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "INSERT INTO responsavel (nome) VALUES (?)";
+            String sql = "INSERT INTO prioridade (descricao) VALUES (?)";
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, txtNome.getText().trim());
+            stmt.setString(1, txtDescricao.getText().trim());
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -95,7 +99,7 @@ public class FormResponsavel extends JFrame {
                 txtId.setText(String.valueOf(rs.getInt(1)));
             }
 
-            JOptionPane.showMessageDialog(this, "Responsável salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Prioridade salva com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             limparCampos();
 
         } catch (SQLException e) {
@@ -104,21 +108,21 @@ public class FormResponsavel extends JFrame {
         }
     }
 
-    private void alterarResponsavel() {
-        if (txtId.getText().trim().isEmpty() || txtNome.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha ID e nome!", "Aviso", JOptionPane.WARNING_MESSAGE);
+    private void alterarPrioridade() {
+        if (txtId.getText().trim().isEmpty() || txtDescricao.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha ID e descrição!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "UPDATE responsavel SET nome = ? WHERE id = ?";
+            String sql = "UPDATE prioridade SET descricao = ? WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, txtNome.getText().trim());
+            stmt.setString(1, txtDescricao.getText().trim());
             stmt.setInt(2, Integer.parseInt(txtId.getText().trim()));
 
             int linhas = stmt.executeUpdate();
             if (linhas > 0) {
-                JOptionPane.showMessageDialog(this, "Responsável alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Prioridade alterada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "ID não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -129,20 +133,20 @@ public class FormResponsavel extends JFrame {
         }
     }
 
-    private void excluirResponsavel() {
+    private void excluirPrioridade() {
         if (txtId.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o ID para excluir!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "DELETE FROM responsavel WHERE id = ?";
+            String sql = "DELETE FROM prioridade WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
 
-            int linhas = stmt.executeUpdate();
-            if (linhas > 0) {
-                JOptionPane.showMessageDialog(this, "Responsável excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            int x = stmt.executeUpdate();
+            if (x > 0) {
+                JOptionPane.showMessageDialog(this, "Prioridade excluída com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 limparCampos();
             } else {
                 JOptionPane.showMessageDialog(this, "ID não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -154,22 +158,22 @@ public class FormResponsavel extends JFrame {
         }
     }
 
-    private void pesquisarResponsavel() {
+    private void pesquisarPrioridade() {
         if (txtId.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe o ID para pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try (Connection con = Conexao.conectar()) {
-            String sql = "SELECT * FROM responsavel WHERE id = ?";
+            String sql = "SELECT * FROM prioridade WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(txtId.getText().trim()));
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                txtNome.setText(rs.getString("nome"));
+                txtDescricao.setText(rs.getString("descricao"));
             } else {
-                JOptionPane.showMessageDialog(this, "Responsável não encontrado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Prioridade não encontrada!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } catch (SQLException e) {
@@ -180,11 +184,10 @@ public class FormResponsavel extends JFrame {
 
     private void limparCampos() {
         txtId.setText("");
-        txtNome.setText("");
+        txtDescricao.setText("");
         txtId.requestFocus();
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(FormResponsavel::new);
+     public static void main(String[] args) {
+        SwingUtilities.invokeLater(FormPrioridade::new);
     }
 }
