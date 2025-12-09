@@ -46,8 +46,7 @@ public class TelaDiario extends JFrame {
     private Nota nota; // objeto em memória com as notas digitadas
 
     public TelaDiario(DiarioController diarioController,
-                      NotaController notaController,
-                      Connection conn) {
+            NotaController notaController, Connection conn) {
         this.diarioController = diarioController;
         this.notaController = notaController;
         this.conn = conn;
@@ -72,46 +71,52 @@ public class TelaDiario extends JFrame {
     private void inicializarComponentes() {
         JPanel painel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5,5,5,5);
+        gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
         // ID
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         painel.add(new JLabel("ID Diário:"), gbc);
         gbc.gridx = 1;
         txtId = new JTextField(10);
         painel.add(txtId, gbc);
 
         // Aluno
-        gbc.gridx = 0; gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.gridy++;
         painel.add(new JLabel("Aluno:"), gbc);
         gbc.gridx = 1;
         cmbAluno = new JComboBox<>();
         painel.add(cmbAluno, gbc);
 
         // Disciplina
-        gbc.gridx = 0; gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.gridy++;
         painel.add(new JLabel("Disciplina:"), gbc);
         gbc.gridx = 1;
         cmbDisciplina = new JComboBox<>();
         painel.add(cmbDisciplina, gbc);
 
         // Período
-        gbc.gridx = 0; gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.gridy++;
         painel.add(new JLabel("Período:"), gbc);
         gbc.gridx = 1;
         cmbPeriodo = new JComboBox<>();
         painel.add(cmbPeriodo, gbc);
 
         // Turma
-        gbc.gridx = 0; gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.gridy++;
         painel.add(new JLabel("Turma:"), gbc);
         gbc.gridx = 1;
         cmbTurma = new JComboBox<>();
         painel.add(cmbTurma, gbc);
 
         // Status
-        gbc.gridx = 0; gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.gridy++;
         painel.add(new JLabel("Aprovado?"), gbc);
         gbc.gridx = 1;
         chkAprovado = new JCheckBox();
@@ -119,7 +124,9 @@ public class TelaDiario extends JFrame {
         painel.add(chkAprovado, gbc);
 
         // Painel de Notas
-        gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.gridwidth = 2;
         JPanel painelNotas = new JPanel(new BorderLayout());
         painelNotas.setBorder(BorderFactory.createTitledBorder("Notas do Diário"));
 
@@ -163,94 +170,104 @@ public class TelaDiario extends JFrame {
         painelBotoes.add(btnLimpar);
         painelBotoes.add(btnSair);
 
-        gbc.gridx = 0; gbc.gridy++; gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.gridwidth = 2;
         painel.add(painelBotoes, gbc);
 
         add(painel);
     }
 
     /* ====================== CARREGAR COMBOS ====================== */
-
-    private void carregarAlunos() {
-        try (Connection c = conn != null ? conn : ConnectionFactory.getConnection()) {
-            String sql = "SELECT pe.id, pe.nome FROM aluno a " +
-                         "JOIN pessoa pe ON pe.id = a.id_pessoa ORDER BY pe.nome";
-            PreparedStatement stmt = c.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            cmbAluno.addItem("Selecione um aluno...");
-            alunoMap.clear();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                String item = id + " - " + nome;
-                cmbAluno.addItem(item);
-                alunoMap.put(item, id);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar alunos: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
     private void carregarDisciplinas() {
-        try (Connection c = conn != null ? conn : ConnectionFactory.getConnection()) {
-            String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
-            PreparedStatement stmt = c.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            cmbDisciplina.addItem("Selecione a disciplina...");
-            disciplinaMap.clear();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome_disciplina");
-                String item = id + " - " + nome;
-                cmbDisciplina.addItem(item);
-                disciplinaMap.put(item, id);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar disciplinas: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+    try (Connection c = ConnectionFactory.getConnection()) {
+        String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        cmbDisciplina.removeAllItems();
+        cmbDisciplina.addItem("Selecione a disciplina...");
+        disciplinaMap.clear();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nome = rs.getString("nome_disciplina");
+            String item = id + " - " + nome;
+            cmbDisciplina.addItem(item);
+            disciplinaMap.put(item, id);
         }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this,
+            "Erro ao carregar disciplinas: " + e.getMessage(),
+            "Erro", JOptionPane.ERROR_MESSAGE);
     }
+}
 
-    private void carregarPeriodos() {
-        try (Connection c = conn != null ? conn : ConnectionFactory.getConnection()) {
-            String sql = "SELECT id, nome_periodo FROM periodo ORDER BY nome_periodo";
-            PreparedStatement stmt = c.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            cmbPeriodo.addItem("Selecione o período...");
-            periodoMap.clear();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome_periodo");
-                String item = id + " - " + nome;
-                cmbPeriodo.addItem(item);
-                periodoMap.put(item, id);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar períodos: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+private void carregarPeriodos() {
+    try (Connection c = ConnectionFactory.getConnection()) {
+        String sql = "SELECT id, nome_periodo FROM periodo ORDER BY nome_periodo";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        cmbPeriodo.removeAllItems();
+        cmbPeriodo.addItem("Selecione o período...");
+        periodoMap.clear();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nome = rs.getString("nome_periodo");
+            String item = id + " - " + nome;
+            cmbPeriodo.addItem(item);
+            periodoMap.put(item, id);
         }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this,
+            "Erro ao carregar períodos: " + e.getMessage(),
+            "Erro", JOptionPane.ERROR_MESSAGE);
     }
+}
 
-    private void carregarTurmas() {
-        try (Connection c = conn != null ? conn : ConnectionFactory.getConnection()) {
-            String sql = "SELECT id, nome_turma FROM turma ORDER BY nome_turma";
-            PreparedStatement stmt = c.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            cmbTurma.addItem("Selecione a turma...");
-            turmaMap.clear();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome_turma");
-                String item = id + " - " + nome;
-                cmbTurma.addItem(item);
-                turmaMap.put(item, id);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar turmas: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+private void carregarTurmas() {
+    try (Connection c = ConnectionFactory.getConnection()) {
+        String sql = "SELECT id, nome_turma FROM turma ORDER BY nome_turma";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        cmbTurma.removeAllItems();
+        cmbTurma.addItem("Selecione a turma...");
+        turmaMap.clear();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nome = rs.getString("nome_turma");
+            String item = id + " - " + nome;
+            cmbTurma.addItem(item);
+            turmaMap.put(item, id);
         }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this,
+            "Erro ao carregar turmas: " + e.getMessage(),
+            "Erro", JOptionPane.ERROR_MESSAGE);
     }
+}
+
+private void carregarAlunos() {
+    try (Connection c = ConnectionFactory.getConnection()) {
+        String sql = "SELECT pe.id, pe.nome FROM aluno a " +
+                     "JOIN pessoa pe ON pe.id = a.id_pessoa ORDER BY pe.nome";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        cmbAluno.removeAllItems();
+        cmbAluno.addItem("Selecione um aluno...");
+        alunoMap.clear();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nome = rs.getString("nome");
+            String item = id + " - " + nome;
+            cmbAluno.addItem(item);
+            alunoMap.put(item, id);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this,
+            "Erro ao carregar alunos: " + e.getMessage(),
+            "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 
     /* ====================== EVENTOS ====================== */
 
@@ -293,8 +310,8 @@ public class TelaDiario extends JFrame {
         int id = txtId.getText().isEmpty() ? 0 : Integer.parseInt(txtId.getText().trim());
         int idAluno = alunoMap.get(cmbAluno.getSelectedItem().toString());
         int idDisc = disciplinaMap.get(cmbDisciplina.getSelectedItem().toString());
-        int idPer  = periodoMap.get(cmbPeriodo.getSelectedItem().toString());
-        int idTur  = turmaMap.get(cmbTurma.getSelectedItem().toString());
+        int idPer = periodoMap.get(cmbPeriodo.getSelectedItem().toString());
+        int idTur = turmaMap.get(cmbTurma.getSelectedItem().toString());
         boolean status = chkAprovado.isSelected();
         return new Diario(id, idDisc, idPer, idTur, idAluno, status);
     }
@@ -309,7 +326,8 @@ public class TelaDiario extends JFrame {
     }
 
     private void salvarDiario() {
-        if (!validarCamposBasicos()) return;
+        if (!validarCamposBasicos())
+            return;
         Diario d = montarDiarioDaTela();
         boolean ok = diarioController.salvar(d);
         if (ok && d.getId() != 0) {
@@ -322,7 +340,8 @@ public class TelaDiario extends JFrame {
     }
 
     private void alterarDiario() {
-        if (!validarCamposBasicos()) return;
+        if (!validarCamposBasicos())
+            return;
         Diario d = montarDiarioDaTela();
         boolean ok = diarioController.alterar(d);
         JOptionPane.showMessageDialog(this,
@@ -341,7 +360,8 @@ public class TelaDiario extends JFrame {
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Deseja realmente excluir o diário?", "Confirmação",
                 JOptionPane.YES_NO_OPTION);
-        if (confirm != JOptionPane.YES_OPTION) return;
+        if (confirm != JOptionPane.YES_OPTION)
+            return;
 
         int id = Integer.parseInt(strId);
         boolean ok = diarioController.excluir(id);
@@ -349,7 +369,8 @@ public class TelaDiario extends JFrame {
                 ok ? "Diário excluído com sucesso!" : "Erro ao excluir diário",
                 ok ? "Sucesso" : "Erro",
                 ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
-        if (ok) limparCampos();
+        if (ok)
+            limparCampos();
     }
 
     private void pesquisarDiario() {
@@ -422,7 +443,8 @@ public class TelaDiario extends JFrame {
                 ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
         if (ok) {
             Diario d = diarioController.pesquisar(idDiario);
-            if (d != null) chkAprovado.setSelected(d.isStatus());
+            if (d != null)
+                chkAprovado.setSelected(d.isStatus());
         }
     }
 
