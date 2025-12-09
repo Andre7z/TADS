@@ -1,37 +1,39 @@
 package model;
 
 public class Aluno extends Pessoa {
+    private String matricula; // 10 dígitos numéricos
+    private String nomePai;
+    private String nomeMae;
 
-    private int matricula;
-    private String nome_pai;
-    private String nome_mae;
-    public int getMatricula() {
-        return matricula;
-    }
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
-    }
-    public String getNome_pai() {
-        return nome_pai;
-    }
-    public void setNome_pai(String nome_pai) {
-        this.nome_pai = nome_pai;
-    }
-    public String getNome_mae() {
-        return nome_mae;
-    }
-    public void setNome_mae(String nome_mae) {
-        this.nome_mae = nome_mae;
-    }
-    public Aluno(){}
+    public Aluno() {}
 
-    public Aluno(int id, String nome, String endereco, String telefone, String email, int matricula, String nome_pai,
-            String nome_mae) {
+    public Aluno(int id, String nome, String endereco, String telefone, String email,
+                 String matricula, String nomePai, String nomeMae) {
         super(id, nome, endereco, telefone, email);
         this.matricula = matricula;
-        this.nome_pai = nome_pai;
-        this.nome_mae = nome_mae;
+        this.nomePai = nomePai;
+        this.nomeMae = nomeMae;
     }
-    
 
+    public String getMatricula() { return matricula; }
+    public void setMatricula(String matricula) { this.matricula = matricula; }
+
+    public String getNomePai() { return nomePai; }
+    public void setNomePai(String nomePai) { this.nomePai = nomePai; }
+
+    public String getNomeMae() { return nomeMae; }
+    public void setNomeMae(String nomeMae) { this.nomeMae = nomeMae; }
+
+    // regra de negócio: matrícula com 10 caracteres numéricos
+    public boolean validarMatricula() {
+        if (matricula == null || matricula.length() != 10) {
+            return false;
+        }
+        for (char c : matricula.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
