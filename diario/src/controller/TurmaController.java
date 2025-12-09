@@ -45,8 +45,8 @@ public class TurmaController {
 
         String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
         try (Connection c = ConnectionFactory.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = c.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -70,10 +70,10 @@ public class TurmaController {
         combo.addItem("Selecione o professor...");
 
         String sql = "SELECT pe.id, pe.nome FROM professor pr " +
-                     "JOIN pessoa pe ON pe.id = pr.id_pessoa ORDER BY pe.nome";
+                "JOIN pessoa pe ON pe.id = pr.id_pessoa ORDER BY pe.nome";
         try (Connection c = ConnectionFactory.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = c.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -98,8 +98,8 @@ public class TurmaController {
 
         String sql = "SELECT id, nome_periodo FROM periodo ORDER BY nome_periodo";
         try (Connection c = ConnectionFactory.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = c.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");

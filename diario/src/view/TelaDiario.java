@@ -180,94 +180,93 @@ public class TelaDiario extends JFrame {
 
     /* ====================== CARREGAR COMBOS ====================== */
     private void carregarDisciplinas() {
-    try (Connection c = ConnectionFactory.getConnection()) {
-        String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
-        PreparedStatement stmt = c.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        cmbDisciplina.removeAllItems();
-        cmbDisciplina.addItem("Selecione a disciplina...");
-        disciplinaMap.clear();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String nome = rs.getString("nome_disciplina");
-            String item = id + " - " + nome;
-            cmbDisciplina.addItem(item);
-            disciplinaMap.put(item, id);
+        try (Connection c = ConnectionFactory.getConnection()) {
+            String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            cmbDisciplina.removeAllItems();
+            cmbDisciplina.addItem("Selecione a disciplina...");
+            disciplinaMap.clear();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome_disciplina");
+                String item = id + " - " + nome;
+                cmbDisciplina.addItem(item);
+                disciplinaMap.put(item, id);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao carregar disciplinas: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this,
-            "Erro ao carregar disciplinas: " + e.getMessage(),
-            "Erro", JOptionPane.ERROR_MESSAGE);
     }
-}
 
-private void carregarPeriodos() {
-    try (Connection c = ConnectionFactory.getConnection()) {
-        String sql = "SELECT id, nome_periodo FROM periodo ORDER BY nome_periodo";
-        PreparedStatement stmt = c.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        cmbPeriodo.removeAllItems();
-        cmbPeriodo.addItem("Selecione o período...");
-        periodoMap.clear();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String nome = rs.getString("nome_periodo");
-            String item = id + " - " + nome;
-            cmbPeriodo.addItem(item);
-            periodoMap.put(item, id);
+    private void carregarPeriodos() {
+        try (Connection c = ConnectionFactory.getConnection()) {
+            String sql = "SELECT id, nome_periodo FROM periodo ORDER BY nome_periodo";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            cmbPeriodo.removeAllItems();
+            cmbPeriodo.addItem("Selecione o período...");
+            periodoMap.clear();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome_periodo");
+                String item = id + " - " + nome;
+                cmbPeriodo.addItem(item);
+                periodoMap.put(item, id);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao carregar períodos: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this,
-            "Erro ao carregar períodos: " + e.getMessage(),
-            "Erro", JOptionPane.ERROR_MESSAGE);
     }
-}
 
-private void carregarTurmas() {
-    try (Connection c = ConnectionFactory.getConnection()) {
-        String sql = "SELECT id, nome_turma FROM turma ORDER BY nome_turma";
-        PreparedStatement stmt = c.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        cmbTurma.removeAllItems();
-        cmbTurma.addItem("Selecione a turma...");
-        turmaMap.clear();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String nome = rs.getString("nome_turma");
-            String item = id + " - " + nome;
-            cmbTurma.addItem(item);
-            turmaMap.put(item, id);
+    private void carregarTurmas() {
+        try (Connection c = ConnectionFactory.getConnection()) {
+            String sql = "SELECT id, nome_turma FROM turma ORDER BY nome_turma";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            cmbTurma.removeAllItems();
+            cmbTurma.addItem("Selecione a turma...");
+            turmaMap.clear();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome_turma");
+                String item = id + " - " + nome;
+                cmbTurma.addItem(item);
+                turmaMap.put(item, id);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao carregar turmas: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this,
-            "Erro ao carregar turmas: " + e.getMessage(),
-            "Erro", JOptionPane.ERROR_MESSAGE);
     }
-}
 
-private void carregarAlunos() {
-    try (Connection c = ConnectionFactory.getConnection()) {
-        String sql = "SELECT pe.id, pe.nome FROM aluno a " +
-                     "JOIN pessoa pe ON pe.id = a.id_pessoa ORDER BY pe.nome";
-        PreparedStatement stmt = c.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        cmbAluno.removeAllItems();
-        cmbAluno.addItem("Selecione um aluno...");
-        alunoMap.clear();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String nome = rs.getString("nome");
-            String item = id + " - " + nome;
-            cmbAluno.addItem(item);
-            alunoMap.put(item, id);
+    private void carregarAlunos() {
+        try (Connection c = ConnectionFactory.getConnection()) {
+            String sql = "SELECT pe.id, pe.nome FROM aluno a " +
+                    "JOIN pessoa pe ON pe.id = a.id_pessoa ORDER BY pe.nome";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            cmbAluno.removeAllItems();
+            cmbAluno.addItem("Selecione um aluno...");
+            alunoMap.clear();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String item = id + " - " + nome;
+                cmbAluno.addItem(item);
+                alunoMap.put(item, id);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao carregar alunos: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this,
-            "Erro ao carregar alunos: " + e.getMessage(),
-            "Erro", JOptionPane.ERROR_MESSAGE);
     }
-}
-
 
     /* ====================== EVENTOS ====================== */
 

@@ -62,9 +62,8 @@ public class PeriodoDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Periodo p = new Periodo(
-                    rs.getInt("id"),
-                    rs.getString("nome_periodo")
-                );
+                        rs.getInt("id"),
+                        rs.getString("nome_periodo"));
                 logger.info("Periodo encontrado id=" + id);
                 return p;
             }

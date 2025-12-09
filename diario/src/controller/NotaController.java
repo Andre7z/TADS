@@ -57,7 +57,8 @@ public class NotaController {
         }
 
         double soma = 0;
-        for (Double v : lista) soma += v;
+        for (Double v : lista)
+            soma += v;
         double media = soma / lista.size();
         boolean aprovado = media >= 6.0;
 
@@ -65,8 +66,8 @@ public class NotaController {
         boolean okDiario = diarioDAO.alterar(d);
 
         logger.info("Média=" + media +
-                    " aprovado=" + aprovado +
-                    " diarioAtualizado=" + okDiario);
+                " aprovado=" + aprovado +
+                " diarioAtualizado=" + okDiario);
 
         return okDiario;
     }

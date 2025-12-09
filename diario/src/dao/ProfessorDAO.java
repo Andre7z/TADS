@@ -55,19 +55,18 @@ public class ProfessorDAO {
 
     public Professor pesquisar(int idPessoa) {
         String sql = "SELECT p.*, pr.matricula FROM professor pr " +
-                     "JOIN pessoa p ON p.id = pr.id_pessoa WHERE pr.id_pessoa=?";
+                "JOIN pessoa p ON p.id = pr.id_pessoa WHERE pr.id_pessoa=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idPessoa);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Professor prof = new Professor(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("endereco"),
-                    rs.getString("telefone"),
-                    rs.getString("email"),
-                    rs.getString("matricula")
-                );
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getString("telefone"),
+                        rs.getString("email"),
+                        rs.getString("matricula"));
                 logger.info("Professor encontrado id=" + idPessoa);
                 return prof;
             }

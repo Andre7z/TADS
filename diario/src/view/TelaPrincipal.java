@@ -53,7 +53,6 @@ public class TelaPrincipal extends JFrame {
         JMenuItem miDiario = new JMenuItem("Diário");
         miDiario.addActionListener(_ -> abrirDiario());
 
-
         JMenuItem miSobre = new JMenuItem("Sobre");
         miSobre.addActionListener(_ -> mostrarSobre());
 
@@ -65,7 +64,6 @@ public class TelaPrincipal extends JFrame {
 
         menuLancamentos.add(miDiario);
 
-
         menuAjuda.add(miSobre);
 
         menuBar.add(menuCadastros);
@@ -75,7 +73,9 @@ public class TelaPrincipal extends JFrame {
         setJMenuBar(menuBar);
     }
 
-    /* ===================== CONTEÚDO CENTRAL (3 x 2 BOTÕES) ===================== */
+    /*
+     * ===================== CONTEÚDO CENTRAL (3 x 2 BOTÕES) =====================
+     */
 
     private void criarConteudoPrincipal() {
         JPanel painelPrincipal = new JPanel(new BorderLayout());
@@ -99,8 +99,8 @@ public class TelaPrincipal extends JFrame {
         painelCentro.add(lblSubtitulo, gbc);
 
         JLabel lblInstrucoes = new JLabel(
-            "<html><center>Use os botões abaixo para acessar os cadastros<br>" +
-            "e lançar diários e notas.</center></html>");
+                "<html><center>Use os botões abaixo para acessar os cadastros<br>" +
+                        "e lançar diários e notas.</center></html>");
         lblInstrucoes.setFont(new Font("Arial", Font.PLAIN, 14));
         lblInstrucoes.setForeground(new Color(100, 100, 100));
         gbc.gridy = 2;
@@ -110,17 +110,17 @@ public class TelaPrincipal extends JFrame {
         painelBotoes.setBackground(new Color(245, 250, 255));
         painelBotoes.setPreferredSize(new Dimension(550, 100));
 
-        JButton btnAluno      = criarBotao("Cadastrar Aluno",
+        JButton btnAluno = criarBotao("Cadastrar Aluno",
                 new Color(70, 130, 180), _ -> abrirAluno());
-        JButton btnProfessor  = criarBotao("Cadastrar Professor",
+        JButton btnProfessor = criarBotao("Cadastrar Professor",
                 new Color(60, 179, 113), _ -> abrirProfessor());
         JButton btnDisciplina = criarBotao("Cadastrar Disciplina",
                 new Color(72, 209, 204), _ -> abrirDisciplina());
-        JButton btnPeriodo    = criarBotao("Cadastrar Período",
+        JButton btnPeriodo = criarBotao("Cadastrar Período",
                 new Color(218, 165, 32), _ -> abrirPeriodo());
-        JButton btnTurma      = criarBotao("Cadastrar Turma",
+        JButton btnTurma = criarBotao("Cadastrar Turma",
                 new Color(199, 21, 133), _ -> abrirTurma());
-        JButton btnDiario     = criarBotao("Diário / Notas",
+        JButton btnDiario = criarBotao("Diário / Notas",
                 new Color(123, 104, 238), _ -> abrirDiario());
 
         painelBotoes.add(btnAluno);

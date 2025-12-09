@@ -9,14 +9,25 @@ public class Nota {
     private double media;
     private boolean aprovado;
 
-    public int getIdDiario() { return idDiario; }
-    public void setIdDiario(int idDiario) { this.idDiario = idDiario; }
+    public int getIdDiario() {
+        return idDiario;
+    }
 
-    public List<Double> getNotas() { return notas; }
+    public void setIdDiario(int idDiario) {
+        this.idDiario = idDiario;
+    }
 
-    public double getMedia() { return media; }
+    public List<Double> getNotas() {
+        return notas;
+    }
 
-    public boolean isAprovado() { return aprovado; }
+    public double getMedia() {
+        return media;
+    }
+
+    public boolean isAprovado() {
+        return aprovado;
+    }
 
     public void adicionarNota(double valor) {
         if (valor < 0 || valor > 10) {
@@ -33,7 +44,8 @@ public class Nota {
             return;
         }
         double soma = 0;
-        for (double v : notas) soma += v;
+        for (double v : notas)
+            soma += v;
         media = soma / notas.size();
         aprovado = media >= 6.0;
     }

@@ -8,7 +8,7 @@ import model.Aluno;
 public class TelaAluno extends JFrame {
 
     private JTextField txtId, txtNome, txtEndereco, txtTelefone, txtEmail,
-                       txtMatricula, txtNomePai, txtNomeMae;
+            txtMatricula, txtNomePai, txtNomeMae;
     private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar;
     private AlunoController controller;
 

@@ -68,12 +68,11 @@ public class PessoaDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Pessoa p = new Pessoa(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("endereco"),
-                    rs.getString("telefone"),
-                    rs.getString("email")
-                );
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getString("telefone"),
+                        rs.getString("email"));
                 logger.info("Pessoa encontrada id=" + id);
                 return p;
             }

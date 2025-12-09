@@ -14,7 +14,7 @@ public class TurmaDAO {
 
     public boolean salvar(Turma t) {
         String sql = "INSERT INTO turma (nome_turma, id_disciplina, id_professor, id_periodo) " +
-                     "VALUES (?, ?, ?, ?) RETURNING id";
+                "VALUES (?, ?, ?, ?) RETURNING id";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, t.getNomeTurma());
             ps.setInt(2, t.getIdDisciplina());
@@ -69,12 +69,11 @@ public class TurmaDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Turma t = new Turma(
-                    rs.getInt("id"),
-                    rs.getString("nome_turma"),
-                    rs.getInt("id_disciplina"),
-                    rs.getInt("id_professor"),
-                    rs.getInt("id_periodo")
-                );
+                        rs.getInt("id"),
+                        rs.getString("nome_turma"),
+                        rs.getInt("id_disciplina"),
+                        rs.getInt("id_professor"),
+                        rs.getInt("id_periodo"));
                 logger.info("Turma encontrada id=" + id);
                 return t;
             }

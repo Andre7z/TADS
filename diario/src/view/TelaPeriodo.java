@@ -89,5 +89,4 @@ public class TelaPeriodo extends JFrame {
         txtNome.setText(p.getNomePeriodo());
     }
 
-
 }

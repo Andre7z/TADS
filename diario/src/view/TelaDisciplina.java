@@ -89,5 +89,4 @@ public class TelaDisciplina extends JFrame {
         txtNome.setText(d.getNomeDisciplina());
     }
 
-
 }

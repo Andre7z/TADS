@@ -19,7 +19,7 @@ public class DiarioDAO {
     // salvar(): insere e retorna o id gerado no objeto
     public boolean salvar(Diario d) {
         String sql = "INSERT INTO diario (id_disciplina, id_periodo, id_turma, id_aluno, status) " +
-                     "VALUES (?, ?, ?, ?, ?) RETURNING id";
+                "VALUES (?, ?, ?, ?, ?) RETURNING id";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, d.getIdDisciplina());
             ps.setInt(2, d.getIdPeriodo());
@@ -43,7 +43,7 @@ public class DiarioDAO {
     // alterar(): atualiza todos os campos
     public boolean alterar(Diario d) {
         String sql = "UPDATE diario SET id_disciplina=?, id_periodo=?, id_turma=?, " +
-                     "id_aluno=?, status=? WHERE id=?";
+                "id_aluno=?, status=? WHERE id=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, d.getIdDisciplina());
             ps.setInt(2, d.getIdPeriodo());
@@ -82,13 +82,12 @@ public class DiarioDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Diario d = new Diario(
-                    rs.getInt("id"),
-                    rs.getInt("id_disciplina"),
-                    rs.getInt("id_periodo"),
-                    rs.getInt("id_turma"),
-                    rs.getInt("id_aluno"),
-                    rs.getBoolean("status")
-                );
+                        rs.getInt("id"),
+                        rs.getInt("id_disciplina"),
+                        rs.getInt("id_periodo"),
+                        rs.getInt("id_turma"),
+                        rs.getInt("id_aluno"),
+                        rs.getBoolean("status"));
                 logger.info("Diario encontrado id=" + id);
                 return d;
             } else {

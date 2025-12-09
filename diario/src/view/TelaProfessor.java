@@ -8,7 +8,7 @@ import model.Professor;
 public class TelaProfessor extends JFrame {
 
     private JTextField txtId, txtNome, txtEndereco, txtTelefone, txtEmail,
-                       txtMatricula;
+            txtMatricula;
     private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar;
     private ProfessorController controller;
 
@@ -113,6 +113,5 @@ public class TelaProfessor extends JFrame {
         txtEmail.setText(p.getEmail());
         txtMatricula.setText(p.getMatricula());
     }
-
 
 }

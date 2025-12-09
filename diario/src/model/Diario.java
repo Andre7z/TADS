@@ -8,10 +8,11 @@ public class Diario {
     private int idAluno;
     private boolean status; // true=aprovado, false=reprovado
 
-    public Diario() {}
+    public Diario() {
+    }
 
     public Diario(int id, int idDisciplina, int idPeriodo,
-                  int idTurma, int idAluno, boolean status) {
+            int idTurma, int idAluno, boolean status) {
         this.id = id;
         this.idDisciplina = idDisciplina;
         this.idPeriodo = idPeriodo;
@@ -20,21 +21,51 @@ public class Diario {
         this.status = status;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getIdDisciplina() { return idDisciplina; }
-    public void setIdDisciplina(int idDisciplina) { this.idDisciplina = idDisciplina; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getIdPeriodo() { return idPeriodo; }
-    public void setIdPeriodo(int idPeriodo) { this.idPeriodo = idPeriodo; }
+    public int getIdDisciplina() {
+        return idDisciplina;
+    }
 
-    public int getIdTurma() { return idTurma; }
-    public void setIdTurma(int idTurma) { this.idTurma = idTurma; }
+    public void setIdDisciplina(int idDisciplina) {
+        this.idDisciplina = idDisciplina;
+    }
 
-    public int getIdAluno() { return idAluno; }
-    public void setIdAluno(int idAluno) { this.idAluno = idAluno; }
+    public int getIdPeriodo() {
+        return idPeriodo;
+    }
 
-    public boolean isStatus() { return status; }
-    public void setStatus(boolean status) { this.status = status; }
+    public void setIdPeriodo(int idPeriodo) {
+        this.idPeriodo = idPeriodo;
+    }
+
+    public int getIdTurma() {
+        return idTurma;
+    }
+
+    public void setIdTurma(int idTurma) {
+        this.idTurma = idTurma;
+    }
+
+    public int getIdAluno() {
+        return idAluno;
+    }
+
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }

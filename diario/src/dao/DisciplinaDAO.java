@@ -62,9 +62,8 @@ public class DisciplinaDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Disciplina d = new Disciplina(
-                    rs.getInt("id"),
-                    rs.getString("nome_disciplina")
-                );
+                        rs.getInt("id"),
+                        rs.getString("nome_disciplina"));
                 logger.info("Disciplina encontrada id=" + id);
                 return d;
             }

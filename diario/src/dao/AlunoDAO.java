@@ -16,9 +16,9 @@ public class AlunoDAO {
     // Salva o registro em aluno usando o id já salvo na tabela pessoa
     public boolean salvar(Aluno a) {
         String sql = "INSERT INTO aluno (id_pessoa, matricula, nome_pai, nome_mae) " +
-                     "VALUES (?, ?, ?, ?)";
-         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                "VALUES (?, ?, ?, ?)";
+        try (Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, a.getId());
             ps.setString(2, a.getMatricula());
@@ -36,9 +36,9 @@ public class AlunoDAO {
 
     public boolean alterar(Aluno a) {
         String sql = "UPDATE aluno SET matricula=?, nome_pai=?, nome_mae=? " +
-                     "WHERE id_pessoa=?";
+                "WHERE id_pessoa=?";
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, a.getMatricula());
             ps.setString(2, a.getNomePai());
@@ -57,7 +57,7 @@ public class AlunoDAO {
     public boolean excluir(int idPessoa) {
         String sql = "DELETE FROM aluno WHERE id_pessoa=?";
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idPessoa);
             int linhas = ps.executeUpdate();
@@ -72,25 +72,24 @@ public class AlunoDAO {
     // Pesquisa um aluno específico (join com pessoa para trazer os dados completos)
     public Aluno pesquisar(int idPessoa) {
         String sql = "SELECT pe.id, pe.nome, pe.endereco, pe.telefone, pe.email, " +
-                     "a.matricula, a.nome_pai, a.nome_mae " +
-                     "FROM aluno a JOIN pessoa pe ON pe.id = a.id_pessoa " +
-                     "WHERE pe.id=?";
+                "a.matricula, a.nome_pai, a.nome_mae " +
+                "FROM aluno a JOIN pessoa pe ON pe.id = a.id_pessoa " +
+                "WHERE pe.id=?";
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idPessoa);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Aluno a = new Aluno(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("endereco"),
-                    rs.getString("telefone"),
-                    rs.getString("email"),
-                    rs.getString("matricula"),
-                    rs.getString("nome_pai"),
-                    rs.getString("nome_mae")
-                );
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getString("telefone"),
+                        rs.getString("email"),
+                        rs.getString("matricula"),
+                        rs.getString("nome_pai"),
+                        rs.getString("nome_mae"));
                 logger.info("Aluno encontrado id=" + idPessoa);
                 return a;
             } else {
@@ -107,26 +106,25 @@ public class AlunoDAO {
     // Lista todos os alunos (usado, por exemplo, para carregar combo "id - nome")
     public List<Aluno> listarTodos() {
         String sql = "SELECT pe.id, pe.nome, pe.endereco, pe.telefone, pe.email, " +
-                     "a.matricula, a.nome_pai, a.nome_mae " +
-                     "FROM aluno a JOIN pessoa pe ON pe.id = a.id_pessoa " +
-                     "ORDER BY pe.nome";
+                "a.matricula, a.nome_pai, a.nome_mae " +
+                "FROM aluno a JOIN pessoa pe ON pe.id = a.id_pessoa " +
+                "ORDER BY pe.nome";
         List<Aluno> lista = new ArrayList<>();
 
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Aluno a = new Aluno(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("endereco"),
-                    rs.getString("telefone"),
-                    rs.getString("email"),
-                    rs.getString("matricula"),
-                    rs.getString("nome_pai"),
-                    rs.getString("nome_mae")
-                );
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getString("telefone"),
+                        rs.getString("email"),
+                        rs.getString("matricula"),
+                        rs.getString("nome_pai"),
+                        rs.getString("nome_mae"));
                 lista.add(a);
             }
             logger.info("Lista de alunos carregada. Quantidade=" + lista.size());
