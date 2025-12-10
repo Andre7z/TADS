@@ -13,7 +13,6 @@ public class AlunoDAO {
 
     /* ========= CRUD BÁSICO ========= */
 
-    // Salva o registro em aluno usando o id já salvo na tabela pessoa
     public boolean salvar(Aluno a) {
         String sql = "INSERT INTO aluno (id_pessoa, matricula, nome_pai, nome_mae) " +
                 "VALUES (?, ?, ?, ?)";

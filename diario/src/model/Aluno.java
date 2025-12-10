@@ -39,17 +39,4 @@ public class Aluno extends Pessoa {
     public void setNomeMae(String nomeMae) {
         this.nomeMae = nomeMae;
     }
-
-    // regra de negócio: matrícula com 10 caracteres numéricos
-    public boolean validarMatricula() {
-        if (matricula == null || matricula.length() != 10) {
-            return false;
-        }
-        for (char c : matricula.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

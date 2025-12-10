@@ -77,7 +77,7 @@ public class TelaAluno extends JFrame {
         btnSalvar.addActionListener(e -> {
             Aluno a = montarAlunoDaTela();
             boolean ok = controller.salvar(a);
-            JOptionPane.showMessageDialog(this, ok ? "Salvo com sucesso" : "Erro ao salvar (ver matrícula ou log)");
+            JOptionPane.showMessageDialog(this, ok ? "Salvo com sucesso" : "Erro ao salvar (Lembre: A matrícula deve conter 10 digitos numéricos)");
         });
 
         btnAlterar.addActionListener(e -> {

@@ -15,9 +15,15 @@ public class AlunoController {
         this.pessoaDAO = pessoaDAO;
     }
 
+    private boolean validarMatricula (String matricula) {
+        if (matricula == null)
+            return false;
+        return matricula.matches("\\d{10}"); // verifica se a matricula tem 10 dígitos numéricos
+    }
+
     public boolean salvar(Aluno aluno) {
         logger.info("Iniciando salvar Aluno");
-        if (!aluno.validarMatricula()) {
+        if (!validarMatricula(aluno.getMatricula())) {
             logger.warning("Matrícula inválida: " + aluno.getMatricula());
             return false;
         }
@@ -34,7 +40,7 @@ public class AlunoController {
 
     public boolean alterar(Aluno aluno) {
         logger.info("Iniciando alterar Aluno id=" + aluno.getId());
-        if (!aluno.validarMatricula()) {
+        if (!validarMatricula(aluno.getMatricula())) {
             logger.warning("Matrícula inválida");
             return false;
         }
