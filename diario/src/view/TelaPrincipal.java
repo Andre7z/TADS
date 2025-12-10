@@ -206,7 +206,7 @@ public class TelaPrincipal extends JFrame {
         SwingUtilities.invokeLater(() -> {
             DiarioDAO dDAO = new DiarioDAO(conn);
             NotaDAO nDAO = new NotaDAO(conn);
-            DiarioController dCtrl = new DiarioController(dDAO);
+            DiarioController dCtrl = new DiarioController(dDAO, nDAO, conn);
             NotaController nCtrl = new NotaController(nDAO, dDAO);
             new TelaDiario(dCtrl, nCtrl, conn).setVisible(true);
         });

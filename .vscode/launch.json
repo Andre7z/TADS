@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TelaDiario",
+            "request": "launch",
+            "mainClass": "view.TelaDiario",
+            "projectName": "TADS_fcd17634"
+        },
+        {
+            "type": "java",
+            "name": "TelaPrincipal",
+            "request": "launch",
+            "mainClass": "view.TelaPrincipal",
+            "projectName": "TADS_fcd17634"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -44,10 +58,7 @@
             "request": "launch",
             "mainClass": "TelaPrincipal",
             "projectName": "TADS_4c474c97"
-        },
-
-
-        
+        }
     ]
     
 }

@@ -5,6 +5,7 @@ import javax.swing.*;
 import controller.DiarioController;
 import controller.NotaController;
 import dao.ConnectionFactory;
+import dao.DiarioDAO;
 import dao.NotaDAO;
 import model.Diario;
 import model.Nota;
@@ -32,6 +33,7 @@ public class TelaDiario extends JFrame {
     private JLabel lblMediaSituacao;
 
     private JButton btnAdicionarNota, btnSalvarNotas;
+    private JButton btnEditarNota, btnRemoverNota; // NOVOS
     private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar, btnLimpar, btnSair;
 
     private HashMap<String, Integer> alunoMap = new HashMap<>();
@@ -136,6 +138,11 @@ public class TelaDiario extends JFrame {
         painelEntradaNota.add(txtNota);
         btnAdicionarNota = new JButton("Adicionar Nota");
         painelEntradaNota.add(btnAdicionarNota);
+
+        btnEditarNota = new JButton("Editar Nota"); // NOVO
+        painelEntradaNota.add(btnEditarNota);
+        btnRemoverNota = new JButton("Remover Nota"); // NOVO
+        painelEntradaNota.add(btnRemoverNota);
 
         modeloNotas = new DefaultListModel<>();
         listaNotas = new JList<>(modeloNotas);
@@ -280,6 +287,8 @@ public class TelaDiario extends JFrame {
 
         btnAdicionarNota.addActionListener(_ -> adicionarNotaNaLista());
         btnSalvarNotas.addActionListener(_ -> salvarNotasEDefinirStatus());
+        btnEditarNota.addActionListener(_ -> editarNotaSelecionada());
+        btnRemoverNota.addActionListener(_ -> removerNotaSelecionada());
     }
 
     /* ====================== CRUD DIÁRIO ====================== */
@@ -415,6 +424,61 @@ public class TelaDiario extends JFrame {
         }
     }
 
+    private void editarNotaSelecionada() {
+        int index = listaNotas.getSelectedIndex();
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione uma nota na lista para editar.",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String valorAtual = modeloNotas.getElementAt(index);
+        String novoValorStr = JOptionPane.showInputDialog(this,
+                "Informe o novo valor da nota (0 a 10):", valorAtual);
+
+        if (novoValorStr == null) {
+            return; // cancelado
+        }
+
+        try {
+            double novoValor = Double.parseDouble(novoValorStr.trim());
+            if (novoValor < 0 || novoValor > 10) {
+                throw new IllegalArgumentException();
+            }
+
+            nota.getNotas().set(index, novoValor);
+            modeloNotas.setElementAt(String.valueOf(novoValor), index);
+
+            atualizarMediaLocal();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Informe um valor numérico entre 0 e 10.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void removerNotaSelecionada() {
+        int index = listaNotas.getSelectedIndex();
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione uma nota na lista para remover.",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int conf = JOptionPane.showConfirmDialog(this,
+                "Deseja realmente remover a nota selecionada?",
+                "Confirmação", JOptionPane.YES_NO_OPTION);
+        if (conf != JOptionPane.YES_OPTION)
+            return;
+
+        nota.getNotas().remove(index);
+        modeloNotas.remove(index);
+
+        atualizarMediaLocal();
+    }
+
     private void atualizarMediaLocal() {
         lblMediaSituacao.setText("Média: " + nota.getMedia() +
                 "  |  Situação: " + (nota.isAprovado() ? "Aprovado" : "Reprovado"));
@@ -481,11 +545,13 @@ public class TelaDiario extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Connection conn = ConnectionFactory.getConnection();
-            dao.DiarioDAO dDAO = new dao.DiarioDAO(conn);
-            dao.NotaDAO nDAO = new dao.NotaDAO(conn);
-            DiarioController dCtrl = new DiarioController(dDAO);
+            DiarioDAO dDAO = new DiarioDAO(conn);
+            NotaDAO nDAO = new NotaDAO(conn);
+
+            DiarioController dCtrl = new DiarioController(dDAO, nDAO, conn);
             NotaController nCtrl = new NotaController(nDAO, dDAO);
             new TelaDiario(dCtrl, nCtrl, conn).setVisible(true);
+
         });
     }
 }
