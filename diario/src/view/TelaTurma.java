@@ -51,7 +51,7 @@ public class TelaTurma extends JFrame {
         // ID
         gbc.gridx = 0;
         gbc.gridy = 0;
-        painel.add(new JLabel("ID:"), gbc);
+        painel.add(new JLabel("ID (apenas para pesquisa/altera/excluir)::"), gbc);
         gbc.gridx = 1;
         txtId = new JTextField(10);
         painel.add(txtId, gbc);

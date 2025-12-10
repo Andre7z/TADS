@@ -24,7 +24,7 @@ public class TelaAluno extends JFrame {
 
         JPanel panel = new JPanel(new GridLayout(8, 2));
 
-        panel.add(new JLabel("ID Pessoa:"));
+        panel.add(new JLabel("ID Pessoa (apenas para pesquisar/altera/excluir)::"));
         txtId = new JTextField();
         panel.add(txtId);
 

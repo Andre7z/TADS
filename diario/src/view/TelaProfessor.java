@@ -24,7 +24,7 @@ public class TelaProfessor extends JFrame {
 
         JPanel panel = new JPanel(new GridLayout(6, 2));
 
-        panel.add(new JLabel("ID Pessoa:"));
+        panel.add(new JLabel("ID Pessoa (apenas para pesquisa/altera/excluir)::"));
         txtId = new JTextField();
         panel.add(txtId);
 

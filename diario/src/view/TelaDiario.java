@@ -79,7 +79,7 @@ public class TelaDiario extends JFrame {
         // ID
         gbc.gridx = 0;
         gbc.gridy = 0;
-        painel.add(new JLabel("ID Diário:"), gbc);
+        painel.add(new JLabel("ID Diário(apenas para pesquisar/altera/excluir)::"), gbc);
         gbc.gridx = 1;
         txtId = new JTextField(10);
         painel.add(txtId, gbc);

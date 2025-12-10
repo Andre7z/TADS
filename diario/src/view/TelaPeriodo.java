@@ -18,12 +18,12 @@ public class TelaPeriodo extends JFrame {
 
     private void initComponents() {
         setTitle("Cadastro de Período");
-        setSize(400, 200);
+        setSize(500, 200);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new GridLayout(2, 2));
 
-        panel.add(new JLabel("ID:"));
+        panel.add(new JLabel("ID (apenas para pesquisa/altera/excluir):"));
         txtId = new JTextField();
         panel.add(txtId);
 
