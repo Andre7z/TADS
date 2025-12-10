@@ -6,7 +6,7 @@ public class Diario {
     private int idPeriodo;
     private int idTurma;
     private int idAluno;
-    private boolean status; // true=aprovado, false=reprovado
+    private boolean status;
 
     public Diario() {
     }
