@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+
 import controller.AlunoController;
 import model.Aluno;
 
@@ -9,23 +11,34 @@ public class TelaAluno extends JFrame {
 
     private JTextField txtId, txtNome, txtEndereco, txtTelefone, txtEmail,
             txtMatricula, txtNomePai, txtNomeMae;
-    private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar;
+    private JButton btnSalvar, btnAlterar, btnExcluir, btnLimpar, btnSair;
+    private JComboBox<String> cmbIds; // combo para selecionar IDs já salvas
+
     private AlunoController controller;
 
     public TelaAluno(AlunoController controller) {
         this.controller = controller;
         initComponents();
+        carregarIdsAlunos(); // carrega as IDs no combo ao abrir a tela
     }
 
     private void initComponents() {
         setTitle("Cadastro de Aluno");
-        setSize(500, 320);
+        setSize(550, 380);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JPanel panel = new JPanel(new GridLayout(8, 2));
+        JPanel panel = new JPanel(new GridLayout(9, 2));
 
-        panel.add(new JLabel("ID Pessoa (apenas para pesquisar/altera/excluir)::"));
+        // Combo de IDs existentes
+        panel.add(new JLabel("Selecionar Aluno salvo:"));
+        cmbIds = new JComboBox<>();
+        panel.add(cmbIds);
+
+        // ID (somente para visualizar / alterar / excluir)
+        panel.add(new JLabel("ID Pessoa (gerado pelo sistema):"));
         txtId = new JTextField();
+        txtId.setEditable(false); // usuário não digita ID, só vê
         panel.add(txtId);
 
         panel.add(new JLabel("Nome:"));
@@ -57,15 +70,17 @@ public class TelaAluno extends JFrame {
         panel.add(txtNomeMae);
 
         JPanel panelBotoes = new JPanel();
-        btnSalvar = new JButton("Salvar");
+        btnSalvar  = new JButton("Salvar");
         btnAlterar = new JButton("Alterar");
         btnExcluir = new JButton("Excluir");
-        btnPesquisar = new JButton("Pesquisar");
+        btnLimpar  = new JButton("Limpar dados");
+        btnSair    = new JButton("Sair");
 
         panelBotoes.add(btnSalvar);
         panelBotoes.add(btnAlterar);
         panelBotoes.add(btnExcluir);
-        panelBotoes.add(btnPesquisar);
+        panelBotoes.add(btnLimpar);
+        panelBotoes.add(btnSair);
 
         add(panel, BorderLayout.CENTER);
         add(panelBotoes, BorderLayout.SOUTH);
@@ -74,35 +89,79 @@ public class TelaAluno extends JFrame {
     }
 
     private void adicionarEventos() {
+        // Salvar
         btnSalvar.addActionListener(e -> {
-            Aluno a = montarAlunoDaTela();
+            Aluno a = montarAlunoDaTela(); // id será 0 na inclusão
             boolean ok = controller.salvar(a);
-            JOptionPane.showMessageDialog(this, ok ? "Salvo com sucesso" : "Erro ao salvar (Lembre: A matrícula deve conter 10 digitos numéricos)");
-        });
-
-        btnAlterar.addActionListener(e -> {
-            Aluno a = montarAlunoDaTela();
-            boolean ok = controller.alterar(a);
-            JOptionPane.showMessageDialog(this, ok ? "Alterado com sucesso" : "Erro ao alterar");
-        });
-
-        btnExcluir.addActionListener(e -> {
-            int id = Integer.parseInt(txtId.getText());
-            boolean ok = controller.excluir(id);
-            JOptionPane.showMessageDialog(this, ok ? "Excluído com sucesso" : "Erro ao excluir");
-        });
-
-        btnPesquisar.addActionListener(e -> {
-            int id = Integer.parseInt(txtId.getText());
-            Aluno a = controller.pesquisar(id);
-            if (a != null) {
-                preencherTelaComAluno(a);
+            if (ok) {
+                // se o controller/DAO preencheu o id, mostramos aqui
+                txtId.setText(String.valueOf(a.getId()));
+                JOptionPane.showMessageDialog(this,
+                        "Salvo com sucesso. ID gerado: " + a.getId(),
+                        "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                carregarIdsAlunos(); // atualiza combo com o novo registro
             } else {
-                JOptionPane.showMessageDialog(this, "Aluno não encontrado");
+                JOptionPane.showMessageDialog(this,
+                        "Erro ao salvar (Lembre: a matrícula deve conter 10 dígitos numéricos).",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+        // Alterar
+        btnAlterar.addActionListener(e -> {
+            if (txtId.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Selecione um aluno no combo antes de alterar.",
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            Aluno a = montarAlunoDaTela();
+            boolean ok = controller.alterar(a);
+            JOptionPane.showMessageDialog(this,
+                    ok ? "Alterado com sucesso" : "Erro ao alterar",
+                    ok ? "Sucesso" : "Erro",
+                    ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+            if (ok) {
+                carregarIdsAlunos();
+            }
+        });
+
+        // Excluir
+        btnExcluir.addActionListener(e -> {
+            if (txtId.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Selecione um aluno no combo antes de excluir.",
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int id = Integer.parseInt(txtId.getText().trim());
+            int conf = JOptionPane.showConfirmDialog(this,
+                    "Deseja realmente excluir o aluno ID " + id + "?",
+                    "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (conf != JOptionPane.YES_OPTION) return;
+
+            boolean ok = controller.excluir(id);
+            JOptionPane.showMessageDialog(this,
+                    ok ? "Excluído com sucesso" : "Erro ao excluir",
+                    ok ? "Sucesso" : "Erro",
+                    ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+            if (ok) {
+                limparCampos();
+                carregarIdsAlunos();
+            }
+        });
+
+        // Limpar dados
+        btnLimpar.addActionListener(e -> limparCampos());
+
+        // Sair
+        btnSair.addActionListener(e -> dispose());
+
+        // Seleção no combo de IDs
+        cmbIds.addActionListener(e -> selecionarIdDoCombo());
     }
 
+    // Monta o objeto Aluno a partir dos campos
     private Aluno montarAlunoDaTela() {
         int id = txtId.getText().isEmpty() ? 0 : Integer.parseInt(txtId.getText());
         String nome = txtNome.getText();
@@ -126,4 +185,57 @@ public class TelaAluno extends JFrame {
         txtNomeMae.setText(a.getNomeMae());
     }
 
+    // Limpa os campos da tela
+    private void limparCampos() {
+        txtId.setText("");
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtEmail.setText("");
+        txtMatricula.setText("");
+        txtNomePai.setText("");
+        txtNomeMae.setText("");
+        if (cmbIds.getItemCount() > 0) {
+            cmbIds.setSelectedIndex(0);
+        }
+    }
+
+    // Carrega IDs existentes no combo, no formato "id - nome"
+    private void carregarIdsAlunos() {
+        cmbIds.removeAllItems();
+        cmbIds.addItem("Selecione um aluno...");
+
+        List<Aluno> lista = controller.listarTodos();
+        if (lista != null) {
+            for (Aluno a : lista) {
+                String item = a.getId() + " - " + a.getNome();
+                cmbIds.addItem(item);
+            }
+        }
+    }
+
+    // Quando o usuário escolhe um item no combo, atualiza o txtId e carrega o aluno
+    private void selecionarIdDoCombo() {
+        if (cmbIds.getSelectedIndex() <= 0) return; // posição 0 é "Selecione..."
+
+        String item = (String) cmbIds.getSelectedItem(); // ex: "3 - Ana"
+        if (item == null || item.isBlank()) return;
+
+        String strId = item.split(" - ")[0].trim();
+        try {
+            int id = Integer.parseInt(strId);
+            txtId.setText(String.valueOf(id));
+
+            Aluno a = controller.pesquisar(id);
+            if (a != null) {
+                preencherTelaComAluno(a);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Aluno não encontrado para ID " + id,
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            // ignora caso estranho de item mal formatado
+        }
+    }
 }

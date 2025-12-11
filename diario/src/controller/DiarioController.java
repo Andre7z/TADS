@@ -6,6 +6,7 @@ import model.Diario;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class DiarioController {
@@ -24,7 +25,7 @@ public class DiarioController {
 
     public boolean salvar(Diario d) {
         logger.info("Iniciando salvar Diario");
-        boolean ok = diarioDAO.salvar(d);
+        boolean ok = diarioDAO.salvar(d); // preenche d.setId(...)
         logger.info("Resultado salvar Diario=" + ok + " id=" + d.getId());
         return ok;
     }
@@ -36,7 +37,7 @@ public class DiarioController {
         return ok;
     }
 
-    // Exclui notas primeiro e depois o diário, dentro de transação
+    // Exclui notas ligadas ao diário e depois o diário (mantendo regra de FK)
     public boolean excluir(int id) {
         logger.info("Iniciando excluir Diario id=" + id);
         try {
@@ -48,7 +49,7 @@ public class DiarioController {
 
             logger.info("Excluindo diario id=" + id);
             boolean okDiario = diarioDAO.excluir(id);
-            logger.info("Resultado excluir diario=" + okDiario);
+            logger.info("Resultado excluir Diario=" + okDiario);
 
             if (okDiario) {
                 conn.commit();
@@ -71,5 +72,13 @@ public class DiarioController {
         Diario d = diarioDAO.pesquisar(id);
         logger.info("Diario encontrado? " + (d != null));
         return d;
+    }
+
+    // opcional, se quiser combo de IDs na TelaDiario
+    public List<Diario> listarTodos() {
+        logger.info("Iniciando listarTodos Diario");
+        List<Diario> lista = diarioDAO.listarTodos();
+        logger.info("Total de diarios retornados=" + lista.size());
+        return lista;
     }
 }

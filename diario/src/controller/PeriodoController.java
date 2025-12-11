@@ -1,10 +1,13 @@
 package controller;
 
-import java.util.logging.Logger;
 import dao.PeriodoDAO;
 import model.Periodo;
 
+import java.util.List;
+import java.util.logging.Logger;
+
 public class PeriodoController {
+
     private static final Logger logger = Logger.getLogger(PeriodoController.class.getName());
     private PeriodoDAO dao;
 
@@ -15,7 +18,7 @@ public class PeriodoController {
     public boolean salvar(Periodo p) {
         logger.info("Iniciando salvar Periodo");
         boolean ok = dao.salvar(p);
-        logger.info("Resultado salvar Periodo=" + ok);
+        logger.info("Resultado salvar Periodo=" + ok + " id=" + p.getId());
         return ok;
     }
 
@@ -38,5 +41,12 @@ public class PeriodoController {
         Periodo p = dao.pesquisar(id);
         logger.info("Periodo encontrado? " + (p != null));
         return p;
+    }
+
+    public List<Periodo> listarTodos() {
+        logger.info("Iniciando listarTodos Periodo");
+        List<Periodo> lista = dao.listarTodos();
+        logger.info("Total de periodos retornados=" + lista.size());
+        return lista;
     }
 }

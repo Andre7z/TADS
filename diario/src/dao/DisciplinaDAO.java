@@ -1,10 +1,14 @@
 package dao;
 
-import java.sql.*;
-import java.util.logging.Logger;
 import model.Disciplina;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
 public class DisciplinaDAO {
+
     private static final Logger logger = Logger.getLogger(DisciplinaDAO.class.getName());
     private Connection conn;
 
@@ -18,10 +22,12 @@ public class DisciplinaDAO {
             ps.setString(1, d.getNomeDisciplina());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                d.setId(rs.getInt("id"));
-                logger.info("Disciplina salva id=" + d.getId());
+                int idGerado = rs.getInt("id");
+                d.setId(idGerado);
+                logger.info("Disciplina salva com id=" + idGerado);
                 return true;
             }
+            logger.warning("Insert de disciplina não retornou id");
         } catch (SQLException e) {
             logger.severe("Erro ao salvar disciplina: " + e.getMessage());
         }
@@ -34,7 +40,7 @@ public class DisciplinaDAO {
             ps.setString(1, d.getNomeDisciplina());
             ps.setInt(2, d.getId());
             int linhas = ps.executeUpdate();
-            logger.info("Disciplina alterada, linhas=" + linhas);
+            logger.info("Disciplina alterada, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
             logger.severe("Erro ao alterar disciplina: " + e.getMessage());
@@ -47,7 +53,7 @@ public class DisciplinaDAO {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             int linhas = ps.executeUpdate();
-            logger.info("Disciplina excluída, linhas=" + linhas);
+            logger.info("Disciplina excluída, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
             logger.severe("Erro ao excluir disciplina: " + e.getMessage());
@@ -56,7 +62,7 @@ public class DisciplinaDAO {
     }
 
     public Disciplina pesquisar(int id) {
-        String sql = "SELECT * FROM disciplina WHERE id=?";
+        String sql = "SELECT id, nome_disciplina FROM disciplina WHERE id=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -66,10 +72,30 @@ public class DisciplinaDAO {
                         rs.getString("nome_disciplina"));
                 logger.info("Disciplina encontrada id=" + id);
                 return d;
+            } else {
+                logger.info("Disciplina não encontrada id=" + id);
             }
         } catch (SQLException e) {
             logger.severe("Erro ao pesquisar disciplina: " + e.getMessage());
         }
         return null;
+    }
+
+    public List<Disciplina> listarTodos() {
+        String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
+        List<Disciplina> lista = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Disciplina d = new Disciplina(
+                        rs.getInt("id"),
+                        rs.getString("nome_disciplina"));
+                lista.add(d);
+            }
+            logger.info("Lista de disciplinas carregada. Quantidade=" + lista.size());
+        } catch (SQLException e) {
+            logger.severe("Erro ao listar disciplinas: " + e.getMessage());
+        }
+        return lista;
     }
 }

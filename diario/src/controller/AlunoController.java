@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import java.util.logging.Logger;
 import dao.AlunoDAO;
 import dao.PessoaDAO;
@@ -27,6 +28,8 @@ public class AlunoController {
             logger.warning("Matrícula inválida: " + aluno.getMatricula());
             return false;
         }
+
+        
         int idPessoa = pessoaDAO.salvar(aluno);
         if (idPessoa == 0) {
             logger.warning("Falha ao salvar Pessoa para Aluno");
@@ -66,4 +69,12 @@ public class AlunoController {
         logger.info("Aluno encontrado? " + (a != null));
         return a;
     }
+
+    public List<Aluno> listarTodos() {
+    logger.info("Iniciando listarTodos Aluno");
+    List<Aluno> lista = alunoDAO.listarTodos();
+    logger.info("Total de alunos retornados=" + lista.size());
+    return lista;
+}
+
 }

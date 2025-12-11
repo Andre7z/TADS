@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import java.util.logging.Logger;
 import dao.DisciplinaDAO;
 import model.Disciplina;
@@ -39,4 +40,12 @@ public class DisciplinaController {
         logger.info("Disciplina encontrada? " + (d != null));
         return d;
     }
+
+    public List<Disciplina> listarTodos() {
+    logger.info("Iniciando listarTodos Disciplina");
+    List<Disciplina> lista = dao.listarTodos();
+    logger.info("Total de disciplinas retornadas=" + lista.size());
+    return lista;
+}
+
 }

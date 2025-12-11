@@ -21,6 +21,7 @@ import java.util.List;
 public class TelaDiario extends JFrame {
 
     private JTextField txtId;
+    private JComboBox<String> cmbIdsDiario; // NOVO: combo com IDs de diário
     private JComboBox<String> cmbAluno;
     private JComboBox<String> cmbDisciplina;
     private JComboBox<String> cmbPeriodo;
@@ -33,8 +34,8 @@ public class TelaDiario extends JFrame {
     private JLabel lblMediaSituacao;
 
     private JButton btnAdicionarNota, btnSalvarNotas;
-    private JButton btnEditarNota, btnRemoverNota; // NOVOS
-    private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar, btnLimpar, btnSair;
+    private JButton btnEditarNota, btnRemoverNota;
+    private JButton btnSalvar, btnAlterar, btnExcluir, btnLimpar, btnSair;
 
     private HashMap<String, Integer> alunoMap = new HashMap<>();
     private HashMap<String, Integer> disciplinaMap = new HashMap<>();
@@ -56,7 +57,7 @@ public class TelaDiario extends JFrame {
 
         setTitle("Cadastro de Diário");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(800, 650);
+        setSize(820, 680);
         setLocationRelativeTo(null);
 
         inicializarComponentes();
@@ -64,6 +65,7 @@ public class TelaDiario extends JFrame {
         carregarDisciplinas();
         carregarPeriodos();
         carregarTurmas();
+        carregarIdsDiario(); // carrega IDs no combo
 
         adicionarEventos();
 
@@ -79,10 +81,19 @@ public class TelaDiario extends JFrame {
         // ID
         gbc.gridx = 0;
         gbc.gridy = 0;
-        painel.add(new JLabel("ID Diário(apenas para pesquisar/altera/excluir)::"), gbc);
+        painel.add(new JLabel("ID Diário (gerado pelo sistema):"), gbc);
         gbc.gridx = 1;
         txtId = new JTextField(10);
+        txtId.setEditable(false);
         painel.add(txtId, gbc);
+
+        // Combo de IDs
+        gbc.gridx = 0;
+        gbc.gridy++;
+        painel.add(new JLabel("Selecionar Diário salvo:"), gbc);
+        gbc.gridx = 1;
+        cmbIdsDiario = new JComboBox<>();
+        painel.add(cmbIdsDiario, gbc);
 
         // Aluno
         gbc.gridx = 0;
@@ -122,7 +133,7 @@ public class TelaDiario extends JFrame {
         painel.add(new JLabel("Aprovado?"), gbc);
         gbc.gridx = 1;
         chkAprovado = new JCheckBox();
-        chkAprovado.setEnabled(false); // calculado pelas notas
+        chkAprovado.setEnabled(false);
         painel.add(chkAprovado, gbc);
 
         // Painel de Notas
@@ -139,9 +150,9 @@ public class TelaDiario extends JFrame {
         btnAdicionarNota = new JButton("Adicionar Nota");
         painelEntradaNota.add(btnAdicionarNota);
 
-        btnEditarNota = new JButton("Editar Nota"); // NOVO
+        btnEditarNota = new JButton("Editar Nota");
         painelEntradaNota.add(btnEditarNota);
-        btnRemoverNota = new JButton("Remover Nota"); // NOVO
+        btnRemoverNota = new JButton("Remover Nota");
         painelEntradaNota.add(btnRemoverNota);
 
         modeloNotas = new DefaultListModel<>();
@@ -166,14 +177,12 @@ public class TelaDiario extends JFrame {
         btnSalvar = new JButton("Salvar Diário");
         btnAlterar = new JButton("Alterar Diário");
         btnExcluir = new JButton("Excluir Diário");
-        btnPesquisar = new JButton("Pesquisar Diário");
         btnLimpar = new JButton("Limpar");
         btnSair = new JButton("Sair");
 
         painelBotoes.add(btnSalvar);
         painelBotoes.add(btnAlterar);
         painelBotoes.add(btnExcluir);
-        painelBotoes.add(btnPesquisar);
         painelBotoes.add(btnLimpar);
         painelBotoes.add(btnSair);
 
@@ -186,6 +195,7 @@ public class TelaDiario extends JFrame {
     }
 
     /* ====================== CARREGAR COMBOS ====================== */
+
     private void carregarDisciplinas() {
         try (Connection c = ConnectionFactory.getConnection()) {
             String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
@@ -275,13 +285,26 @@ public class TelaDiario extends JFrame {
         }
     }
 
+    private void carregarIdsDiario() {
+        cmbIdsDiario.removeAllItems();
+        cmbIdsDiario.addItem("Selecione um diário...");
+
+        List<Diario> lista = diarioController.listarTodos();
+        if (lista != null) {
+            for (Diario d : lista) {
+                String item = d.getId() + " - Aluno " + d.getIdAluno()
+                        + " / Disc " + d.getIdDisciplina();
+                cmbIdsDiario.addItem(item);
+            }
+        }
+    }
+
     /* ====================== EVENTOS ====================== */
 
     private void adicionarEventos() {
         btnSalvar.addActionListener(_ -> salvarDiario());
         btnAlterar.addActionListener(_ -> alterarDiario());
         btnExcluir.addActionListener(_ -> excluirDiario());
-        btnPesquisar.addActionListener(_ -> pesquisarDiario());
         btnLimpar.addActionListener(_ -> limparCampos());
         btnSair.addActionListener(_ -> dispose());
 
@@ -289,26 +312,20 @@ public class TelaDiario extends JFrame {
         btnSalvarNotas.addActionListener(_ -> salvarNotasEDefinirStatus());
         btnEditarNota.addActionListener(_ -> editarNotaSelecionada());
         btnRemoverNota.addActionListener(_ -> removerNotaSelecionada());
+
+        cmbIdsDiario.addActionListener(_ -> selecionarIdDoCombo());
     }
 
     /* ====================== CRUD DIÁRIO ====================== */
 
     private boolean validarCamposBasicos() {
-        if (txtId.getText().trim().isEmpty()
-                || cmbAluno.getSelectedIndex() == 0
+        if (cmbAluno.getSelectedIndex() == 0
                 || cmbDisciplina.getSelectedIndex() == 0
                 || cmbPeriodo.getSelectedIndex() == 0
                 || cmbTurma.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this,
-                    "Preencha ID e selecione aluno, disciplina, período e turma.",
+                    "Selecione aluno, disciplina, período e turma.",
                     "Atenção", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        try {
-            Integer.parseInt(txtId.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID inválido!", "Erro",
-                    JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
@@ -340,14 +357,21 @@ public class TelaDiario extends JFrame {
         boolean ok = diarioController.salvar(d);
         if (ok && d.getId() != 0) {
             txtId.setText(String.valueOf(d.getId()));
+            carregarIdsDiario();
         }
         JOptionPane.showMessageDialog(this,
-                ok ? "Diário salvo com sucesso!" : "Erro ao salvar diário",
+                ok ? "Diário salvo com sucesso! ID: " + d.getId() : "Erro ao salvar diário",
                 ok ? "Sucesso" : "Erro",
                 ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
     }
 
     private void alterarDiario() {
+        if (txtId.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione um diário no combo antes de alterar.",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (!validarCamposBasicos())
             return;
         Diario d = montarDiarioDaTela();
@@ -356,12 +380,14 @@ public class TelaDiario extends JFrame {
                 ok ? "Diário alterado com sucesso!" : "Erro ao alterar diário",
                 ok ? "Sucesso" : "Erro",
                 ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+        if (ok)
+            carregarIdsDiario();
     }
 
     private void excluirDiario() {
         String strId = txtId.getText().trim();
         if (strId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o ID para excluir!",
+            JOptionPane.showMessageDialog(this, "Selecione um diário no combo antes de excluir.",
                     "Atenção", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -377,25 +403,46 @@ public class TelaDiario extends JFrame {
                 ok ? "Diário excluído com sucesso!" : "Erro ao excluir diário",
                 ok ? "Sucesso" : "Erro",
                 ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
-        if (ok)
+        if (ok) {
             limparCampos();
+            carregarIdsDiario();
+        }
     }
 
-    private void pesquisarDiario() {
-        String strId = txtId.getText().trim();
-        if (strId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o ID para pesquisar!",
-                    "Atenção", JOptionPane.WARNING_MESSAGE);
-            return;
+    private void selecionarIdComboInterno(int id) {
+        for (int i = 1; i < cmbIdsDiario.getItemCount(); i++) {
+            String item = cmbIdsDiario.getItemAt(i);
+            if (item.startsWith(id + " -")) {
+                cmbIdsDiario.setSelectedIndex(i);
+                break;
+            }
         }
-        int id = Integer.parseInt(strId);
-        Diario d = diarioController.pesquisar(id);
-        if (d != null) {
-            preencherTelaComDiario(d);
-            carregarNotasDoDiario(id);
-        } else {
-            JOptionPane.showMessageDialog(this, "Diário não encontrado!",
-                    "Atenção", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void selecionarIdDoCombo() {
+        if (cmbIdsDiario.getSelectedIndex() <= 0)
+            return;
+
+        String item = (String) cmbIdsDiario.getSelectedItem();
+        if (item == null || item.isBlank())
+            return;
+
+        String strId = item.split(" - ")[0].trim();
+        try {
+            int id = Integer.parseInt(strId);
+            txtId.setText(String.valueOf(id));
+
+            Diario d = diarioController.pesquisar(id);
+            if (d != null) {
+                preencherTelaComDiario(d);
+                carregarNotasDoDiario(id);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Diário não encontrado para ID " + id,
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            // ignora item inválido
         }
     }
 
@@ -414,7 +461,7 @@ public class TelaDiario extends JFrame {
     private void adicionarNotaNaLista() {
         try {
             double valor = Double.parseDouble(txtNota.getText().trim());
-            nota.adicionarNota(valor); // valida 0..10 e atualiza média/aprovado
+            nota.adicionarNota(valor);
             modeloNotas.addElement(String.valueOf(valor));
             atualizarMediaLocal();
             txtNota.setText("");
@@ -438,7 +485,7 @@ public class TelaDiario extends JFrame {
                 "Informe o novo valor da nota (0 a 10):", valorAtual);
 
         if (novoValorStr == null) {
-            return; // cancelado
+            return;
         }
 
         try {
@@ -488,7 +535,7 @@ public class TelaDiario extends JFrame {
     private void salvarNotasEDefinirStatus() {
         String strId = txtId.getText().trim();
         if (strId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Salve ou pesquise o diário antes de lançar notas.",
+            JOptionPane.showMessageDialog(this, "Salve ou selecione o diário antes de lançar notas.",
                     "Atenção", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -538,7 +585,9 @@ public class TelaDiario extends JFrame {
         modeloNotas.clear();
         nota = new Nota();
         atualizarMediaLocal();
-        txtId.requestFocus();
+        if (cmbIdsDiario.getItemCount() > 0) {
+            cmbIdsDiario.setSelectedIndex(0);
+        }
     }
 
     /* MAIN opcional de teste isolado */
@@ -551,7 +600,6 @@ public class TelaDiario extends JFrame {
             DiarioController dCtrl = new DiarioController(dDAO, nDAO, conn);
             NotaController nCtrl = new NotaController(nDAO, dDAO);
             new TelaDiario(dCtrl, nCtrl, conn).setVisible(true);
-
         });
     }
 }

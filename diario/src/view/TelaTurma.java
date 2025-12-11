@@ -6,17 +6,19 @@ import model.Turma;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 
 public class TelaTurma extends JFrame {
 
     private JTextField txtId;
     private JTextField txtNomeTurma;
 
+    private JComboBox<String> cmbIdsTurma;   // NOVO: combo com IDs de turma
     private JComboBox<String> cmbDisciplina;
     private JComboBox<String> cmbProfessor;
     private JComboBox<String> cmbPeriodo;
 
-    private JButton btnSalvar, btnAlterar, btnExcluir, btnPesquisar, btnLimpar, btnSair;
+    private JButton btnSalvar, btnAlterar, btnExcluir, btnLimpar, btnSair;
 
     private TurmaController turmaController;
 
@@ -30,14 +32,14 @@ public class TelaTurma extends JFrame {
 
         setTitle("Cadastro de Turma");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 400);
+        setSize(650, 420);
         setLocationRelativeTo(null);
 
         inicializarComponentes();
         adicionarEventos();
 
-        // pede ao controller para carregar os combos
-        carregarCombos();
+        carregarCombos();      // disciplina, professor, período
+        carregarIdsTurma();    // IDs de turmas para o combo
 
         setVisible(true);
     }
@@ -45,16 +47,26 @@ public class TelaTurma extends JFrame {
     private void inicializarComponentes() {
         JPanel painel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets  = new Insets(5, 5, 5, 5);
+        gbc.anchor  = GridBagConstraints.WEST;
+        gbc.fill    = GridBagConstraints.HORIZONTAL;
 
         // ID
         gbc.gridx = 0;
         gbc.gridy = 0;
-        painel.add(new JLabel("ID (apenas para pesquisa/altera/excluir)::"), gbc);
+        painel.add(new JLabel("ID Turma (gerado pelo sistema):"), gbc);
         gbc.gridx = 1;
         txtId = new JTextField(10);
+        txtId.setEditable(false);
         painel.add(txtId, gbc);
+
+        // Combo IDs Turma
+        gbc.gridx = 0;
+        gbc.gridy++;
+        painel.add(new JLabel("Selecionar Turma salva:"), gbc);
+        gbc.gridx = 1;
+        cmbIdsTurma = new JComboBox<>();
+        painel.add(cmbIdsTurma, gbc);
 
         // Nome Turma
         gbc.gridx = 0;
@@ -90,17 +102,15 @@ public class TelaTurma extends JFrame {
 
         // Botões
         JPanel painelBotoes = new JPanel(new FlowLayout());
-        btnSalvar = new JButton("Salvar");
+        btnSalvar  = new JButton("Salvar");
         btnAlterar = new JButton("Alterar");
         btnExcluir = new JButton("Excluir");
-        btnPesquisar = new JButton("Pesquisar");
-        btnLimpar = new JButton("Limpar");
-        btnSair = new JButton("Sair");
+        btnLimpar  = new JButton("Limpar");
+        btnSair    = new JButton("Sair");
 
         painelBotoes.add(btnSalvar);
         painelBotoes.add(btnAlterar);
         painelBotoes.add(btnExcluir);
-        painelBotoes.add(btnPesquisar);
         painelBotoes.add(btnLimpar);
         painelBotoes.add(btnSair);
 
@@ -116,20 +126,36 @@ public class TelaTurma extends JFrame {
         btnSalvar.addActionListener(_ -> salvarTurma());
         btnAlterar.addActionListener(_ -> alterarTurma());
         btnExcluir.addActionListener(_ -> excluirTurma());
-        btnPesquisar.addActionListener(_ -> pesquisarTurma());
         btnLimpar.addActionListener(_ -> limparCampos());
         btnSair.addActionListener(_ -> dispose());
+
+        // seleção no combo de IDs
+        cmbIdsTurma.addActionListener(_ -> selecionarIdDoCombo());
     }
 
-    /* ================== Métodos chamados pelo controller ================== */
+    /* ================== Métodos de carregamento ================== */
 
-    // Tela pede ao controller que traga os dados para os combos
     private void carregarCombos() {
         // cada método do controller devolve um Map<String, Integer> pronto para o combo
         disciplinaMap = turmaController.carregarDisciplinas(cmbDisciplina);
-        professorMap = turmaController.carregarProfessores(cmbProfessor);
-        periodoMap = turmaController.carregarPeriodos(cmbPeriodo);
+        professorMap  = turmaController.carregarProfessores(cmbProfessor);
+        periodoMap    = turmaController.carregarPeriodos(cmbPeriodo);
     }
+
+    private void carregarIdsTurma() {
+        cmbIdsTurma.removeAllItems();
+        cmbIdsTurma.addItem("Selecione uma turma...");
+
+        List<Turma> lista = turmaController.listarTodos();
+        if (lista != null) {
+            for (Turma t : lista) {
+                String item = t.getId() + " - " + t.getNomeTurma();
+                cmbIdsTurma.addItem(item);
+            }
+        }
+    }
+
+    /* ================== Validação e montagem ================== */
 
     private boolean validarCampos() {
         if (txtNomeTurma.getText().trim().isEmpty()
@@ -149,7 +175,7 @@ public class TelaTurma extends JFrame {
         String nome = txtNomeTurma.getText().trim();
         int idDisc = disciplinaMap.get(cmbDisciplina.getSelectedItem().toString());
         int idProf = professorMap.get(cmbProfessor.getSelectedItem().toString());
-        int idPer = periodoMap.get(cmbPeriodo.getSelectedItem().toString());
+        int idPer  = periodoMap.get(cmbPeriodo.getSelectedItem().toString());
 
         return new Turma(id, nome, idDisc, idProf, idPer);
     }
@@ -158,9 +184,11 @@ public class TelaTurma extends JFrame {
         txtId.setText(String.valueOf(t.getId()));
         txtNomeTurma.setText(t.getNomeTurma());
         selecionarItemComboPorId(cmbDisciplina, t.getIdDisciplina());
-        selecionarItemComboPorId(cmbProfessor, t.getIdProfessor());
-        selecionarItemComboPorId(cmbPeriodo, t.getIdPeriodo());
+        selecionarItemComboPorId(cmbProfessor,  t.getIdProfessor());
+        selecionarItemComboPorId(cmbPeriodo,    t.getIdPeriodo());
     }
+
+    /* ================== CRUD ================== */
 
     private void salvarTurma() {
         if (!validarCampos())
@@ -169,6 +197,7 @@ public class TelaTurma extends JFrame {
         boolean ok = turmaController.salvar(t);
         if (ok && t.getId() != 0) {
             txtId.setText(String.valueOf(t.getId()));
+            carregarIdsTurma();
         }
         JOptionPane.showMessageDialog(this,
                 ok ? "Turma salva com sucesso!" : "Erro ao salvar turma.",
@@ -178,7 +207,8 @@ public class TelaTurma extends JFrame {
 
     private void alterarTurma() {
         if (txtId.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o ID para alterar.",
+            JOptionPane.showMessageDialog(this,
+                    "Selecione uma turma no combo antes de alterar.",
                     "Atenção", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -191,12 +221,14 @@ public class TelaTurma extends JFrame {
                 ok ? "Turma alterada com sucesso!" : "Erro ao alterar turma.",
                 ok ? "Sucesso" : "Erro",
                 ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+        if (ok) carregarIdsTurma();
     }
 
     private void excluirTurma() {
         String strId = txtId.getText().trim();
         if (strId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o ID para excluir.",
+            JOptionPane.showMessageDialog(this,
+                    "Selecione uma turma no combo antes de excluir.",
                     "Atenção", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -212,24 +244,35 @@ public class TelaTurma extends JFrame {
                 ok ? "Turma excluída com sucesso!" : "Erro ao excluir turma.",
                 ok ? "Sucesso" : "Erro",
                 ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
-        if (ok)
+        if (ok) {
             limparCampos();
+            carregarIdsTurma();
+        }
     }
 
-    private void pesquisarTurma() {
-        String strId = txtId.getText().trim();
-        if (strId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o ID para pesquisar.",
-                    "Atenção", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        int id = Integer.parseInt(strId);
-        Turma t = turmaController.pesquisar(id);
-        if (t != null) {
-            preencherTelaComTurma(t);
-        } else {
-            JOptionPane.showMessageDialog(this, "ID não encontrado.",
-                    "Atenção", JOptionPane.WARNING_MESSAGE);
+    /* ================== Auxiliares ================== */
+
+    private void selecionarIdDoCombo() {
+        if (cmbIdsTurma.getSelectedIndex() <= 0) return;
+
+        String item = (String) cmbIdsTurma.getSelectedItem(); // "3 - Turma A"
+        if (item == null || item.isBlank()) return;
+
+        String strId = item.split(" - ")[0].trim();
+        try {
+            int id = Integer.parseInt(strId);
+            txtId.setText(String.valueOf(id));
+
+            Turma t = turmaController.pesquisar(id);
+            if (t != null) {
+                preencherTelaComTurma(t);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Turma não encontrada para ID " + id,
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            // ignora item inválido
         }
     }
 
@@ -246,12 +289,14 @@ public class TelaTurma extends JFrame {
     private void limparCampos() {
         txtId.setText("");
         txtNomeTurma.setText("");
+        if (cmbIdsTurma.getItemCount() > 0)
+            cmbIdsTurma.setSelectedIndex(0);
         if (cmbDisciplina.getItemCount() > 0)
             cmbDisciplina.setSelectedIndex(0);
         if (cmbProfessor.getItemCount() > 0)
             cmbProfessor.setSelectedIndex(0);
         if (cmbPeriodo.getItemCount() > 0)
             cmbPeriodo.setSelectedIndex(0);
-        txtId.requestFocus();
+        txtNomeTurma.requestFocus();
     }
 }

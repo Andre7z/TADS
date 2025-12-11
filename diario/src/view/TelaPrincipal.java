@@ -157,7 +157,7 @@ public class TelaPrincipal extends JFrame {
         return botao;
     }
 
-    /* ===================== ABRIR TELAS ===================== */
+    // ===================== ABRIR TELAS ===================== 
 
     private void abrirAluno() {
         SwingUtilities.invokeLater(() -> {

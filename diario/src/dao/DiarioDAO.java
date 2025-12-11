@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import model.Diario;
 
@@ -98,4 +100,26 @@ public class DiarioDAO {
         }
         return null;
     }
+    public List<Diario> listarTodos() {
+    String sql = "SELECT * FROM diario ORDER BY id";
+    List<Diario> lista = new ArrayList<>();
+    try (PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            Diario d = new Diario(
+                rs.getInt("id"),
+                rs.getInt("id_disciplina"),
+                rs.getInt("id_periodo"),
+                rs.getInt("id_turma"),
+                rs.getInt("id_aluno"),
+                rs.getBoolean("status")
+            );
+            lista.add(d);
+        }
+        logger.info("Lista de diarios carregada. Quantidade=" + lista.size());
+    } catch (SQLException e) {
+        logger.severe("Erro ao listar diarios: " + e.getMessage());
+    }
+    return lista;
+}
 }

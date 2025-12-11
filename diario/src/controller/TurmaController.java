@@ -1,53 +1,89 @@
 package controller;
 
 import dao.TurmaDAO;
-import dao.ConnectionFactory;
-import model.Turma;
 
 import javax.swing.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
+
+import model.Turma;
 
 public class TurmaController {
 
     private static final Logger logger = Logger.getLogger(TurmaController.class.getName());
+
     private TurmaDAO turmaDAO;
+    private Connection conn; // usado para carregar combos
 
     public TurmaController(TurmaDAO turmaDAO) {
         this.turmaDAO = turmaDAO;
     }
 
-    /* ===== CRUD ===== */
+    // construtor alternativo se quiser reaproveitar a mesma Connection dos combos
+    public TurmaController(TurmaDAO turmaDAO, Connection conn) {
+        this.turmaDAO = turmaDAO;
+        this.conn = conn;
+    }
+
+    /* ================== CRUD ================== */
 
     public boolean salvar(Turma t) {
-        return turmaDAO.salvar(t);
+        logger.info("Iniciando salvar Turma");
+        boolean ok = turmaDAO.salvar(t);
+        logger.info("Resultado salvar Turma=" + ok + " id=" + t.getId());
+        return ok;
     }
 
     public boolean alterar(Turma t) {
-        return turmaDAO.alterar(t);
+        logger.info("Iniciando alterar Turma id=" + t.getId());
+        boolean ok = turmaDAO.alterar(t);
+        logger.info("Resultado alterar Turma=" + ok);
+        return ok;
     }
 
     public boolean excluir(int id) {
-        return turmaDAO.excluir(id);
+        logger.info("Iniciando excluir Turma id=" + id);
+        boolean ok = turmaDAO.excluir(id);
+        logger.info("Resultado excluir Turma=" + ok);
+        return ok;
     }
 
     public Turma pesquisar(int id) {
-        return turmaDAO.pesquisar(id);
+        logger.info("Iniciando pesquisar Turma id=" + id);
+        Turma t = turmaDAO.pesquisar(id);
+        logger.info("Turma encontrada? " + (t != null));
+        return t;
     }
 
-    /* ===== Métodos para a View preencher combos ===== */
+    public List<Turma> listarTodos() {
+        logger.info("Iniciando listarTodos Turma");
+        List<Turma> lista = turmaDAO.listarTodos();
+        logger.info("Total de turmas retornadas=" + lista.size());
+        return lista;
+    }
+
+    /* ================== Carregamento de combos ================== */
+
+    // Cada método popula o combo e devolve o Map<String, Integer> para a tela
 
     public HashMap<String, Integer> carregarDisciplinas(JComboBox<String> combo) {
         HashMap<String, Integer> mapa = new HashMap<>();
         combo.removeAllItems();
         combo.addItem("Selecione a disciplina...");
 
-        String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
-        try (Connection c = ConnectionFactory.getConnection();
-                PreparedStatement ps = c.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+        if (conn == null) {
+            logger.warning("Connection null em carregarDisciplinas");
+            return mapa;
+        }
 
+        String sql = "SELECT id, nome_disciplina FROM disciplina ORDER BY nome_disciplina";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nome = rs.getString("nome_disciplina");
@@ -56,10 +92,7 @@ public class TurmaController {
                 mapa.put(item, id);
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao carregar disciplinas: " + e.getMessage());
-            JOptionPane.showMessageDialog(null,
-                    "Erro ao carregar disciplinas: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+            logger.severe("Erro ao carregar disciplinas para combo: " + e.getMessage());
         }
         return mapa;
     }
@@ -69,12 +102,16 @@ public class TurmaController {
         combo.removeAllItems();
         combo.addItem("Selecione o professor...");
 
-        String sql = "SELECT pe.id, pe.nome FROM professor pr " +
-                "JOIN pessoa pe ON pe.id = pr.id_pessoa ORDER BY pe.nome";
-        try (Connection c = ConnectionFactory.getConnection();
-                PreparedStatement ps = c.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+        if (conn == null) {
+            logger.warning("Connection null em carregarProfessores");
+            return mapa;
+        }
 
+        String sql = "SELECT pe.id, pe.nome FROM professor pr " +
+                     "JOIN pessoa pe ON pe.id = pr.id_pessoa " +
+                     "ORDER BY pe.nome";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nome = rs.getString("nome");
@@ -83,10 +120,7 @@ public class TurmaController {
                 mapa.put(item, id);
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao carregar professores: " + e.getMessage());
-            JOptionPane.showMessageDialog(null,
-                    "Erro ao carregar professores: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+            logger.severe("Erro ao carregar professores para combo: " + e.getMessage());
         }
         return mapa;
     }
@@ -96,11 +130,14 @@ public class TurmaController {
         combo.removeAllItems();
         combo.addItem("Selecione o período...");
 
-        String sql = "SELECT id, nome_periodo FROM periodo ORDER BY nome_periodo";
-        try (Connection c = ConnectionFactory.getConnection();
-                PreparedStatement ps = c.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+        if (conn == null) {
+            logger.warning("Connection null em carregarPeriodos");
+            return mapa;
+        }
 
+        String sql = "SELECT id, nome_periodo FROM periodo ORDER BY nome_periodo";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nome = rs.getString("nome_periodo");
@@ -109,10 +146,7 @@ public class TurmaController {
                 mapa.put(item, id);
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao carregar períodos: " + e.getMessage());
-            JOptionPane.showMessageDialog(null,
-                    "Erro ao carregar períodos: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+            logger.severe("Erro ao carregar períodos para combo: " + e.getMessage());
         }
         return mapa;
     }
