@@ -409,15 +409,6 @@ public class TelaDiario extends JFrame {
         }
     }
 
-    private void selecionarIdComboInterno(int id) {
-        for (int i = 1; i < cmbIdsDiario.getItemCount(); i++) {
-            String item = cmbIdsDiario.getItemAt(i);
-            if (item.startsWith(id + " -")) {
-                cmbIdsDiario.setSelectedIndex(i);
-                break;
-            }
-        }
-    }
 
     private void selecionarIdDoCombo() {
         if (cmbIdsDiario.getSelectedIndex() <= 0)

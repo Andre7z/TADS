@@ -102,7 +102,7 @@ public class TelaAluno extends JFrame {
                 carregarIdsAlunos(); // atualiza combo com o novo registro
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "Erro ao salvar (Lembre: a matrícula deve conter 10 dígitos numéricos).",
+                        "Erro ao salvar (Verifique se os campos estão preenchidos corretamente).",
                         "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });

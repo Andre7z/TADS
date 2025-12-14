@@ -157,7 +157,7 @@ public class TelaPrincipal extends JFrame {
         return botao;
     }
 
-    // ===================== ABRIR TELAS ===================== 
+    // ===================== ABRIR TELAS =====================
 
     private void abrirAluno() {
         SwingUtilities.invokeLater(() -> {
@@ -196,7 +196,7 @@ public class TelaPrincipal extends JFrame {
     private void abrirTurma() {
         SwingUtilities.invokeLater(() -> {
             TurmaDAO tDAO = new TurmaDAO(conn);
-            TurmaController controller = new TurmaController(tDAO);
+            TurmaController controller = new TurmaController(tDAO, conn); // <<< tem que ser este
             new TelaTurma(controller).setVisible(true);
         });
     }
