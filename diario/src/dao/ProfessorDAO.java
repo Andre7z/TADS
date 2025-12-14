@@ -8,11 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ProfessorDAO {
 
-    private static final Logger logger = Logger.getLogger(ProfessorDAO.class.getName());
+    private static final Logger logger = LogManager.getLogger(ProfessorDAO.class);
     private Connection conn;
 
     public ProfessorDAO(Connection conn) {
@@ -28,7 +29,7 @@ public class ProfessorDAO {
             logger.info("Professor salvo, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao salvar professor: " + e.getMessage());
+            logger.error("Erro ao salvar professor: " + e.getMessage());
             return false;
         }
     }
@@ -42,7 +43,7 @@ public class ProfessorDAO {
             logger.info("Professor alterado, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao alterar professor: " + e.getMessage());
+            logger.error("Erro ao alterar professor: " + e.getMessage());
             return false;
         }
     }
@@ -55,7 +56,7 @@ public class ProfessorDAO {
             logger.info("Professor excluído, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao excluir professor: " + e.getMessage());
+            logger.error("Erro ao excluir professor: " + e.getMessage());
             return false;
         }
     }
@@ -82,7 +83,7 @@ public class ProfessorDAO {
                 logger.info("Professor não encontrado idPessoa=" + idPessoa);
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao pesquisar professor: " + e.getMessage());
+            logger.error("Erro ao pesquisar professor: " + e.getMessage());
         }
         return null;
     }
@@ -107,7 +108,7 @@ public class ProfessorDAO {
             }
             logger.info("Lista de professores carregada. Quantidade=" + lista.size());
         } catch (SQLException e) {
-            logger.severe("Erro ao listar professores: " + e.getMessage());
+            logger.error("Erro ao listar professores: " + e.getMessage());
         }
         return lista;
     }

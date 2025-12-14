@@ -3,10 +3,11 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ConnectionFactory {
-    private static final Logger logger = Logger.getLogger(ConnectionFactory.class.getName());
+    private static final Logger logger = LogManager.getLogger(ConnectionFactory.class);
 
     private static final String URL = "jdbc:postgresql://localhost:5432/diario";
     private static final String USER = "postgres";
@@ -18,7 +19,7 @@ public class ConnectionFactory {
             logger.info("Conexão com PostgreSQL aberta");
             return conn;
         } catch (SQLException e) {
-            logger.severe("Erro ao conectar ao PostgreSQL: " + e.getMessage());
+            logger.error("Erro ao conectar ao PostgreSQL: " + e.getMessage());
             return null;
         }
     }

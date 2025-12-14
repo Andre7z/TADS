@@ -5,11 +5,12 @@ import model.Disciplina;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DisciplinaDAO {
 
-    private static final Logger logger = Logger.getLogger(DisciplinaDAO.class.getName());
+    private static final Logger logger = LogManager.getLogger(DisciplinaDAO.class);
     private Connection conn;
 
     public DisciplinaDAO(Connection conn) {
@@ -27,9 +28,9 @@ public class DisciplinaDAO {
                 logger.info("Disciplina salva com id=" + idGerado);
                 return true;
             }
-            logger.warning("Insert de disciplina não retornou id");
+            logger.warn("Insert de disciplina não retornou id");
         } catch (SQLException e) {
-            logger.severe("Erro ao salvar disciplina: " + e.getMessage());
+            logger.error("Erro ao salvar disciplina: " + e.getMessage());
         }
         return false;
     }
@@ -43,7 +44,7 @@ public class DisciplinaDAO {
             logger.info("Disciplina alterada, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao alterar disciplina: " + e.getMessage());
+            logger.error("Erro ao alterar disciplina: " + e.getMessage());
             return false;
         }
     }
@@ -56,7 +57,7 @@ public class DisciplinaDAO {
             logger.info("Disciplina excluída, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao excluir disciplina: " + e.getMessage());
+            logger.error("Erro ao excluir disciplina: " + e.getMessage());
             return false;
         }
     }
@@ -76,7 +77,7 @@ public class DisciplinaDAO {
                 logger.info("Disciplina não encontrada id=" + id);
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao pesquisar disciplina: " + e.getMessage());
+            logger.error("Erro ao pesquisar disciplina: " + e.getMessage());
         }
         return null;
     }
@@ -94,7 +95,7 @@ public class DisciplinaDAO {
             }
             logger.info("Lista de disciplinas carregada. Quantidade=" + lista.size());
         } catch (SQLException e) {
-            logger.severe("Erro ao listar disciplinas: " + e.getMessage());
+            logger.error("Erro ao listar disciplinas: " + e.getMessage());
         }
         return lista;
     }

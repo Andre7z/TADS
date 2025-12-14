@@ -1,12 +1,15 @@
 package controller;
 
-import java.util.List;
-import java.util.logging.Logger;
 import dao.DisciplinaDAO;
 import model.Disciplina;
 
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class DisciplinaController {
-    private static final Logger logger = Logger.getLogger(DisciplinaController.class.getName());
+    private static final Logger logger = LogManager.getLogger(DisciplinaController.class);
+
     private DisciplinaDAO dao;
 
     public DisciplinaController(DisciplinaDAO dao) {
@@ -42,10 +45,10 @@ public class DisciplinaController {
     }
 
     public List<Disciplina> listarTodos() {
-    logger.info("Iniciando listarTodos Disciplina");
-    List<Disciplina> lista = dao.listarTodos();
-    logger.info("Total de disciplinas retornadas=" + lista.size());
-    return lista;
-}
+        logger.info("Iniciando listarTodos Disciplina");
+        List<Disciplina> lista = dao.listarTodos();
+        logger.info("Total de disciplinas retornadas=" + lista.size());
+        return lista;
+    }
 
 }

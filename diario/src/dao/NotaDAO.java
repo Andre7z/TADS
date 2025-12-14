@@ -1,13 +1,15 @@
 package dao;
 
+import model.Nota;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-import model.Nota;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class NotaDAO {
-    private static final Logger logger = Logger.getLogger(NotaDAO.class.getName());
+    private static final Logger logger = LogManager.getLogger(NotaDAO.class);
     private Connection conn;
 
     public NotaDAO(Connection conn) {
@@ -26,7 +28,7 @@ public class NotaDAO {
             logger.info("Notas salvas, quantidade=" + resultados.length);
             return resultados.length > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao salvar notas: " + e.getMessage());
+            logger.error("Erro ao salvar notas: " + e.getMessage());
             return false;
         }
     }
@@ -42,7 +44,7 @@ public class NotaDAO {
             }
             logger.info("Notas carregadas para diario=" + idDiario + " qtd=" + lista.size());
         } catch (SQLException e) {
-            logger.severe("Erro ao listar notas: " + e.getMessage());
+            logger.error("Erro ao listar notas: " + e.getMessage());
         }
         return lista;
     }
@@ -55,7 +57,7 @@ public class NotaDAO {
             logger.info("Notas excluídas para diario=" + idDiario + " linhas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao excluir notas: " + e.getMessage());
+            logger.error("Erro ao excluir notas: " + e.getMessage());
             return false;
         }
     }

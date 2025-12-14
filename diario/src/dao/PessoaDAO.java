@@ -1,11 +1,11 @@
 package dao;
 
 import java.sql.*;
-import java.util.logging.Logger;
 import model.Pessoa;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public class PessoaDAO {
-    private static final Logger logger = Logger.getLogger(PessoaDAO.class.getName());
+    private static final Logger logger = LogManager.getLogger(PessoaDAO.class);
     private Connection conn;
 
     public PessoaDAO(Connection conn) {
@@ -26,7 +26,7 @@ public class PessoaDAO {
                 return id;
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao salvar pessoa: " + e.getMessage());
+            logger.error("Erro ao salvar pessoa: " + e.getMessage());
         }
         return 0;
     }
@@ -43,7 +43,7 @@ public class PessoaDAO {
             logger.info("Pessoa alterada, linhas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao alterar pessoa: " + e.getMessage());
+            logger.error("Erro ao alterar pessoa: " + e.getMessage());
             return false;
         }
     }
@@ -56,7 +56,7 @@ public class PessoaDAO {
             logger.info("Pessoa excluída, linhas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao excluir pessoa: " + e.getMessage());
+            logger.error("Erro ao excluir pessoa: " + e.getMessage());
             return false;
         }
     }
@@ -77,7 +77,7 @@ public class PessoaDAO {
                 return p;
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao pesquisar pessoa: " + e.getMessage());
+            logger.error("Erro ao pesquisar pessoa: " + e.getMessage());
         }
         return null;
     }

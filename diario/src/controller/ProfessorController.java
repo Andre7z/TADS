@@ -5,11 +5,14 @@ import dao.ProfessorDAO;
 import model.Professor;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class ProfessorController {
 
-    private static final Logger logger = Logger.getLogger(ProfessorController.class.getName());
+    private static final Logger logger = LogManager.getLogger(ProfessorController.class);
+
     private ProfessorDAO professorDAO;
     private PessoaDAO pessoaDAO;
 
@@ -24,7 +27,7 @@ public class ProfessorController {
         // salva dados da pessoa e obtém id gerado
         int idPessoa = pessoaDAO.salvar(p);
         if (idPessoa == 0) {
-            logger.warning("Falha ao salvar Pessoa para Professor");
+            logger.warn("Falha ao salvar Pessoa para Professor");
             return false;
         }
         p.setId(idPessoa);

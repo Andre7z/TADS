@@ -5,11 +5,12 @@ import model.Periodo;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PeriodoDAO {
 
-    private static final Logger logger = Logger.getLogger(PeriodoDAO.class.getName());
+    private static final Logger logger = LogManager.getLogger(PeriodoDAO.class);
     private Connection conn;
 
     public PeriodoDAO(Connection conn) {
@@ -27,9 +28,9 @@ public class PeriodoDAO {
                 logger.info("Periodo salvo com id=" + idGerado);
                 return true;
             }
-            logger.warning("Insert de periodo não retornou id");
+            logger.warn("Insert de periodo não retornou id");
         } catch (SQLException e) {
-            logger.severe("Erro ao salvar periodo: " + e.getMessage());
+            logger.error("Erro ao salvar periodo: " + e.getMessage());
         }
         return false;
     }
@@ -43,7 +44,7 @@ public class PeriodoDAO {
             logger.info("Periodo alterado, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao alterar periodo: " + e.getMessage());
+            logger.error("Erro ao alterar periodo: " + e.getMessage());
             return false;
         }
     }
@@ -56,7 +57,7 @@ public class PeriodoDAO {
             logger.info("Periodo excluído, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao excluir periodo: " + e.getMessage());
+            logger.error("Erro ao excluir periodo: " + e.getMessage());
             return false;
         }
     }
@@ -76,7 +77,7 @@ public class PeriodoDAO {
                 logger.info("Periodo não encontrado id=" + id);
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao pesquisar periodo: " + e.getMessage());
+            logger.error("Erro ao pesquisar periodo: " + e.getMessage());
         }
         return null;
     }
@@ -94,7 +95,7 @@ public class PeriodoDAO {
             }
             logger.info("Lista de periodos carregada. Quantidade=" + lista.size());
         } catch (SQLException e) {
-            logger.severe("Erro ao listar periodos: " + e.getMessage());
+            logger.error("Erro ao listar periodos: " + e.getMessage());
         }
         return lista;
     }

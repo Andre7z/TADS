@@ -1,17 +1,20 @@
 package dao;
 
+import model.Diario;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-import model.Diario;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class DiarioDAO {
 
-    private static final Logger logger = Logger.getLogger(DiarioDAO.class.getName());
+    private static final Logger logger = LogManager.getLogger(DiarioDAO.class);
     private Connection conn;
 
     public DiarioDAO(Connection conn) {
@@ -35,9 +38,9 @@ public class DiarioDAO {
                 logger.info("Diario salvo com id=" + idGerado);
                 return true;
             }
-            logger.warning("Insert de diario não retornou id");
+            logger.warn("Insert de diario não retornou id");
         } catch (SQLException e) {
-            logger.severe("Erro ao salvar diario: " + e.getMessage());
+            logger.error("Erro ao salvar diario: " + e.getMessage());
         }
         return false;
     }
@@ -57,7 +60,7 @@ public class DiarioDAO {
             logger.info("Diario alterado, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao alterar diario: " + e.getMessage());
+            logger.error("Erro ao alterar diario: " + e.getMessage());
             return false;
         }
     }
@@ -71,7 +74,7 @@ public class DiarioDAO {
             logger.info("Diario excluído, linhas afetadas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao excluir diario: " + e.getMessage());
+            logger.error("Erro ao excluir diario: " + e.getMessage());
             return false;
         }
     }
@@ -96,7 +99,7 @@ public class DiarioDAO {
                 logger.info("Diario não encontrado id=" + id);
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao pesquisar diario: " + e.getMessage());
+            logger.error("Erro ao pesquisar diario: " + e.getMessage());
         }
         return null;
     }
@@ -118,7 +121,7 @@ public class DiarioDAO {
         }
         logger.info("Lista de diarios carregada. Quantidade=" + lista.size());
     } catch (SQLException e) {
-        logger.severe("Erro ao listar diarios: " + e.getMessage());
+        logger.error("Erro ao listar diarios: " + e.getMessage());
     }
     return lista;
 }

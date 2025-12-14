@@ -1,11 +1,13 @@
 package view;
 
+import controller.AlunoController;
+import model.Aluno;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import controller.AlunoController;
-import model.Aluno;
+
 
 public class TelaAluno extends JFrame {
 

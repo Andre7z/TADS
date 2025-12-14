@@ -1,13 +1,15 @@
 package controller;
 
-import java.util.List;
-import java.util.logging.Logger;
 import dao.AlunoDAO;
 import dao.PessoaDAO;
 import model.Aluno;
 
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class AlunoController {
-    private static final Logger logger = Logger.getLogger(AlunoController.class.getName());
+    private static final Logger logger = LogManager.getLogger(AlunoController.class);
     private AlunoDAO alunoDAO;
     private PessoaDAO pessoaDAO;
 
@@ -25,14 +27,14 @@ public class AlunoController {
     public boolean salvar(Aluno aluno) {
         logger.info("Iniciando salvar Aluno");
         if (!validarMatricula(aluno.getMatricula())) {
-            logger.warning("Matrícula inválida: " + aluno.getMatricula());
+            logger.warn("Matrícula inválida: " + aluno.getMatricula());
             return false;
         }
 
         
         int idPessoa = pessoaDAO.salvar(aluno);
         if (idPessoa == 0) {
-            logger.warning("Falha ao salvar Pessoa para Aluno");
+            logger.warn("Falha ao salvar Pessoa para Aluno");
             return false;
         }
         aluno.setId(idPessoa);
@@ -44,7 +46,7 @@ public class AlunoController {
     public boolean alterar(Aluno aluno) {
         logger.info("Iniciando alterar Aluno id=" + aluno.getId());
         if (!validarMatricula(aluno.getMatricula())) {
-            logger.warning("Matrícula inválida");
+            logger.warn("Matrícula inválida");
             return false;
         }
         boolean okPessoa = pessoaDAO.alterar(aluno);

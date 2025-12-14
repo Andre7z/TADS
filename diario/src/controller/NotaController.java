@@ -1,8 +1,8 @@
 package controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.List;
-import java.util.logging.Logger;
-
 import dao.NotaDAO;
 import dao.DiarioDAO;
 import model.Nota;
@@ -10,7 +10,7 @@ import model.Diario;
 
 public class NotaController {
 
-    private static final Logger logger = Logger.getLogger(NotaController.class.getName());
+    private static final Logger logger = LogManager.getLogger(NotaController.class);
 
     private NotaDAO notaDAO;
     private DiarioDAO diarioDAO;
@@ -27,17 +27,17 @@ public class NotaController {
 
         Diario d = diarioDAO.pesquisar(nota.getIdDiario());
         if (d == null) {
-            logger.warning("Diario inexistente para id=" + nota.getIdDiario());
+            logger.warn("Diario inexistente para id=" + nota.getIdDiario());
             return false;
         }
 
         if (nota.getNotas() == null || nota.getNotas().isEmpty()) {
-            logger.warning("Nenhuma nota informada");
+            logger.warn("Nenhuma nota informada");
             return false;
         }
         for (Double v : nota.getNotas()) {
             if (v == null || v < 0 || v > 10) {
-                logger.warning("Nota inválida: " + v);
+                logger.warn("Nota inválida: " + v);
                 return false;
             }
         }
@@ -45,14 +45,14 @@ public class NotaController {
         // sobrescreve todas as notas desse diário
         notaDAO.excluirPorDiario(nota.getIdDiario());
         if (!notaDAO.salvar(nota)) {
-            logger.warning("Falha ao salvar notas");
+            logger.warn("Falha ao salvar notas");
             return false;
         }
 
         // média aritmética de todas as notas gravadas
         List<Double> lista = notaDAO.listarNotasPorDiario(nota.getIdDiario());
         if (lista.isEmpty()) {
-            logger.warning("Nenhuma nota encontrada após salvar");
+            logger.warn("Nenhuma nota encontrada após salvar");
             return false;
         }
 

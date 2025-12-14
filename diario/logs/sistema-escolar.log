@@ -1,0 +1,62 @@
+14-12-2025 10:26:41 INFO  TesteLog - Teste de log INFO
+14-12-2025 10:26:41 ERROR TesteLog - Teste de log ERROR
+14-12-2025 11:06:12 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+14-12-2025 11:06:28 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+14-12-2025 11:06:29 INFO  AlunoController - Iniciando listarTodos Aluno
+14-12-2025 11:06:29 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+14-12-2025 11:06:30 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=4
+14-12-2025 11:06:30 INFO  AlunoController - Total de alunos retornados=4
+14-12-2025 11:06:31 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=2
+14-12-2025 11:06:31 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+14-12-2025 11:06:31 INFO  AlunoDAO - Aluno encontrado id=2
+14-12-2025 11:06:31 INFO  AlunoController - Aluno encontrado? true
+14-12-2025 11:06:33 INFO  ProfessorController - Iniciando listarTodos Professor
+14-12-2025 11:06:33 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=2
+14-12-2025 11:06:33 INFO  ProfessorController - Total de professores retornados=2
+14-12-2025 11:06:34 INFO  ProfessorController - Iniciando pesquisar Professor idPessoa=11
+14-12-2025 11:06:34 INFO  ProfessorDAO - Professor encontrado idPessoa=11
+14-12-2025 11:06:34 INFO  ProfessorController - Professor encontrado? true
+14-12-2025 11:06:35 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+14-12-2025 11:06:35 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=3
+14-12-2025 11:06:35 INFO  DisciplinaController - Total de disciplinas retornadas=3
+14-12-2025 11:06:37 INFO  DisciplinaController - Iniciando pesquisar Disciplina id=4
+14-12-2025 11:06:37 INFO  DisciplinaDAO - Disciplina encontrada id=4
+14-12-2025 11:06:37 INFO  DisciplinaController - Disciplina encontrada? true
+14-12-2025 11:06:40 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+14-12-2025 11:06:40 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+14-12-2025 11:06:40 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+14-12-2025 11:06:40 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+14-12-2025 11:06:40 INFO  DiarioController - Iniciando listarTodos Diario
+14-12-2025 11:06:40 INFO  DiarioDAO - Lista de diarios carregada. Quantidade=2
+14-12-2025 11:06:40 INFO  DiarioController - Total de diarios retornados=2
+14-12-2025 11:06:43 INFO  DiarioController - Iniciando pesquisar Diario id=2
+14-12-2025 11:06:43 INFO  DiarioDAO - Diario encontrado id=2
+14-12-2025 11:06:43 INFO  DiarioController - Diario encontrado? true
+14-12-2025 11:06:43 INFO  NotaDAO - Notas carregadas para diario=2 qtd=3
+14-12-2025 11:06:46 INFO  TurmaController - Carregando disciplinas para combo
+14-12-2025 11:06:46 INFO  TurmaDAO - Disciplinas carregadas para combo: 3
+14-12-2025 11:06:46 INFO  TurmaController - Total de disciplinas carregadas=3
+14-12-2025 11:06:46 INFO  TurmaController - Carregando professores para combo
+14-12-2025 11:06:46 INFO  TurmaDAO - Professores carregados para combo: 2
+14-12-2025 11:06:46 INFO  TurmaController - Total de professores carregados=2
+14-12-2025 11:06:46 INFO  TurmaController - Carregando períodos para combo
+14-12-2025 11:06:46 INFO  TurmaDAO - Períodos carregados para combo: 1
+14-12-2025 11:06:46 INFO  TurmaController - Total de períodos carregados=1
+14-12-2025 11:06:46 INFO  TurmaController - Iniciando listarTodos Turma
+14-12-2025 11:06:46 INFO  TurmaDAO - Lista de turmas carregada. Quantidade=1
+14-12-2025 11:06:46 INFO  TurmaController - Total de turmas retornadas=1
+14-12-2025 11:06:48 INFO  TurmaController - Iniciando pesquisar Turma id=1
+14-12-2025 11:06:48 INFO  TurmaDAO - Turma encontrada id=1
+14-12-2025 11:06:48 INFO  TurmaController - Turma encontrada? true
+14-12-2025 11:06:49 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+14-12-2025 11:06:49 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=3
+14-12-2025 11:06:49 INFO  DisciplinaController - Total de disciplinas retornadas=3
+14-12-2025 11:06:50 INFO  DisciplinaController - Iniciando pesquisar Disciplina id=3
+14-12-2025 11:06:50 INFO  DisciplinaDAO - Disciplina encontrada id=3
+14-12-2025 11:06:50 INFO  DisciplinaController - Disciplina encontrada? true
+14-12-2025 11:06:53 INFO  PeriodoController - Iniciando listarTodos Periodo
+14-12-2025 11:06:53 INFO  PeriodoDAO - Lista de periodos carregada. Quantidade=1
+14-12-2025 11:06:53 INFO  PeriodoController - Total de periodos retornados=1
+14-12-2025 11:06:54 INFO  PeriodoController - Iniciando pesquisar Periodo id=1
+14-12-2025 11:06:54 INFO  PeriodoDAO - Periodo encontrado id=1
+14-12-2025 11:06:54 INFO  PeriodoController - Periodo encontrado? true

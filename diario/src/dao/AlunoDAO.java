@@ -1,15 +1,19 @@
 package dao;
 
+import model.Aluno;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import model.Aluno;
+
+
 
 public class AlunoDAO {
 
-    private static final Logger logger = Logger.getLogger(AlunoDAO.class.getName());
+    private static final Logger logger = LogManager.getLogger(AlunoDAO.class);
 
     /* ========= CRUD BÁSICO ========= */
 
@@ -28,7 +32,7 @@ public class AlunoDAO {
             logger.info("Aluno salvo, linhas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao salvar aluno: " + e.getMessage());
+            logger.error("Erro ao salvar aluno: " + e.getMessage());
             return false;
         }
     }
@@ -48,7 +52,7 @@ public class AlunoDAO {
             logger.info("Aluno alterado, linhas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao alterar aluno: " + e.getMessage());
+            logger.error("Erro ao alterar aluno: " + e.getMessage());
             return false;
         }
     }
@@ -63,7 +67,7 @@ public class AlunoDAO {
             logger.info("Aluno excluído, linhas=" + linhas);
             return linhas > 0;
         } catch (SQLException e) {
-            logger.severe("Erro ao excluir aluno: " + e.getMessage());
+            logger.error("Erro ao excluir aluno: " + e.getMessage());
             return false;
         }
     }
@@ -95,7 +99,7 @@ public class AlunoDAO {
                 logger.info("Aluno não encontrado id=" + idPessoa);
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao pesquisar aluno: " + e.getMessage());
+            logger.error("Erro ao pesquisar aluno: " + e.getMessage());
         }
         return null;
     }
@@ -128,7 +132,7 @@ public class AlunoDAO {
             }
             logger.info("Lista de alunos carregada. Quantidade=" + lista.size());
         } catch (SQLException e) {
-            logger.severe("Erro ao listar alunos: " + e.getMessage());
+            logger.error("Erro ao listar alunos: " + e.getMessage());
         }
 
         return lista;

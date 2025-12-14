@@ -4,11 +4,14 @@ import dao.PeriodoDAO;
 import model.Periodo;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class PeriodoController {
 
-    private static final Logger logger = Logger.getLogger(PeriodoController.class.getName());
+    private static final Logger logger = LogManager.getLogger(PeriodoController.class);
+
     private PeriodoDAO dao;
 
     public PeriodoController(PeriodoDAO dao) {

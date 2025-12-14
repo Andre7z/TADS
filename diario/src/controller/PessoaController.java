@@ -1,11 +1,14 @@
 package controller;
 
-import java.util.logging.Logger;
 import dao.PessoaDAO;
 import model.Pessoa;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class PessoaController {
-    private static final Logger logger = Logger.getLogger(PessoaController.class.getName());
+    private static final Logger logger = LogManager.getLogger(PessoaController.class);
+
     private PessoaDAO dao;
 
     public PessoaController(PessoaDAO dao) {

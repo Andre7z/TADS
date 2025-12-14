@@ -3,6 +3,8 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Workspace\\Java\\TADS\\gerenciador.tarefas\\lib\\postgresql-42.7.8.jar"
+        "c:\\Workspace\\Java\\TADS\\gerenciador.tarefas\\lib\\postgresql-42.7.8.jar",
+        "c:\\Workspace\\log\\log4j-core-2.25.2.jar",
+        "c:\\Workspace\\log\\log4j-api-2.25.2.jar"
     ]
 }

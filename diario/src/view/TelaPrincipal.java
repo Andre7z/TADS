@@ -1,12 +1,12 @@
 package view;
 
+import dao.*;
+import controller.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-
-import dao.*;
-import controller.*;
 
 public class TelaPrincipal extends JFrame {
 
@@ -196,7 +196,7 @@ public class TelaPrincipal extends JFrame {
     private void abrirTurma() {
         SwingUtilities.invokeLater(() -> {
             TurmaDAO tDAO = new TurmaDAO(conn);
-            TurmaController controller = new TurmaController(tDAO, conn); // <<< tem que ser este
+            TurmaController controller = new TurmaController(tDAO); 
             new TelaTurma(controller).setVisible(true);
         });
     }

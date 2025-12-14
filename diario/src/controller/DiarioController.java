@@ -7,11 +7,14 @@ import model.Diario;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class DiarioController {
 
-    private static final Logger logger = Logger.getLogger(DiarioController.class.getName());
+    private static final Logger logger = LogManager.getLogger(DiarioController.class);
+
 
     private final DiarioDAO diarioDAO;
     private final NotaDAO notaDAO;
@@ -59,7 +62,7 @@ public class DiarioController {
                 return false;
             }
         } catch (SQLException e) {
-            logger.severe("Erro em transação excluir Diario: " + e.getMessage());
+            logger.error("Erro em transação excluir Diario: " + e.getMessage());
             try { conn.rollback(); } catch (SQLException ignored) {}
             return false;
         } finally {
