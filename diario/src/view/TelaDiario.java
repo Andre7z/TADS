@@ -7,8 +7,12 @@ import controller.NotaController;
 import dao.ConnectionFactory;
 import dao.DiarioDAO;
 import dao.NotaDAO;
+import model.Aluno;
 import model.Diario;
+import model.Disciplina;
 import model.Nota;
+import model.Periodo;
+import model.Turma;
 
 import java.awt.*;
 import java.sql.Connection;
@@ -21,7 +25,7 @@ import java.util.List;
 public class TelaDiario extends JFrame {
 
     private JTextField txtId;
-    private JComboBox<String> cmbIdsDiario; // NOVO: combo com IDs de diário
+    private JComboBox<String> cmbIdsDiario; // combo com IDs de diário
     private JComboBox<String> cmbAluno;
     private JComboBox<String> cmbDisciplina;
     private JComboBox<String> cmbPeriodo;
@@ -37,6 +41,7 @@ public class TelaDiario extends JFrame {
     private JButton btnEditarNota, btnRemoverNota;
     private JButton btnSalvar, btnAlterar, btnExcluir, btnLimpar, btnSair;
 
+    // mapas "id - nome" -> id
     private HashMap<String, Integer> alunoMap = new HashMap<>();
     private HashMap<String, Integer> disciplinaMap = new HashMap<>();
     private HashMap<String, Integer> periodoMap = new HashMap<>();
@@ -49,7 +54,7 @@ public class TelaDiario extends JFrame {
     private Nota nota; // objeto em memória com as notas digitadas
 
     public TelaDiario(DiarioController diarioController,
-            NotaController notaController, Connection conn) {
+                      NotaController notaController, Connection conn) {
         this.diarioController = diarioController;
         this.notaController = notaController;
         this.conn = conn;
@@ -292,8 +297,8 @@ public class TelaDiario extends JFrame {
         List<Diario> lista = diarioController.listarTodos();
         if (lista != null) {
             for (Diario d : lista) {
-                String item = d.getId() + " - Aluno " + d.getIdAluno()
-                        + " / Disc " + d.getIdDisciplina();
+                String item = d.getId() + " - Aluno " + d.getAluno().getId()
+                        + " / Disc " + d.getDisciplina().getId();
                 cmbIdsDiario.addItem(item);
             }
         }
@@ -333,20 +338,34 @@ public class TelaDiario extends JFrame {
 
     private Diario montarDiarioDaTela() {
         int id = txtId.getText().isEmpty() ? 0 : Integer.parseInt(txtId.getText().trim());
+
         int idAluno = alunoMap.get(cmbAluno.getSelectedItem().toString());
-        int idDisc = disciplinaMap.get(cmbDisciplina.getSelectedItem().toString());
-        int idPer = periodoMap.get(cmbPeriodo.getSelectedItem().toString());
-        int idTur = turmaMap.get(cmbTurma.getSelectedItem().toString());
+        int idDisc  = disciplinaMap.get(cmbDisciplina.getSelectedItem().toString());
+        int idPer   = periodoMap.get(cmbPeriodo.getSelectedItem().toString());
+        int idTur   = turmaMap.get(cmbTurma.getSelectedItem().toString());
         boolean status = chkAprovado.isSelected();
-        return new Diario(id, idDisc, idPer, idTur, idAluno, status);
+
+        Disciplina disc = new Disciplina();
+        disc.setId(idDisc);
+
+        Periodo per = new Periodo();
+        per.setId(idPer);
+
+        Turma tur = new Turma();
+        tur.setId(idTur);
+
+        Aluno alu = new Aluno();
+        alu.setId(idAluno);
+
+        return new Diario(id, disc, per, tur, alu, status);
     }
 
     private void preencherTelaComDiario(Diario d) {
         txtId.setText(String.valueOf(d.getId()));
-        selecionarItemComboPorId(cmbDisciplina, d.getIdDisciplina());
-        selecionarItemComboPorId(cmbPeriodo, d.getIdPeriodo());
-        selecionarItemComboPorId(cmbTurma, d.getIdTurma());
-        selecionarItemComboPorId(cmbAluno, d.getIdAluno());
+        selecionarItemComboPorId(cmbDisciplina, d.getDisciplina().getId());
+        selecionarItemComboPorId(cmbPeriodo,   d.getPeriodo().getId());
+        selecionarItemComboPorId(cmbTurma,     d.getTurma().getId());
+        selecionarItemComboPorId(cmbAluno,     d.getAluno().getId());
         chkAprovado.setSelected(d.isStatus());
     }
 
@@ -408,7 +427,6 @@ public class TelaDiario extends JFrame {
             carregarIdsDiario();
         }
     }
-
 
     private void selecionarIdDoCombo() {
         if (cmbIdsDiario.getSelectedIndex() <= 0)

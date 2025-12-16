@@ -1,70 +1,69 @@
 package model;
 
 public class Diario {
+
     private int id;
-    private int idDisciplina;
-    private int idPeriodo;
-    private int idTurma;
-    private int idAluno;
+    private Disciplina disciplina;
+    private Periodo periodo;
+    private Turma turma;
+    private Aluno aluno;
     private boolean status;
 
     public Diario() {
     }
 
-    public Diario(int id, int idDisciplina, int idPeriodo,
-            int idTurma, int idAluno, boolean status) {
+    public Diario(int id,
+                  Disciplina disciplina,
+                  Periodo periodo,
+                  Turma turma,
+                  Aluno aluno,
+                  boolean status) {
         this.id = id;
-        this.idDisciplina = idDisciplina;
-        this.idPeriodo = idPeriodo;
-        this.idTurma = idTurma;
-        this.idAluno = idAluno;
+        this.disciplina = disciplina;
+        this.periodo = periodo;
+        this.turma = turma;
+        this.aluno = aluno;
         this.status = status;
     }
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getIdDisciplina() {
-        return idDisciplina;
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
-    public void setIdDisciplina(int idDisciplina) {
-        this.idDisciplina = idDisciplina;
+    public Periodo getPeriodo() {
+        return periodo;
+    }
+    public void setPeriodo(Periodo periodo) {
+        this.periodo = periodo;
     }
 
-    public int getIdPeriodo() {
-        return idPeriodo;
+    public Turma getTurma() {
+        return turma;
+    }
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
-    public void setIdPeriodo(int idPeriodo) {
-        this.idPeriodo = idPeriodo;
+    public Aluno getAluno() {
+        return aluno;
     }
-
-    public int getIdTurma() {
-        return idTurma;
-    }
-
-    public void setIdTurma(int idTurma) {
-        this.idTurma = idTurma;
-    }
-
-    public int getIdAluno() {
-        return idAluno;
-    }
-
-    public void setIdAluno(int idAluno) {
-        this.idAluno = idAluno;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     public boolean isStatus() {
         return status;
     }
-
     public void setStatus(boolean status) {
         this.status = status;
     }

@@ -1,6 +1,8 @@
 package dao;
 
 import model.Disciplina;
+import model.Professor;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class DisciplinaDAO {
                    + "VALUES (?, ?) RETURNING id";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, d.getNomeDisciplina());
-            ps.setInt(2, d.getIdProfessor());
+            ps.setInt(2, d.getProfessor().getId());   // pega o id do Professor
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int idGerado = rs.getInt("id");
@@ -44,7 +46,7 @@ public class DisciplinaDAO {
                    + "WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, d.getNomeDisciplina());
-            ps.setInt(2, d.getIdProfessor());
+            ps.setInt(2, d.getProfessor().getId());
             ps.setInt(3, d.getId());
             int linhas = ps.executeUpdate();
             logger.info("Disciplina alterada, linhas afetadas=" + linhas);
@@ -77,10 +79,13 @@ public class DisciplinaDAO {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
+                    Professor p = new Professor();
+                    p.setId(rs.getInt("id_professor"));
+
                     Disciplina d = new Disciplina(
                         rs.getInt("id"),
                         rs.getString("nome_disciplina"),
-                        rs.getInt("id_professor")
+                        p
                     );
                     logger.info("Disciplina encontrada id=" + id);
                     return d;
@@ -104,10 +109,13 @@ public class DisciplinaDAO {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
+                Professor p = new Professor();
+                p.setId(rs.getInt("id_professor"));
+
                 Disciplina d = new Disciplina(
                     rs.getInt("id"),
                     rs.getString("nome_disciplina"),
-                    rs.getInt("id_professor")
+                    p
                 );
                 lista.add(d);
             }

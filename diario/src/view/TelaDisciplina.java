@@ -159,7 +159,7 @@ public class TelaDisciplina extends JFrame {
         List<Professor> lista = professorController.listarTodos();
         if (lista != null) {
             for (Professor p : lista) {
-                String item = p.getId() + " - " + p.getNome(); // use o atributo de nome correto
+                String item = p.getId() + " - " + p.getNome();
                 cmbProfessor.addItem(item);
                 profMap.put(item, p.getId());
             }
@@ -173,23 +173,27 @@ public class TelaDisciplina extends JFrame {
         String nome = txtNome.getText();
 
         String itemProf = (String) cmbProfessor.getSelectedItem();
-        int idProfessor = 0;
+        Professor professor = null;
         if (itemProf != null && profMap.containsKey(itemProf)) {
-            idProfessor = profMap.get(itemProf);
+            int idProfessor = profMap.get(itemProf);
+            professor = new Professor();
+            professor.setId(idProfessor);
         }
 
-        // construtor: Disciplina(int id, String nome, int idProfessor)
-        return new Disciplina(id, nome, idProfessor);
+        // construtor: Disciplina(int id, String nome, Professor professor)
+        return new Disciplina(id, nome, professor);
     }
 
     private void preencherTelaComDisciplina(Disciplina d) {
         txtId.setText(String.valueOf(d.getId()));
         txtNome.setText(d.getNomeDisciplina());
 
+        int idProf = (d.getProfessor() != null) ? d.getProfessor().getId() : 0;
+
         // selecionar professor pelo id
         for (int i = 1; i < cmbProfessor.getItemCount(); i++) {
             String item = cmbProfessor.getItemAt(i);
-            if (item.startsWith(d.getIdProfessor() + " -")) {
+            if (item.startsWith(idProf + " -")) {
                 cmbProfessor.setSelectedIndex(i);
                 break;
             }

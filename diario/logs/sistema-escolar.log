@@ -504,3 +504,67 @@ org.postgresql.util.PSQLException: ERRO: coluna "id_disciplina" não existe
 16-12-2025 09:30:43 INFO  DiarioController - Iniciando pesquisar Diario id=1
 16-12-2025 09:30:43 INFO  DiarioDAO - Diario encontrado id=1
 16-12-2025 09:30:43 INFO  DiarioController - Diario encontrado? true
+16-12-2025 09:40:30 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:40:32 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:40:32 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=1
+16-12-2025 09:40:32 INFO  DisciplinaController - Total de disciplinas retornadas=1
+16-12-2025 09:40:32 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:40:32 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 09:40:32 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 09:40:34 INFO  DisciplinaController - Iniciando pesquisar Disciplina id=1
+16-12-2025 09:40:34 INFO  DisciplinaDAO - Disciplina encontrada id=1
+16-12-2025 09:40:34 INFO  DisciplinaController - Disciplina encontrada? true
+16-12-2025 09:46:01 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:46:01 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:46:01 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:46:01 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:46:01 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:46:01 INFO  DiarioController - Iniciando listarTodos Diario
+16-12-2025 09:46:01 INFO  DiarioDAO - Lista de diarios carregada. Quantidade=1
+16-12-2025 09:46:01 INFO  DiarioController - Total de diarios retornados=1
+16-12-2025 09:46:03 INFO  DiarioController - Iniciando pesquisar Diario id=1
+16-12-2025 09:46:03 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:03 INFO  DiarioController - Diario encontrado? true
+16-12-2025 09:46:03 INFO  NotaDAO - Notas carregadas para diario=1 qtd=2
+16-12-2025 09:46:12 INFO  NotaController - Iniciando salvarNotasEAtualizarStatus para diario=1
+16-12-2025 09:46:12 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:12 INFO  NotaDAO - Notas excluídas para diario=1 linhas=2
+16-12-2025 09:46:12 INFO  NotaDAO - Notas salvas, quantidade=3
+16-12-2025 09:46:12 INFO  NotaDAO - Notas carregadas para diario=1 qtd=3
+16-12-2025 09:46:12 INFO  DiarioDAO - Diario alterado, linhas afetadas=1
+16-12-2025 09:46:12 INFO  NotaController - Média=5.833333333333333 aprovado=false diarioAtualizado=true
+16-12-2025 09:46:13 INFO  DiarioController - Iniciando pesquisar Diario id=1
+16-12-2025 09:46:13 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:13 INFO  DiarioController - Diario encontrado? true
+16-12-2025 09:46:16 INFO  DiarioController - Iniciando pesquisar Diario id=1
+16-12-2025 09:46:16 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:16 INFO  DiarioController - Diario encontrado? true
+16-12-2025 09:46:16 INFO  NotaDAO - Notas carregadas para diario=1 qtd=3
+16-12-2025 09:46:21 INFO  DiarioController - Iniciando pesquisar Diario id=1
+16-12-2025 09:46:21 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:21 INFO  DiarioController - Diario encontrado? true
+16-12-2025 09:46:21 INFO  NotaDAO - Notas carregadas para diario=1 qtd=3
+16-12-2025 09:46:28 INFO  NotaController - Iniciando salvarNotasEAtualizarStatus para diario=1
+16-12-2025 09:46:28 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:28 INFO  NotaDAO - Notas excluídas para diario=1 linhas=3
+16-12-2025 09:46:28 INFO  NotaDAO - Notas salvas, quantidade=2
+16-12-2025 09:46:28 INFO  NotaDAO - Notas carregadas para diario=1 qtd=2
+16-12-2025 09:46:28 INFO  DiarioDAO - Diario alterado, linhas afetadas=1
+16-12-2025 09:46:28 INFO  NotaController - Média=8.25 aprovado=true diarioAtualizado=true
+16-12-2025 09:46:29 INFO  DiarioController - Iniciando pesquisar Diario id=1
+16-12-2025 09:46:29 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:29 INFO  DiarioController - Diario encontrado? true
+16-12-2025 09:46:33 INFO  NotaController - Iniciando salvarNotasEAtualizarStatus para diario=1
+16-12-2025 09:46:33 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:33 INFO  NotaDAO - Notas excluídas para diario=1 linhas=2
+16-12-2025 09:46:33 INFO  NotaDAO - Notas salvas, quantidade=2
+16-12-2025 09:46:33 INFO  NotaDAO - Notas carregadas para diario=1 qtd=2
+16-12-2025 09:46:33 INFO  DiarioDAO - Diario alterado, linhas afetadas=1
+16-12-2025 09:46:33 INFO  NotaController - Média=8.25 aprovado=true diarioAtualizado=true
+16-12-2025 09:46:34 INFO  DiarioController - Iniciando pesquisar Diario id=1
+16-12-2025 09:46:34 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:34 INFO  DiarioController - Diario encontrado? true
+16-12-2025 09:46:37 INFO  DiarioController - Iniciando pesquisar Diario id=1
+16-12-2025 09:46:37 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:46:37 INFO  DiarioController - Diario encontrado? true
+16-12-2025 09:46:37 INFO  NotaDAO - Notas carregadas para diario=1 qtd=2
