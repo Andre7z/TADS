@@ -9,8 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-
-
 public class AlunoDAO {
 
     private static final Logger logger = LogManager.getLogger(AlunoDAO.class);

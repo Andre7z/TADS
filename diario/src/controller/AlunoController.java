@@ -18,7 +18,7 @@ public class AlunoController {
         this.pessoaDAO = pessoaDAO;
     }
 
-    private boolean validarMatricula (String matricula) {
+    private boolean validarMatricula(String matricula) {
         if (matricula == null)
             return false;
         return matricula.matches("\\d{10}"); // verifica se a matricula tem 10 dígitos numéricos
@@ -31,7 +31,6 @@ public class AlunoController {
             return false;
         }
 
-        
         int idPessoa = pessoaDAO.salvar(aluno);
         if (idPessoa == 0) {
             logger.warn("Falha ao salvar Pessoa para Aluno");
@@ -73,10 +72,10 @@ public class AlunoController {
     }
 
     public List<Aluno> listarTodos() {
-    logger.info("Iniciando listarTodos Aluno");
-    List<Aluno> lista = alunoDAO.listarTodos();
-    logger.info("Total de alunos retornados=" + lista.size());
-    return lista;
-}
+        logger.info("Iniciando listarTodos Aluno");
+        List<Aluno> lista = alunoDAO.listarTodos();
+        logger.info("Total de alunos retornados=" + lista.size());
+        return lista;
+    }
 
 }

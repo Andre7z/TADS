@@ -4,7 +4,7 @@ public class Disciplina {
 
     private int id;
     private String nomeDisciplina;
-    private Professor professor;   // associação
+    private Professor professor;  
 
     public Disciplina() {}
 

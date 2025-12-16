@@ -24,7 +24,7 @@ public class DisciplinaDAO {
                    + "VALUES (?, ?) RETURNING id";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, d.getNomeDisciplina());
-            ps.setInt(2, d.getProfessor().getId());   // pega o id do Professor
+            ps.setInt(2, d.getProfessor().getId()); 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int idGerado = rs.getInt("id");

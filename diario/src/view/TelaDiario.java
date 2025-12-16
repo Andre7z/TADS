@@ -599,7 +599,6 @@ public class TelaDiario extends JFrame {
         }
     }
 
-    /* MAIN opcional de teste isolado */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Connection conn = ConnectionFactory.getConnection();

@@ -8,7 +8,7 @@
             <Policies>
                 <SizeBasedTriggeringPolicy size="2MB"/>
             </Policies>
-            <DefaultRolloverStrategy max="5"/>
+             <DefaultRolloverStrategy max="5"/> <!--Mantém máximo 5 arquivos -->
         </RollingFile>
     </Appenders>
 
