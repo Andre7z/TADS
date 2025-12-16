@@ -177,13 +177,18 @@ public class TelaPrincipal extends JFrame {
         });
     }
 
-    private void abrirDisciplina() {
-        SwingUtilities.invokeLater(() -> {
-            DisciplinaDAO dDAO = new DisciplinaDAO(conn);
-            DisciplinaController controller = new DisciplinaController(dDAO);
-            new TelaDisciplina(controller).setVisible(true);
-        });
-    }
+private void abrirDisciplina() {
+    SwingUtilities.invokeLater(() -> {
+        DisciplinaDAO dDAO     = new DisciplinaDAO(conn);
+        ProfessorDAO  pDAO     = new ProfessorDAO(conn);
+        ProfessorController profCtrl = new ProfessorController(pDAO, new PessoaDAO(conn));
+        DisciplinaController discCtrl = new DisciplinaController(dDAO);
+
+        TelaDisciplina tela = new TelaDisciplina(discCtrl, profCtrl);
+        tela.setVisible(true);
+    });
+}
+
 
     private void abrirPeriodo() {
         SwingUtilities.invokeLater(() -> {

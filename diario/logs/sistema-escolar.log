@@ -60,3 +60,447 @@
 14-12-2025 11:06:54 INFO  PeriodoController - Iniciando pesquisar Periodo id=1
 14-12-2025 11:06:54 INFO  PeriodoDAO - Periodo encontrado id=1
 14-12-2025 11:06:54 INFO  PeriodoController - Periodo encontrado? true
+16-12-2025 08:38:04 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:38:06 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:38:06 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:38:06 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=0
+16-12-2025 08:38:06 INFO  AlunoController - Total de alunos retornados=0
+16-12-2025 08:39:06 INFO  AlunoController - Iniciando salvar Aluno
+16-12-2025 08:39:06 INFO  PessoaDAO - Pessoa salva com id=1
+16-12-2025 08:39:06 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:06 INFO  AlunoDAO - Aluno salvo, linhas=1
+16-12-2025 08:39:06 INFO  AlunoController - Resultado salvar Aluno=true
+16-12-2025 08:39:08 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:39:08 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:08 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=1
+16-12-2025 08:39:08 INFO  AlunoController - Total de alunos retornados=1
+16-12-2025 08:39:12 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=1
+16-12-2025 08:39:12 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:12 INFO  AlunoDAO - Aluno encontrado id=1
+16-12-2025 08:39:12 INFO  AlunoController - Aluno encontrado? true
+16-12-2025 08:39:31 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:39:31 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:31 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=1
+16-12-2025 08:39:31 INFO  AlunoController - Total de alunos retornados=1
+16-12-2025 08:39:38 INFO  AlunoController - Iniciando salvar Aluno
+16-12-2025 08:39:38 INFO  PessoaDAO - Pessoa salva com id=2
+16-12-2025 08:39:38 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:38 INFO  AlunoDAO - Aluno salvo, linhas=1
+16-12-2025 08:39:38 INFO  AlunoController - Resultado salvar Aluno=true
+16-12-2025 08:39:39 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:39:39 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:39 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=2
+16-12-2025 08:39:39 INFO  AlunoController - Total de alunos retornados=2
+16-12-2025 08:39:42 INFO  AlunoController - Iniciando salvar Aluno
+16-12-2025 08:39:42 INFO  PessoaDAO - Pessoa salva com id=3
+16-12-2025 08:39:42 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:42 INFO  AlunoDAO - Aluno salvo, linhas=1
+16-12-2025 08:39:42 INFO  AlunoController - Resultado salvar Aluno=true
+16-12-2025 08:39:42 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:39:42 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:42 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=3
+16-12-2025 08:39:42 INFO  AlunoController - Total de alunos retornados=3
+16-12-2025 08:39:45 INFO  AlunoController - Iniciando salvar Aluno
+16-12-2025 08:39:45 INFO  PessoaDAO - Pessoa salva com id=4
+16-12-2025 08:39:45 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:45 INFO  AlunoDAO - Aluno salvo, linhas=1
+16-12-2025 08:39:45 INFO  AlunoController - Resultado salvar Aluno=true
+16-12-2025 08:39:46 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:39:46 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:46 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=4
+16-12-2025 08:39:46 INFO  AlunoController - Total de alunos retornados=4
+16-12-2025 08:39:49 INFO  AlunoController - Iniciando salvar Aluno
+16-12-2025 08:39:49 INFO  PessoaDAO - Pessoa salva com id=5
+16-12-2025 08:39:49 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:49 INFO  AlunoDAO - Aluno salvo, linhas=1
+16-12-2025 08:39:49 INFO  AlunoController - Resultado salvar Aluno=true
+16-12-2025 08:39:49 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:39:50 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:50 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=5
+16-12-2025 08:39:50 INFO  AlunoController - Total de alunos retornados=5
+16-12-2025 08:39:52 INFO  AlunoController - Iniciando salvar Aluno
+16-12-2025 08:39:52 INFO  PessoaDAO - Pessoa salva com id=6
+16-12-2025 08:39:52 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:52 INFO  AlunoDAO - Aluno salvo, linhas=1
+16-12-2025 08:39:52 INFO  AlunoController - Resultado salvar Aluno=true
+16-12-2025 08:39:53 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:39:53 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:53 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=6
+16-12-2025 08:39:53 INFO  AlunoController - Total de alunos retornados=6
+16-12-2025 08:39:56 INFO  AlunoController - Iniciando salvar Aluno
+16-12-2025 08:39:56 INFO  PessoaDAO - Pessoa salva com id=7
+16-12-2025 08:39:56 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:56 INFO  AlunoDAO - Aluno salvo, linhas=1
+16-12-2025 08:39:56 INFO  AlunoController - Resultado salvar Aluno=true
+16-12-2025 08:39:57 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:39:57 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:57 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=7
+16-12-2025 08:39:57 INFO  AlunoController - Total de alunos retornados=7
+16-12-2025 08:39:58 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=4
+16-12-2025 08:39:58 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:39:58 INFO  AlunoDAO - Aluno encontrado id=4
+16-12-2025 08:39:58 INFO  AlunoController - Aluno encontrado? true
+16-12-2025 08:40:01 INFO  AlunoController - Iniciando excluir Aluno idPessoa=4
+16-12-2025 08:40:01 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:01 INFO  AlunoDAO - Aluno excluído, linhas=1
+16-12-2025 08:40:01 INFO  PessoaDAO - Pessoa excluída, linhas=1
+16-12-2025 08:40:01 INFO  AlunoController - Resultado excluir Aluno=true
+16-12-2025 08:40:02 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:40:02 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:02 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=6
+16-12-2025 08:40:02 INFO  AlunoController - Total de alunos retornados=6
+16-12-2025 08:40:04 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=3
+16-12-2025 08:40:04 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:04 INFO  AlunoDAO - Aluno encontrado id=3
+16-12-2025 08:40:04 INFO  AlunoController - Aluno encontrado? true
+16-12-2025 08:40:05 INFO  AlunoController - Iniciando excluir Aluno idPessoa=3
+16-12-2025 08:40:06 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:06 INFO  AlunoDAO - Aluno excluído, linhas=1
+16-12-2025 08:40:06 INFO  PessoaDAO - Pessoa excluída, linhas=1
+16-12-2025 08:40:06 INFO  AlunoController - Resultado excluir Aluno=true
+16-12-2025 08:40:07 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:40:07 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:07 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=5
+16-12-2025 08:40:07 INFO  AlunoController - Total de alunos retornados=5
+16-12-2025 08:40:08 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=2
+16-12-2025 08:40:08 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:08 INFO  AlunoDAO - Aluno encontrado id=2
+16-12-2025 08:40:08 INFO  AlunoController - Aluno encontrado? true
+16-12-2025 08:40:10 INFO  AlunoController - Iniciando excluir Aluno idPessoa=2
+16-12-2025 08:40:10 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:10 INFO  AlunoDAO - Aluno excluído, linhas=1
+16-12-2025 08:40:10 INFO  PessoaDAO - Pessoa excluída, linhas=1
+16-12-2025 08:40:10 INFO  AlunoController - Resultado excluir Aluno=true
+16-12-2025 08:40:10 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:40:10 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:10 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=4
+16-12-2025 08:40:10 INFO  AlunoController - Total de alunos retornados=4
+16-12-2025 08:40:12 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=6
+16-12-2025 08:40:12 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:12 INFO  AlunoDAO - Aluno encontrado id=6
+16-12-2025 08:40:12 INFO  AlunoController - Aluno encontrado? true
+16-12-2025 08:40:13 INFO  AlunoController - Iniciando excluir Aluno idPessoa=6
+16-12-2025 08:40:13 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:13 INFO  AlunoDAO - Aluno excluído, linhas=1
+16-12-2025 08:40:13 INFO  PessoaDAO - Pessoa excluída, linhas=1
+16-12-2025 08:40:13 INFO  AlunoController - Resultado excluir Aluno=true
+16-12-2025 08:40:14 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:40:14 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:14 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=3
+16-12-2025 08:40:14 INFO  AlunoController - Total de alunos retornados=3
+16-12-2025 08:40:16 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=5
+16-12-2025 08:40:16 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:16 INFO  AlunoDAO - Aluno encontrado id=5
+16-12-2025 08:40:16 INFO  AlunoController - Aluno encontrado? true
+16-12-2025 08:40:19 INFO  AlunoController - Iniciando alterar Aluno id=5
+16-12-2025 08:40:19 INFO  PessoaDAO - Pessoa alterada, linhas=1
+16-12-2025 08:40:19 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:19 INFO  AlunoDAO - Aluno alterado, linhas=1
+16-12-2025 08:40:19 INFO  AlunoController - Resultado alterar Aluno=true
+16-12-2025 08:40:20 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:40:20 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:20 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=3
+16-12-2025 08:40:20 INFO  AlunoController - Total de alunos retornados=3
+16-12-2025 08:40:23 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=7
+16-12-2025 08:40:23 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:23 INFO  AlunoDAO - Aluno encontrado id=7
+16-12-2025 08:40:23 INFO  AlunoController - Aluno encontrado? true
+16-12-2025 08:40:24 INFO  AlunoController - Iniciando excluir Aluno idPessoa=7
+16-12-2025 08:40:24 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:24 INFO  AlunoDAO - Aluno excluído, linhas=1
+16-12-2025 08:40:24 INFO  PessoaDAO - Pessoa excluída, linhas=1
+16-12-2025 08:40:24 INFO  AlunoController - Resultado excluir Aluno=true
+16-12-2025 08:40:25 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:40:25 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:25 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=2
+16-12-2025 08:40:25 INFO  AlunoController - Total de alunos retornados=2
+16-12-2025 08:40:26 INFO  AlunoController - Iniciando pesquisar Aluno idPessoa=5
+16-12-2025 08:40:26 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:26 INFO  AlunoDAO - Aluno encontrado id=5
+16-12-2025 08:40:26 INFO  AlunoController - Aluno encontrado? true
+16-12-2025 08:40:28 INFO  AlunoController - Iniciando excluir Aluno idPessoa=5
+16-12-2025 08:40:28 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:28 INFO  AlunoDAO - Aluno excluído, linhas=1
+16-12-2025 08:40:28 INFO  PessoaDAO - Pessoa excluída, linhas=1
+16-12-2025 08:40:28 INFO  AlunoController - Resultado excluir Aluno=true
+16-12-2025 08:40:29 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 08:40:29 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:40:29 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=1
+16-12-2025 08:40:29 INFO  AlunoController - Total de alunos retornados=1
+16-12-2025 08:41:10 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:41:12 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 08:41:12 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=0
+16-12-2025 08:41:12 INFO  ProfessorController - Total de professores retornados=0
+16-12-2025 08:42:08 INFO  ProfessorController - Iniciando salvar Professor
+16-12-2025 08:42:08 INFO  PessoaDAO - Pessoa salva com id=8
+16-12-2025 08:42:08 INFO  ProfessorDAO - Professor salvo, linhas afetadas=1
+16-12-2025 08:42:08 INFO  ProfessorController - Resultado salvar Professor=true id=8
+16-12-2025 08:42:09 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 08:42:09 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 08:42:09 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 08:42:12 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 08:42:12 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 08:42:12 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 08:42:33 INFO  DisciplinaController - Iniciando salvar Disciplina
+16-12-2025 08:42:33 INFO  DisciplinaDAO - Disciplina salva com id=1
+16-12-2025 08:42:33 INFO  DisciplinaController - Resultado salvar Disciplina=true
+16-12-2025 08:42:34 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 08:42:34 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=1
+16-12-2025 08:42:34 INFO  DisciplinaController - Total de disciplinas retornadas=1
+16-12-2025 08:42:36 INFO  PeriodoController - Iniciando listarTodos Periodo
+16-12-2025 08:42:36 INFO  PeriodoDAO - Lista de periodos carregada. Quantidade=0
+16-12-2025 08:42:36 INFO  PeriodoController - Total de periodos retornados=0
+16-12-2025 08:43:06 INFO  PeriodoController - Iniciando salvar Periodo
+16-12-2025 08:43:06 INFO  PeriodoDAO - Periodo salvo com id=1
+16-12-2025 08:43:06 INFO  PeriodoController - Resultado salvar Periodo=true id=1
+16-12-2025 08:43:07 INFO  PeriodoController - Iniciando listarTodos Periodo
+16-12-2025 08:43:07 INFO  PeriodoDAO - Lista de periodos carregada. Quantidade=1
+16-12-2025 08:43:07 INFO  PeriodoController - Total de periodos retornados=1
+16-12-2025 08:43:09 INFO  TurmaController - Carregando disciplinas para combo
+16-12-2025 08:43:09 INFO  TurmaDAO - Disciplinas carregadas para combo: 1
+16-12-2025 08:43:09 INFO  TurmaController - Total de disciplinas carregadas=1
+16-12-2025 08:43:09 INFO  TurmaController - Carregando professores para combo
+16-12-2025 08:43:09 INFO  TurmaDAO - Professores carregados para combo: 1
+16-12-2025 08:43:09 INFO  TurmaController - Total de professores carregados=1
+16-12-2025 08:43:09 INFO  TurmaController - Carregando períodos para combo
+16-12-2025 08:43:09 INFO  TurmaDAO - Períodos carregados para combo: 1
+16-12-2025 08:43:09 INFO  TurmaController - Total de períodos carregados=1
+16-12-2025 08:43:09 INFO  TurmaController - Iniciando listarTodos Turma
+16-12-2025 08:43:09 INFO  TurmaDAO - Lista de turmas carregada. Quantidade=0
+16-12-2025 08:43:09 INFO  TurmaController - Total de turmas retornadas=0
+16-12-2025 08:43:13 INFO  TurmaController - Carregando disciplinas para combo
+16-12-2025 08:43:13 INFO  TurmaDAO - Disciplinas carregadas para combo: 1
+16-12-2025 08:43:13 INFO  TurmaController - Total de disciplinas carregadas=1
+16-12-2025 08:43:13 INFO  TurmaController - Carregando professores para combo
+16-12-2025 08:43:14 INFO  TurmaDAO - Professores carregados para combo: 1
+16-12-2025 08:43:14 INFO  TurmaController - Total de professores carregados=1
+16-12-2025 08:43:14 INFO  TurmaController - Carregando períodos para combo
+16-12-2025 08:43:14 INFO  TurmaDAO - Períodos carregados para combo: 1
+16-12-2025 08:43:14 INFO  TurmaController - Total de períodos carregados=1
+16-12-2025 08:43:14 INFO  TurmaController - Iniciando listarTodos Turma
+16-12-2025 08:43:14 INFO  TurmaDAO - Lista de turmas carregada. Quantidade=0
+16-12-2025 08:43:14 INFO  TurmaController - Total de turmas retornadas=0
+16-12-2025 08:43:33 INFO  TurmaController - Iniciando salvar Turma
+16-12-2025 08:43:33 INFO  TurmaDAO - Turma salva com id=1
+16-12-2025 08:43:33 INFO  TurmaController - Resultado salvar Turma=true id=1
+16-12-2025 08:43:33 INFO  TurmaController - Iniciando listarTodos Turma
+16-12-2025 08:43:33 INFO  TurmaDAO - Lista de turmas carregada. Quantidade=1
+16-12-2025 08:43:33 INFO  TurmaController - Total de turmas retornadas=1
+16-12-2025 08:43:36 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:43:36 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:43:36 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:43:36 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:43:36 INFO  DiarioController - Iniciando listarTodos Diario
+16-12-2025 08:43:36 INFO  DiarioDAO - Lista de diarios carregada. Quantidade=0
+16-12-2025 08:43:36 INFO  DiarioController - Total de diarios retornados=0
+16-12-2025 08:43:51 INFO  TurmaController - Carregando disciplinas para combo
+16-12-2025 08:43:51 INFO  TurmaDAO - Disciplinas carregadas para combo: 1
+16-12-2025 08:43:51 INFO  TurmaController - Total de disciplinas carregadas=1
+16-12-2025 08:43:51 INFO  TurmaController - Carregando professores para combo
+16-12-2025 08:43:51 INFO  TurmaDAO - Professores carregados para combo: 1
+16-12-2025 08:43:51 INFO  TurmaController - Total de professores carregados=1
+16-12-2025 08:43:51 INFO  TurmaController - Carregando períodos para combo
+16-12-2025 08:43:51 INFO  TurmaDAO - Períodos carregados para combo: 1
+16-12-2025 08:43:51 INFO  TurmaController - Total de períodos carregados=1
+16-12-2025 08:43:51 INFO  TurmaController - Iniciando listarTodos Turma
+16-12-2025 08:43:51 INFO  TurmaDAO - Lista de turmas carregada. Quantidade=1
+16-12-2025 08:43:51 INFO  TurmaController - Total de turmas retornadas=1
+16-12-2025 08:43:54 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:43:54 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:43:54 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:43:54 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 08:43:54 INFO  DiarioController - Iniciando listarTodos Diario
+16-12-2025 08:43:54 INFO  DiarioDAO - Lista de diarios carregada. Quantidade=0
+16-12-2025 08:43:54 INFO  DiarioController - Total de diarios retornados=0
+16-12-2025 09:18:30 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:18:32 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:32 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=0
+16-12-2025 09:18:32 INFO  ProfessorController - Total de professores retornados=0
+16-12-2025 09:18:35 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:18:35 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:18:35 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:18:35 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:35 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=0
+16-12-2025 09:18:35 INFO  ProfessorController - Total de professores retornados=0
+16-12-2025 09:18:39 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:39 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=0
+16-12-2025 09:18:39 INFO  ProfessorController - Total de professores retornados=0
+16-12-2025 09:18:42 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:18:42 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:18:42 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:18:42 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:42 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=0
+16-12-2025 09:18:42 INFO  ProfessorController - Total de professores retornados=0
+16-12-2025 09:18:44 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:44 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=0
+16-12-2025 09:18:44 INFO  ProfessorController - Total de professores retornados=0
+16-12-2025 09:18:47 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:18:47 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:18:47 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:18:47 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:47 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=0
+16-12-2025 09:18:47 INFO  ProfessorController - Total de professores retornados=0
+16-12-2025 09:18:50 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:50 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=0
+16-12-2025 09:18:50 INFO  ProfessorController - Total de professores retornados=0
+16-12-2025 09:18:54 INFO  ProfessorController - Iniciando salvar Professor
+16-12-2025 09:18:54 INFO  PessoaDAO - Pessoa salva com id=1
+16-12-2025 09:18:54 INFO  ProfessorDAO - Professor salvo, linhas afetadas=1
+16-12-2025 09:18:54 INFO  ProfessorController - Resultado salvar Professor=true id=1
+16-12-2025 09:18:55 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:55 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 09:18:55 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 09:18:56 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:18:56 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:18:56 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:18:56 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:18:56 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 09:18:56 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 09:19:47 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:19:49 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:19:49 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:19:49 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:19:49 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:19:49 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 09:19:49 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 09:19:53 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:19:53 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:19:53 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:19:53 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:19:53 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 09:19:53 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 09:23:02 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:03 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:23:03 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:23:03 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:23:03 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:23:03 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 09:23:03 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 09:23:16 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:17 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:17 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:17 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:17 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:17 INFO  DiarioController - Iniciando listarTodos Diario
+16-12-2025 09:23:17 INFO  DiarioDAO - Lista de diarios carregada. Quantidade=0
+16-12-2025 09:23:17 INFO  DiarioController - Total de diarios retornados=0
+16-12-2025 09:23:52 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:52 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:52 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:52 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:52 INFO  DiarioController - Iniciando listarTodos Diario
+16-12-2025 09:23:52 INFO  DiarioDAO - Lista de diarios carregada. Quantidade=0
+16-12-2025 09:23:52 INFO  DiarioController - Total de diarios retornados=0
+16-12-2025 09:23:57 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 09:23:57 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:23:57 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=0
+16-12-2025 09:23:57 INFO  AlunoController - Total de alunos retornados=0
+16-12-2025 09:24:08 INFO  AlunoController - Iniciando salvar Aluno
+16-12-2025 09:24:08 INFO  PessoaDAO - Pessoa salva com id=2
+16-12-2025 09:24:08 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:24:08 INFO  AlunoDAO - Aluno salvo, linhas=1
+16-12-2025 09:24:08 INFO  AlunoController - Resultado salvar Aluno=true
+16-12-2025 09:24:09 INFO  AlunoController - Iniciando listarTodos Aluno
+16-12-2025 09:24:09 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:24:09 INFO  AlunoDAO - Lista de alunos carregada. Quantidade=1
+16-12-2025 09:24:09 INFO  AlunoController - Total de alunos retornados=1
+16-12-2025 09:24:11 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:24:11 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:24:11 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:24:11 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:24:11 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 09:24:11 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 09:24:14 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:24:14 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=0
+16-12-2025 09:24:14 INFO  DisciplinaController - Total de disciplinas retornadas=0
+16-12-2025 09:24:14 INFO  ProfessorController - Iniciando listarTodos Professor
+16-12-2025 09:24:14 INFO  ProfessorDAO - Lista de professores carregada. Quantidade=1
+16-12-2025 09:24:14 INFO  ProfessorController - Total de professores retornados=1
+16-12-2025 09:24:17 INFO  DisciplinaController - Iniciando salvar Disciplina
+16-12-2025 09:24:17 INFO  DisciplinaDAO - Disciplina salva com id=1
+16-12-2025 09:24:17 INFO  DisciplinaController - Resultado salvar Disciplina=true
+16-12-2025 09:24:18 INFO  DisciplinaController - Iniciando listarTodos Disciplina
+16-12-2025 09:24:18 INFO  DisciplinaDAO - Lista de disciplinas carregada. Quantidade=1
+16-12-2025 09:24:18 INFO  DisciplinaController - Total de disciplinas retornadas=1
+16-12-2025 09:24:19 INFO  PeriodoController - Iniciando listarTodos Periodo
+16-12-2025 09:24:19 INFO  PeriodoDAO - Lista de periodos carregada. Quantidade=0
+16-12-2025 09:24:19 INFO  PeriodoController - Total de periodos retornados=0
+16-12-2025 09:24:22 INFO  PeriodoController - Iniciando salvar Periodo
+16-12-2025 09:24:22 INFO  PeriodoDAO - Periodo salvo com id=1
+16-12-2025 09:24:22 INFO  PeriodoController - Resultado salvar Periodo=true id=1
+16-12-2025 09:24:22 INFO  PeriodoController - Iniciando listarTodos Periodo
+16-12-2025 09:24:22 INFO  PeriodoDAO - Lista de periodos carregada. Quantidade=1
+16-12-2025 09:24:22 INFO  PeriodoController - Total de periodos retornados=1
+16-12-2025 09:24:24 INFO  TurmaController - Carregando disciplinas para combo
+16-12-2025 09:24:24 INFO  TurmaDAO - Disciplinas carregadas para combo: 1
+16-12-2025 09:24:24 INFO  TurmaController - Total de disciplinas carregadas=1
+16-12-2025 09:24:24 INFO  TurmaController - Carregando professores para combo
+16-12-2025 09:24:24 INFO  TurmaDAO - Professores carregados para combo: 1
+16-12-2025 09:24:24 INFO  TurmaController - Total de professores carregados=1
+16-12-2025 09:24:24 INFO  TurmaController - Carregando períodos para combo
+16-12-2025 09:24:24 INFO  TurmaDAO - Períodos carregados para combo: 1
+16-12-2025 09:24:24 INFO  TurmaController - Total de períodos carregados=1
+16-12-2025 09:24:24 INFO  TurmaController - Iniciando listarTodos Turma
+16-12-2025 09:24:24 ERROR TurmaDAO - Erro ao listar turmas: ERRO: coluna "id_disciplina" não existe
+  Posição: 24
+org.postgresql.util.PSQLException: ERRO: coluna "id_disciplina" não existe
+  Posição: 24
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
+	at dao.TurmaDAO.listarTodos(TurmaDAO.java:109)
+	at controller.TurmaController.listarTodos(TurmaController.java:54)
+	at view.TelaTurma.carregarIdsTurma(TelaTurma.java:149)
+	at view.TelaTurma.<init>(TelaTurma.java:42)
+	at view.TelaPrincipal.lambda$17(TelaPrincipal.java:205)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+16-12-2025 09:24:24 INFO  TurmaController - Total de turmas retornadas=0
+16-12-2025 09:30:00 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:30:03 INFO  TurmaController - Iniciando listarTodos Turma
+16-12-2025 09:30:03 INFO  TurmaDAO - Lista de turmas carregada. Quantidade=0
+16-12-2025 09:30:03 INFO  TurmaController - Total de turmas retornadas=0
+16-12-2025 09:30:18 INFO  TurmaController - Iniciando salvar Turma
+16-12-2025 09:30:18 INFO  TurmaDAO - Turma salva com id=1
+16-12-2025 09:30:18 INFO  TurmaController - Resultado salvar Turma=true id=1
+16-12-2025 09:30:18 INFO  TurmaController - Iniciando listarTodos Turma
+16-12-2025 09:30:18 INFO  TurmaDAO - Lista de turmas carregada. Quantidade=1
+16-12-2025 09:30:18 INFO  TurmaController - Total de turmas retornadas=1
+16-12-2025 09:30:21 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:30:21 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:30:21 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:30:21 INFO  ConnectionFactory - Conexão com PostgreSQL aberta
+16-12-2025 09:30:21 INFO  DiarioController - Iniciando listarTodos Diario
+16-12-2025 09:30:21 INFO  DiarioDAO - Lista de diarios carregada. Quantidade=0
+16-12-2025 09:30:21 INFO  DiarioController - Total de diarios retornados=0
+16-12-2025 09:30:37 INFO  DiarioController - Iniciando salvar Diario
+16-12-2025 09:30:37 INFO  DiarioDAO - Diario salvo com id=1
+16-12-2025 09:30:37 INFO  DiarioController - Resultado salvar Diario=true id=1
+16-12-2025 09:30:37 INFO  DiarioController - Iniciando listarTodos Diario
+16-12-2025 09:30:37 INFO  DiarioDAO - Lista de diarios carregada. Quantidade=1
+16-12-2025 09:30:37 INFO  DiarioController - Total de diarios retornados=1
+16-12-2025 09:30:42 INFO  NotaController - Iniciando salvarNotasEAtualizarStatus para diario=1
+16-12-2025 09:30:42 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:30:42 INFO  NotaDAO - Notas excluídas para diario=1 linhas=0
+16-12-2025 09:30:42 INFO  NotaDAO - Notas salvas, quantidade=2
+16-12-2025 09:30:42 INFO  NotaDAO - Notas carregadas para diario=1 qtd=2
+16-12-2025 09:30:42 INFO  DiarioDAO - Diario alterado, linhas afetadas=1
+16-12-2025 09:30:42 INFO  NotaController - Média=8.25 aprovado=true diarioAtualizado=true
+16-12-2025 09:30:43 INFO  DiarioController - Iniciando pesquisar Diario id=1
+16-12-2025 09:30:43 INFO  DiarioDAO - Diario encontrado id=1
+16-12-2025 09:30:43 INFO  DiarioController - Diario encontrado? true

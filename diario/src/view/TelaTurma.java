@@ -5,7 +5,6 @@ import model.Turma;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.List;
 
 public class TelaTurma extends JFrame {
@@ -13,33 +12,23 @@ public class TelaTurma extends JFrame {
     private JTextField txtId;
     private JTextField txtNomeTurma;
 
-    private JComboBox<String> cmbIdsTurma;   // NOVO: combo com IDs de turma
-    private JComboBox<String> cmbDisciplina;
-    private JComboBox<String> cmbProfessor;
-    private JComboBox<String> cmbPeriodo;
+    private JComboBox<String> cmbIdsTurma;
 
     private JButton btnSalvar, btnAlterar, btnExcluir, btnLimpar, btnSair;
 
     private TurmaController turmaController;
-
-    // mapas para converter "id - nome" -> id
-    private HashMap<String, Integer> disciplinaMap = new HashMap<>();
-    private HashMap<String, Integer> professorMap = new HashMap<>();
-    private HashMap<String, Integer> periodoMap = new HashMap<>();
 
     public TelaTurma(TurmaController turmaController) {
         this.turmaController = turmaController;
 
         setTitle("Cadastro de Turma");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(650, 420);
+        setSize(450, 260);
         setLocationRelativeTo(null);
 
         inicializarComponentes();
         adicionarEventos();
-
-        carregarCombos();      // disciplina, professor, período
-        carregarIdsTurma();    // IDs de turmas para o combo
+        carregarIdsTurma();
 
         setVisible(true);
     }
@@ -76,30 +65,6 @@ public class TelaTurma extends JFrame {
         txtNomeTurma = new JTextField(20);
         painel.add(txtNomeTurma, gbc);
 
-        // Disciplina
-        gbc.gridx = 0;
-        gbc.gridy++;
-        painel.add(new JLabel("Disciplina:"), gbc);
-        gbc.gridx = 1;
-        cmbDisciplina = new JComboBox<>();
-        painel.add(cmbDisciplina, gbc);
-
-        // Professor
-        gbc.gridx = 0;
-        gbc.gridy++;
-        painel.add(new JLabel("Professor:"), gbc);
-        gbc.gridx = 1;
-        cmbProfessor = new JComboBox<>();
-        painel.add(cmbProfessor, gbc);
-
-        // Período
-        gbc.gridx = 0;
-        gbc.gridy++;
-        painel.add(new JLabel("Período:"), gbc);
-        gbc.gridx = 1;
-        cmbPeriodo = new JComboBox<>();
-        painel.add(cmbPeriodo, gbc);
-
         // Botões
         JPanel painelBotoes = new JPanel(new FlowLayout());
         btnSalvar  = new JButton("Salvar");
@@ -129,18 +94,10 @@ public class TelaTurma extends JFrame {
         btnLimpar.addActionListener(_ -> limparCampos());
         btnSair.addActionListener(_ -> dispose());
 
-        // seleção no combo de IDs
         cmbIdsTurma.addActionListener(_ -> selecionarIdDoCombo());
     }
 
     /* ================== Métodos de carregamento ================== */
-
-    private void carregarCombos() {
-        // cada método do controller devolve um Map<String, Integer> pronto para o combo
-        disciplinaMap = turmaController.carregarDisciplinas(cmbDisciplina);
-        professorMap  = turmaController.carregarProfessores(cmbProfessor);
-        periodoMap    = turmaController.carregarPeriodos(cmbPeriodo);
-    }
 
     private void carregarIdsTurma() {
         cmbIdsTurma.removeAllItems();
@@ -158,12 +115,9 @@ public class TelaTurma extends JFrame {
     /* ================== Validação e montagem ================== */
 
     private boolean validarCampos() {
-        if (txtNomeTurma.getText().trim().isEmpty()
-                || cmbDisciplina.getSelectedIndex() == 0
-                || cmbProfessor.getSelectedIndex() == 0
-                || cmbPeriodo.getSelectedIndex() == 0) {
+        if (txtNomeTurma.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                    "Preencha nome da turma e selecione disciplina, professor e período.",
+                    "Preencha o nome da turma.",
                     "Atenção", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -171,21 +125,16 @@ public class TelaTurma extends JFrame {
     }
 
     private Turma montarTurmaDaTela() {
-        int id = txtId.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtId.getText().trim());
+        int id = txtId.getText().trim().isEmpty()
+                ? 0
+                : Integer.parseInt(txtId.getText().trim());
         String nome = txtNomeTurma.getText().trim();
-        int idDisc = disciplinaMap.get(cmbDisciplina.getSelectedItem().toString());
-        int idProf = professorMap.get(cmbProfessor.getSelectedItem().toString());
-        int idPer  = periodoMap.get(cmbPeriodo.getSelectedItem().toString());
-
-        return new Turma(id, nome, idDisc, idProf, idPer);
+        return new Turma(id, nome);
     }
 
     private void preencherTelaComTurma(Turma t) {
         txtId.setText(String.valueOf(t.getId()));
         txtNomeTurma.setText(t.getNomeTurma());
-        selecionarItemComboPorId(cmbDisciplina, t.getIdDisciplina());
-        selecionarItemComboPorId(cmbProfessor,  t.getIdProfessor());
-        selecionarItemComboPorId(cmbPeriodo,    t.getIdPeriodo());
     }
 
     /* ================== CRUD ================== */
@@ -255,7 +204,7 @@ public class TelaTurma extends JFrame {
     private void selecionarIdDoCombo() {
         if (cmbIdsTurma.getSelectedIndex() <= 0) return;
 
-        String item = (String) cmbIdsTurma.getSelectedItem(); // "3 - Turma A"
+        String item = (String) cmbIdsTurma.getSelectedItem();
         if (item == null || item.isBlank()) return;
 
         String strId = item.split(" - ")[0].trim();
@@ -276,27 +225,11 @@ public class TelaTurma extends JFrame {
         }
     }
 
-    private void selecionarItemComboPorId(JComboBox<String> combo, int id) {
-        for (int i = 1; i < combo.getItemCount(); i++) {
-            String item = combo.getItemAt(i);
-            if (item.startsWith(id + " -")) {
-                combo.setSelectedIndex(i);
-                break;
-            }
-        }
-    }
-
     private void limparCampos() {
         txtId.setText("");
         txtNomeTurma.setText("");
         if (cmbIdsTurma.getItemCount() > 0)
             cmbIdsTurma.setSelectedIndex(0);
-        if (cmbDisciplina.getItemCount() > 0)
-            cmbDisciplina.setSelectedIndex(0);
-        if (cmbProfessor.getItemCount() > 0)
-            cmbProfessor.setSelectedIndex(0);
-        if (cmbPeriodo.getItemCount() > 0)
-            cmbPeriodo.setSelectedIndex(0);
         txtNomeTurma.requestFocus();
     }
 }

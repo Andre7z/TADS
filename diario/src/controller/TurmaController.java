@@ -56,46 +56,18 @@ public class TurmaController {
         return lista;
     }
 
-    /* ================== Combos ================== */
+    /* ================== Combo de Turmas ================== */
 
-    // Estes métodos só manipulam o JComboBox; a busca no banco fica em métodos do DAO
-
-    public HashMap<String, Integer> carregarDisciplinas(JComboBox<String> combo) {
-        logger.info("Carregando disciplinas para combo");
+    public HashMap<String, Integer> carregarTurmas(JComboBox<String> combo) {
+        logger.info("Carregando turmas para combo");
         combo.removeAllItems();
-        combo.addItem("Selecione a disciplina...");
+        combo.addItem("Selecione a turma...");
 
-        HashMap<String, Integer> mapa = turmaDAO.buscarDisciplinasParaCombo();
+        HashMap<String, Integer> mapa = turmaDAO.buscarTurmasParaCombo();
         for (String item : mapa.keySet()) {
             combo.addItem(item);
         }
-        logger.info("Total de disciplinas carregadas={}", mapa.size());
-        return mapa;
-    }
-
-    public HashMap<String, Integer> carregarProfessores(JComboBox<String> combo) {
-        logger.info("Carregando professores para combo");
-        combo.removeAllItems();
-        combo.addItem("Selecione o professor...");
-
-        HashMap<String, Integer> mapa = turmaDAO.buscarProfessoresParaCombo();
-        for (String item : mapa.keySet()) {
-            combo.addItem(item);
-        }
-        logger.info("Total de professores carregados={}", mapa.size());
-        return mapa;
-    }
-
-    public HashMap<String, Integer> carregarPeriodos(JComboBox<String> combo) {
-        logger.info("Carregando períodos para combo");
-        combo.removeAllItems();
-        combo.addItem("Selecione o período...");
-
-        HashMap<String, Integer> mapa = turmaDAO.buscarPeriodosParaCombo();
-        for (String item : mapa.keySet()) {
-            combo.addItem(item);
-        }
-        logger.info("Total de períodos carregados={}", mapa.size());
+        logger.info("Total de turmas carregadas={}", mapa.size());
         return mapa;
     }
 }

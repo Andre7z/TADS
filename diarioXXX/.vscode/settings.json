@@ -1,8 +1,0 @@
-{
-    "java.project.sourcePaths": ["src"],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Workspace\\Java\\TADS\\gerenciador.tarefas\\lib\\postgresql-42.7.8.jar"
-    ]
-}

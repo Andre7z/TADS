@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DisciplinaController {
+
     private static final Logger logger = LogManager.getLogger(DisciplinaController.class);
 
     private DisciplinaDAO dao;
